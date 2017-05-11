@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Allow: /archives/
+Disallow: /js/
+Disallow: /css/
+Disallow: /fonts/
+Disallow: /vendors/
+Disallow: /fancybox/
+Sitemap: http://meesong.github.io/sitemap.xml
