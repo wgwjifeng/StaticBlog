@@ -6,4 +6,4 @@ Disallow: /css/
 Disallow: /fonts/
 Disallow: /vendors/
 Disallow: /fancybox/
-Sitemap: http://meesong.github.io/sitemap.xml
+Sitemap: http://meesong.github.io/StaticBlog/sitemap.xml
