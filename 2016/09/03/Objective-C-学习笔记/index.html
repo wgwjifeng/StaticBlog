@@ -103,7 +103,7 @@
 <meta property="og:description" content="之前学习 Objective-C 时整理的笔记，文章内错误之处还望指点… Hello World123456789#import &amp;lt;Foundation/Foundation.h&amp;gt;int main(int argc, const char *argv[])&amp;#123;    @autoreleasepool &amp;#123;        // insert code here...">
 <meta property="og:image" content="https://meesong.github.io/2016/09/03/Objective-C-学习笔记/调用未定义方法错误.jpg">
 <meta property="og:image" content="https://meesong.github.io/2016/09/03/Objective-C-学习笔记/应用程序层次结构.jpg">
-<meta property="og:updated_time" content="2016-09-03T10:43:06.964Z">
+<meta property="og:updated_time" content="2017-05-12T04:05:03.139Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Objective-C 学习笔记">
 <meta name="twitter:description" content="之前学习 Objective-C 时整理的笔记，文章内错误之处还望指点… Hello World123456789#import &amp;lt;Foundation/Foundation.h&amp;gt;int main(int argc, const char *argv[])&amp;#123;    @autoreleasepool &amp;#123;        // insert code here...">
@@ -373,6 +373,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/StaticBlog/categories/Language/" itemprop="url" rel="index">
+                    <span itemprop="name">Language</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -404,13 +426,14 @@
       
         <p>之前学习 Objective-C 时整理的笔记，文章内错误之处还望指点…</p>
 <h1 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> *argv[])</span></span>&#123;</div><div class="line">    @autoreleasepool &#123;</div><div class="line">        <span class="comment">// insert code here...</span></div><div class="line">        NSLog(@<span class="string">"Hello, World"</span>);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<a id="more"></a>
 <p><code>#import</code> 就相当于 C++ 里面的 <code>#include</code></p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">@autoreleasepool &#123;</div><div class="line">    ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p><code>{...}</code> 之间的语句会在被称之为 “自动释放池” 的语境中执行。</p>
 <p>自动释放池的机制是：它使得应用在创建新对象时，系统能够有效的管理应用所使用的内容。</p>
 <p><code>@&quot;Hello, World&quot;</code> 此处的 @ 符号在位于一对双引号的字符串前面，这称为常量 NSString 对象。<br>如果前面没有 @ 字符，就是在编写常量 C 类型的字符串。有了这个符号就是在编写 NSString 字符串对象。</p>
 <p>同 C 语言一样，Objective-C 的所有程序语句必须使用分号（;）结束。</p>
-<p>这篇文章主要是讲 Objective-C 与 C++ 的区别…<br><a id="more"></a></p>
+<p>这篇文章主要是讲 Objective-C 与 C++ 的区别…</p>
 <h1 id="类、对象和方法"><a href="#类、对象和方法" class="headerlink" title="类、对象和方法"></a>类、对象和方法</h1><h2 id="消息传递"><a href="#消息传递" class="headerlink" title="消息传递"></a>消息传递</h2><p>Objective-C的面向对象语法源自SmallTalk，消息传递（Message Passing）风格/在源码风格方面，这是它与C Family语言（包括C/C++、Java、世界上最好的语言PHP）差别最大的地方。</p>
 <p>在Java、C++世界，我们调用一个对象的某个方法，在Objective-C里，这称作给类型发送一个消息，这可不仅仅是文字游戏，他们的技术细节也是不同。</p>
 <p>在Java、C++里，对象和方法关系非常严格，一个方法必须属于一个类对象，否则编译要报错的。<br>而在Objective-C里，类型和消息的关系比较松散，消息处理到运行时（runtime）才会动态确定，给类型发送一个它无法处理的消息，也只会抛出一个异常而不会挂掉。</p>
@@ -1172,15 +1195,24 @@
           
 
           
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/StaticBlog/categories/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
 
           
             
             
             <div class="site-state-item site-state-tags">
-              
-                <span class="site-state-item-count">13</span>
+              <a href="/StaticBlog/tags/index.html">
+                <span class="site-state-item-count">14</span>
                 <span class="site-state-item-name">标签</span>
-              
+              </a>
             </div>
           
 
