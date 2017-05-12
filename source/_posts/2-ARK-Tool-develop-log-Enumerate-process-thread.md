@@ -1,7 +1,9 @@
 ---
 title: '[2] ARK-Tool develop log : Enumerate Process & Thread.'
 date: 2016-02-09 10:48:10
-tags: [内核,ARK,Windows]
+comments: true
+tags: [内核, ARK, Windows]
+categories: [ARK]
 ---
 
 # 枚举 Process & Thread

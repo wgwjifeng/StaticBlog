@@ -1,7 +1,9 @@
 ---
 title: http & http2  学习
 date: 2016-07-31 11:42:35
+comments: true
 tags: [HTTP, Network]
+categories: [Network]
 ---
 
 # HTTP 1.1

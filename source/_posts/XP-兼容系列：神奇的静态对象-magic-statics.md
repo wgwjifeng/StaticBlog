@@ -1,7 +1,9 @@
 ---
 title: XP 兼容系列：神奇的静态对象 (magic statics)
 date: 2016-01-13 08:25:01
-tags: [Windows,XP 兼容系列]
+comments: true
+tags: ['Windows', 'XP Compatible']
+categories: [Windows]
 ---
 
 ## 神奇的静态对象 (magic statics)

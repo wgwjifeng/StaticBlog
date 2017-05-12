@@ -1,7 +1,9 @@
 ---
 title: 《Writing Solid Python Code》 Notes
 date: 2016-08-02 09:44:56
+comments: true
 tags: [Python]
+categories: [Language]
 ---
 
 # 《编写高质量代码：改善 Python 程序的 91 个建议》 学习笔记

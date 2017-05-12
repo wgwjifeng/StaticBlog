@@ -1,7 +1,9 @@
 ---
 title: '[1] ARK-Tool develop log : Global Overloaded new & delete.'
 date: 2016-02-08 20:02:03
-tags: [内核,ARK,Windows,DTL]
+comments: true
+tags: [内核, ARK, Windows, DTL]
+categories: [ARK]
 ---
 
 # 全局重载 New & Delete（DTL系列）

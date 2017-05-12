@@ -1,7 +1,9 @@
 ---
 title: Objective-C 学习笔记
 date: 2016-09-03 13:20:00
+comments: true
 tags: [Objective-C]
+categories: [Language]
 ---
 
 之前学习 Objective-C 时整理的笔记，文章内错误之处还望指点...
@@ -19,6 +21,7 @@ int main(int argc, const char *argv[]){
     return 0;
 }
 ```
+<!--more-->
 
 `#import` 就相当于 C++ 里面的 `#include`
 
@@ -37,7 +40,6 @@ int main(int argc, const char *argv[]){
 同 C 语言一样，Objective-C 的所有程序语句必须使用分号（;）结束。
 
 这篇文章主要是讲 Objective-C 与 C++ 的区别...
-<!--more-->
 
 # 类、对象和方法
 ## 消息传递

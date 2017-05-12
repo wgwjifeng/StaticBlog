@@ -1,7 +1,9 @@
 ---
 title: '[0] ARK-Tool develop log : 前言'
 date: 2016-02-08 17:24:33
-tags: [内核,ARK,Windows]
+comments: true
+tags: [内核, ARK, Windows]
+categories: [ARK]
 ---
 
 # 前言

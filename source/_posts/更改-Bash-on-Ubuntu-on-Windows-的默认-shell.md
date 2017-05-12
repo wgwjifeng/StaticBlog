@@ -1,7 +1,9 @@
 ---
 title: 更改 Bash on Ubuntu on Windows 的默认 shell
 date: 2016-08-28 23:32:15
-tags: [Linux]
+comments: true
+tags: [WSL]
+categories: [Windows]
 ---
 
 > 引用参考 [How to Use Zsh (or Another Shell) in Windows 10](http://www.howtogeek.com/258518/how-to-use-zsh-or-another-shell-in-windows-10/)
