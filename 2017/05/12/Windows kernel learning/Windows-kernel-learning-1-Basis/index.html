@@ -76,7 +76,7 @@
 <link href="/StaticBlog/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="内核,ARK,Windows,DTL," />
+  <meta name="keywords" content="Windows,Kernel," />
 
 
 
@@ -94,17 +94,19 @@
 
 
 
-<meta name="description" content="全局重载 New &amp;amp; Delete（DTL系列）由于在驱动层，WDK并没有提供 new 和 delete，所以我们要用内核的内存分配函数自己重载一套。 new 和 delete 的重载有以下注意的地方：  要符合 C++ 标准 有 new 就要有对应的 delete  以下 new &amp;amp; delete 必须重载，以供 C++ 基本使用：  一般形式 数组形式 placement ne">
-<meta name="keywords" content="内核,ARK,Windows,DTL">
+<meta name="description" content="Windows 系统结构图 图中水平粗线表示用户空间和系统空间的分界. 在 32 位 Windows 系统中, 整个 4GB 的虚拟内存地址被对分成两块, 从地址 0x80000000 开始向上是系统空间, 就是内核所在的地方, 下面则是用户空间, 是应用程序所在的地方. CPU 进入内核只有三种途径:  系统调用 中断 异常">
+<meta name="keywords" content="Windows,Kernel">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[1] ARK-Tool develop log : Global Overloaded new &amp; delete.">
-<meta property="og:url" content="https://meesong.github.io/2016/02/08/1-ARK-Tool-develop-log-Global-Overloaded-new-delete/index.html">
+<meta property="og:title" content="Windows kernel learning: 1. Basis">
+<meta property="og:url" content="https://meesong.github.io/2017/05/12/Windows kernel learning/Windows-kernel-learning-1-Basis/index.html">
 <meta property="og:site_name" content="MeeSong&#39;s Blog">
-<meta property="og:description" content="全局重载 New &amp;amp; Delete（DTL系列）由于在驱动层，WDK并没有提供 new 和 delete，所以我们要用内核的内存分配函数自己重载一套。 new 和 delete 的重载有以下注意的地方：  要符合 C++ 标准 有 new 就要有对应的 delete  以下 new &amp;amp; delete 必须重载，以供 C++ 基本使用：  一般形式 数组形式 placement ne">
-<meta property="og:updated_time" content="2017-05-12T03:56:12.026Z">
+<meta property="og:description" content="Windows 系统结构图 图中水平粗线表示用户空间和系统空间的分界. 在 32 位 Windows 系统中, 整个 4GB 的虚拟内存地址被对分成两块, 从地址 0x80000000 开始向上是系统空间, 就是内核所在的地方, 下面则是用户空间, 是应用程序所在的地方. CPU 进入内核只有三种途径:  系统调用 中断 异常">
+<meta property="og:image" content="https://meesong.github.io/2017/05/12/Windows%20kernel%20learning/Windows-kernel-learning-1-Basis/Windows-system-structure.jpg">
+<meta property="og:updated_time" content="2017-05-12T05:40:47.430Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="[1] ARK-Tool develop log : Global Overloaded new &amp; delete.">
-<meta name="twitter:description" content="全局重载 New &amp;amp; Delete（DTL系列）由于在驱动层，WDK并没有提供 new 和 delete，所以我们要用内核的内存分配函数自己重载一套。 new 和 delete 的重载有以下注意的地方：  要符合 C++ 标准 有 new 就要有对应的 delete  以下 new &amp;amp; delete 必须重载，以供 C++ 基本使用：  一般形式 数组形式 placement ne">
+<meta name="twitter:title" content="Windows kernel learning: 1. Basis">
+<meta name="twitter:description" content="Windows 系统结构图 图中水平粗线表示用户空间和系统空间的分界. 在 32 位 Windows 系统中, 整个 4GB 的虚拟内存地址被对分成两块, 从地址 0x80000000 开始向上是系统空间, 就是内核所在的地方, 下面则是用户空间, 是应用程序所在的地方. CPU 进入内核只有三种途径:  系统调用 中断 异常">
+<meta name="twitter:image" content="https://meesong.github.io/2017/05/12/Windows%20kernel%20learning/Windows-kernel-learning-1-Basis/Windows-system-structure.jpg">
 
 
 
@@ -132,13 +134,13 @@
 
 
 
-  <link rel="canonical" href="https://meesong.github.io/2016/02/08/1-ARK-Tool-develop-log-Global-Overloaded-new-delete/"/>
+  <link rel="canonical" href="https://meesong.github.io/2017/05/12/Windows kernel learning/Windows-kernel-learning-1-Basis/"/>
 
 
 
 
 
-  <title>[1] ARK-Tool develop log : Global Overloaded new & delete. | MeeSong's Blog</title>
+  <title>Windows kernel learning: 1. Basis | MeeSong's Blog</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -330,7 +332,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://meesong.github.io/StaticBlog/2016/02/08/1-ARK-Tool-develop-log-Global-Overloaded-new-delete/">
+    <link itemprop="mainEntityOfPage" href="https://meesong.github.io/StaticBlog/2017/05/12/Windows kernel learning/Windows-kernel-learning-1-Basis/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="MeeSong">
@@ -347,7 +349,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">[1] ARK-Tool develop log : Global Overloaded new & delete.</h1>
+          <h1 class="post-title" itemprop="name headline">Windows kernel learning: 1. Basis</h1>
         
 
         <div class="post-meta">
@@ -359,8 +361,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-02-08T20:02:03+08:00">
-                2016-02-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-12T13:37:23+08:00">
+                2017-05-12
               </time>
             
 
@@ -382,8 +384,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/StaticBlog/categories/ARK/" itemprop="url" rel="index">
-                    <span itemprop="name">ARK</span>
+                  <a href="/StaticBlog/categories/Windows-kernel-learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Windows kernel learning</span>
                   </a>
                 </span>
 
@@ -421,22 +423,295 @@
       
 
       
-        <h1 id="全局重载-New-amp-Delete（DTL系列）"><a href="#全局重载-New-amp-Delete（DTL系列）" class="headerlink" title="全局重载 New &amp; Delete（DTL系列）"></a>全局重载 New &amp; Delete（DTL系列）</h1><p>由于在驱动层，WDK并没有提供 new 和 delete，所以我们要用内核的内存分配函数自己重载一套。</p>
-<p>new 和 delete 的重载有以下注意的地方：</p>
+        <h2 id="Windows-系统结构图"><a href="#Windows-系统结构图" class="headerlink" title="Windows 系统结构图"></a>Windows 系统结构图</h2><p><img src="Windows-system-structure.jpg" alt="Windows 系统结构图"></p>
+<p>图中水平粗线表示用户空间和系统空间的分界.</p>
+<p>在 32 位 Windows 系统中, 整个 4GB 的虚拟内存地址被对分成两块, 从地址 <code>0x80000000</code> 开始向上是系统空间, 就是内核所在的地方, 下面则是用户空间, 是应用程序所在的地方.</p>
+<p>CPU 进入内核只有三种途径:</p>
 <ol>
-<li>要符合 C++ 标准</li>
-<li>有 new 就要有对应的 delete</li>
+<li>系统调用</li>
+<li>中断</li>
+<li>异常</li>
 </ol>
-<p>以下 new &amp; delete <strong>必须重载</strong>，以供 C++ 基本使用：</p>
-<ol>
-<li>一般形式</li>
-<li>数组形式</li>
-<li>placement new</li>
-<li>用于类对象的 delete</li>
-</ol>
-<p>重载 operator new 的参数个数是可以任意的 , 只需要保证第一个参数为 size_t, 返回类型为 void * 即可 , 而且其重载的参数类型也不必包含自定义类型 . 更一般的说 , operator new 的重载更像是一个函数的重载 , 而不是一个操作符的重载。</p>
 <a id="more"></a>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div></pre></td><td class="code"><pre><div class="line">// 默认参数值</div><div class="line">static const POOL_TYPE DEFAULT_NEW_POOL_TYPE    = NonPagedPool;</div><div class="line">static const unsigned long DEFAULT_NEW_TAG      = &apos; New&apos;;</div><div class="line"></div><div class="line">// 一般形式</div><div class="line">void * __cdecl operator new (size_t aSize) noexcept</div><div class="line">&#123;</div><div class="line">    if (0 == aSize)</div><div class="line">    &#123;</div><div class="line">        // 按照 C++ 标准，</div><div class="line">        // 当 size 为 0 时，</div><div class="line">        // 申请 1 字节内存</div><div class="line">        aSize = 1;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    return ExAllocatePoolWithTag(DEFAULT_NEW_POOL_TYPE, aSize, DEFAULT_NEW_TAG);</div><div class="line">&#125;</div><div class="line">void __cdecl operator delete (void *aPtr) noexcept</div><div class="line">&#123;</div><div class="line">    if (nullptr == aPtr)</div><div class="line">    &#123;</div><div class="line">        return;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    return ExFreePoolWithTag(aPtr, DEFAULT_NEW_TAG);</div><div class="line">&#125;</div><div class="line"></div><div class="line">// placement new</div><div class="line">// 不需要delete，对象可以直接调用析构</div><div class="line">void * __cdecl operator new (size_t /*aSize*/, void *aBuffer) noexcept</div><div class="line">&#123;</div><div class="line">    // placement new的作用就是：创建对象(调用该类的构造函数)但是不分配内存，</div><div class="line">    // 而是在已有的内存块上面创建对象。用于需要反复创建并删除的对象上，</div><div class="line">    // 可以降低分配释放内存的性能消耗</div><div class="line">    return aBuffer;</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 数组形式</div><div class="line">void * __cdecl operator new[] (size_t aSize) noexcept</div><div class="line">&#123;</div><div class="line">    if (0 == aSize)</div><div class="line">    &#123;</div><div class="line">        aSize = 1;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    return ExAllocatePoolWithTag(DEFAULT_NEW_POOL_TYPE, aSize, DEFAULT_NEW_TAG);</div><div class="line">&#125;</div><div class="line">void __cdecl operator delete[] (void *aPtr) noexcept</div><div class="line">&#123;</div><div class="line">    if (nullptr == aPtr)</div><div class="line">    &#123;</div><div class="line">        return;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    return ExFreePoolWithTag(aPtr, DEFAULT_NEW_TAG);</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 用于类对象的 delete</div><div class="line">void __cdecl operator delete (void *aPtr, size_t /*aSize*/) noexcept</div><div class="line">&#123;</div><div class="line">    // sized class - specific deallocation functions</div><div class="line">    if (nullptr == aPtr)</div><div class="line">    &#123;</div><div class="line">        return;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    return ExFreePoolWithTag(aPtr, DEFAULT_NEW_TAG);</div><div class="line">&#125;</div><div class="line">void __cdecl operator delete[] (void *aPtr, size_t /*aSize*/) noexcept</div><div class="line">&#123;</div><div class="line">    // sized class - specific deallocation functions</div><div class="line">    if (nullptr == aPtr)</div><div class="line">    &#123;</div><div class="line">        return;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    return ExFreePoolWithTag(aPtr, DEFAULT_NEW_TAG);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="中断请求等级-IRQL"><a href="#中断请求等级-IRQL" class="headerlink" title="中断请求等级 IRQL"></a>中断请求等级 IRQL</h2><p>在 x86 系统上, 内核在内部使用 0~31 的数值来表示 IRQL;<br>而在 x64 和 IA64 系统上, 内核采用 0~15 的数值表示 IRQL.<br>这里数值越大, 代表的中断请求等级越高.</p>
+<p>内核为软件中断定义了一组标准的 IRQL, 而 HAL 则将硬件中断号映射为 IRQL.</p>
+<p>x86 中断请求级别:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">数值</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">31</td>
+<td style="text-align:left">高端</td>
+</tr>
+<tr>
+<td style="text-align:left">30</td>
+<td style="text-align:left">电源失败</td>
+</tr>
+<tr>
+<td style="text-align:left">29</td>
+<td style="text-align:left">处理器间的中断</td>
+</tr>
+<tr>
+<td style="text-align:left">28</td>
+<td style="text-align:left">时钟</td>
+</tr>
+<tr>
+<td style="text-align:left">27</td>
+<td style="text-align:left">性能剖析/同步</td>
+</tr>
+<tr>
+<td style="text-align:left">26</td>
+<td style="text-align:left">设备n</td>
+</tr>
+<tr>
+<td style="text-align:left">…</td>
+<td style="text-align:left">…</td>
+</tr>
+<tr>
+<td style="text-align:left">5</td>
+<td style="text-align:left">可纠正的机器检查 (CMCI)</td>
+</tr>
+<tr>
+<td style="text-align:left">4</td>
+<td style="text-align:left">…</td>
+</tr>
+<tr>
+<td style="text-align:left">3</td>
+<td style="text-align:left">设备1</td>
+</tr>
+<tr>
+<td style="text-align:left">2</td>
+<td style="text-align:left">DPC/dispatch</td>
+</tr>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:left">APC</td>
+</tr>
+<tr>
+<td style="text-align:left">0</td>
+<td style="text-align:left">User-APC/被动/低端</td>
+</tr>
+</tbody>
+</table>
+<p>x64 中断请求级别</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">数值</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">15</td>
+<td style="text-align:left">高端/性能剖析</td>
+</tr>
+<tr>
+<td style="text-align:left">14</td>
+<td style="text-align:left">处理期间的中断/电源</td>
+</tr>
+<tr>
+<td style="text-align:left">13</td>
+<td style="text-align:left">时钟</td>
+</tr>
+<tr>
+<td style="text-align:left">12</td>
+<td style="text-align:left">同步</td>
+</tr>
+<tr>
+<td style="text-align:left">11</td>
+<td style="text-align:left">设备n</td>
+</tr>
+<tr>
+<td style="text-align:left">…</td>
+<td style="text-align:left">…</td>
+</tr>
+<tr>
+<td style="text-align:left">4</td>
+<td style="text-align:left">…</td>
+</tr>
+<tr>
+<td style="text-align:left">3</td>
+<td style="text-align:left">设备1</td>
+</tr>
+<tr>
+<td style="text-align:left">2</td>
+<td style="text-align:left">DPC/dispatch</td>
+</tr>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:left">APC</td>
+</tr>
+<tr>
+<td style="text-align:left">0</td>
+<td style="text-align:left">User-APC/被动/低端</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>高端级别: 内核仅当它在 KeBugCheckEx 中停止了系统并屏蔽了所有中断时, 才会使用高端级别的 IRQL.</li>
+<li>电源失败级别: 文档指定了系统电源失败代码的行为, 但是这个 IRQL 从未被使用过…</li>
+<li>处理器间的中断级别: 被用于向另一个处理器请求执行某个动作,比如更新该处理器的 TLB 缓存, 系统停机或者系统崩溃.</li>
+<li>时钟级别: 主要用于系统的时钟,内核利用该中断级别来跟踪日期和时间,以及为线程测量或分配 CPU 时间.</li>
+<li>性能剖析级别: 当内核的性能剖析功能被打开时, 系统的实时时钟(或另一个中断源,比如本地APIC定时器)就会用到性能剖析级别. 当内核的性能剖析功能激活时, 内核的性能剖析陷阱处理器就会记录下中断发生时被执行代码的地址. 随着时间推移, 一张采样表就会生成.</li>
+<li>同步级别: 内核内部使用的, 分发器和调度器利用该级别来保护对全局线程调度代码和等待/同步代码的访问.通常定义在设备IRQL最高级别之后</li>
+<li>设备级别: 用于对设备中断进行优先级区分.</li>
+<li>CMCI级别: 当CPU或固件通过MCE机器检查错误接口报告一个虽然严重但是可以纠正的硬件条件或错误时使用.</li>
+<li>DPC/dispatch 级别 和 APC 级别: 是有内核和设备驱动程序产生的软件中断</li>
+<li>低端/被动级别: 实际上不是中断级别; 它是普通线程运行时的设置, 此时所有的中断都允许发生. </li>
+</ul>
+<p>中断是按照优先级处理的, 高优先级的中断会抢占低优先级中断的执行权.<br>当一个高优先级的中断发生时, 处理器把中断的线程状态保存起来, 并调用与该中断关联的陷阱分发器.<br>该陷阱分发器提升 IRQL, 并调用该中断的服务例程. 完成后再降低处理器的 IRQL, 然后装入保存的机器状态, 从中断的地方恢复执行.</p>
+<h2 id="Windows-内核函数的名称前缀"><a href="#Windows-内核函数的名称前缀" class="headerlink" title="Windows 内核函数的名称前缀"></a>Windows 内核函数的名称前缀</h2><p>表中列出了内核函数的大多数名称前缀, 其中每个也都会使用前缀变化形式来标记内部函数.<br>例如前缀的第一个字母后面跟一个 i (代表内部的 internal), 或者整个前缀后面跟一个 p (代表私有的, private), 或者前缀后面跟一个 f (代表快速的, fast). Ki 代表内核内部函数, Psp 代表内部的进程支持函数, Obf 代表对象管理器的快速调用函数.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">前缀</th>
+<th style="text-align:left">内核组件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Alpc</td>
+<td style="text-align:left">高级本地进程间通信 (Advanced Local Inter-Process Communication)</td>
+</tr>
+<tr>
+<td style="text-align:left">Cc</td>
+<td style="text-align:left">公共缓存 (Common Cache)</td>
+</tr>
+<tr>
+<td style="text-align:left">Cm</td>
+<td style="text-align:left">系统配置管理器 (Configuration manager)</td>
+</tr>
+<tr>
+<td style="text-align:left">Dbgk</td>
+<td style="text-align:left">用户模式调试框架</td>
+</tr>
+<tr>
+<td style="text-align:left">Em</td>
+<td style="text-align:left">错误修正管理器</td>
+</tr>
+<tr>
+<td style="text-align:left">Etw</td>
+<td style="text-align:left">Windows 事件跟踪</td>
+</tr>
+<tr>
+<td style="text-align:left">Ex</td>
+<td style="text-align:left">管理层 (Executive)</td>
+</tr>
+<tr>
+<td style="text-align:left">FsRtl</td>
+<td style="text-align:left">文件系统驱动程序运行库</td>
+</tr>
+<tr>
+<td style="text-align:left">Hvl</td>
+<td style="text-align:left">超级管理器库</td>
+</tr>
+<tr>
+<td style="text-align:left">Hal</td>
+<td style="text-align:left">硬件抽象层 (Hardware abstraction layer)</td>
+</tr>
+<tr>
+<td style="text-align:left">Io</td>
+<td style="text-align:left">I/O管理器 (I/O manager)</td>
+</tr>
+<tr>
+<td style="text-align:left">Kd</td>
+<td style="text-align:left">内核调试器 (Kernel debug)</td>
+</tr>
+<tr>
+<td style="text-align:left">Ke</td>
+<td style="text-align:left">核心层 (Kernel core)</td>
+</tr>
+<tr>
+<td style="text-align:left">Lsa</td>
+<td style="text-align:left">本地安全权威</td>
+</tr>
+<tr>
+<td style="text-align:left">Mm</td>
+<td style="text-align:left">内存管理器 (Memory manager)</td>
+</tr>
+<tr>
+<td style="text-align:left">Ob</td>
+<td style="text-align:left">对象管理器 (Object manager)</td>
+</tr>
+<tr>
+<td style="text-align:left">Pf</td>
+<td style="text-align:left">预取器</td>
+</tr>
+<tr>
+<td style="text-align:left">Po</td>
+<td style="text-align:left">电源管理器 (Power manager)</td>
+</tr>
+<tr>
+<td style="text-align:left">Pp</td>
+<td style="text-align:left">Pnp 管理器 (Pnp magager)</td>
+</tr>
+<tr>
+<td style="text-align:left">Ps</td>
+<td style="text-align:left">进程支持 (Process support)</td>
+</tr>
+<tr>
+<td style="text-align:left">Rtl</td>
+<td style="text-align:left">运行库 (Runtime library)</td>
+</tr>
+<tr>
+<td style="text-align:left">Se</td>
+<td style="text-align:left">安全性</td>
+</tr>
+<tr>
+<td style="text-align:left">Sm</td>
+<td style="text-align:left">存储管理器 (Store manager)</td>
+</tr>
+<tr>
+<td style="text-align:left">Tm</td>
+<td style="text-align:left">事务管理器 (Transaction manager)</td>
+</tr>
+<tr>
+<td style="text-align:left">Vf</td>
+<td style="text-align:left">检验器 (Verifier)</td>
+</tr>
+<tr>
+<td style="text-align:left">Wdi</td>
+<td style="text-align:left">Windows 诊断设施 (Windows Diagnostic Infrastructure)</td>
+</tr>
+<tr>
+<td style="text-align:left">Whea</td>
+<td style="text-align:left">Windows 硬件错误体系架构 (WIndows Hardware Error Architecture)</td>
+</tr>
+<tr>
+<td style="text-align:left">Wmi</td>
+<td style="text-align:left">Windows 管理设施</td>
+</tr>
+<tr>
+<td style="text-align:left">Nt</td>
+<td style="text-align:left">NT系统服务 (Native system services)</td>
+</tr>
+<tr>
+<td style="text-align:left">Zw</td>
+<td style="text-align:left">与 R3 中 Zw 为 Nt 的别名不同, 在内核中 Zw 是以 Nt 开头的系统服务入口点的镜像, 它把原来的访问模式设置为内核模式, 从而消除了参数的有效性检查过程, 因为 Nt 系统服务只有当原来的访问模式为用户模式时才进行参数有效性检查.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="寄存器"><a href="#寄存器" class="headerlink" title="寄存器"></a>寄存器</h2><h3 id="段寄存器"><a href="#段寄存器" class="headerlink" title="段寄存器"></a>段寄存器</h3><p>接下来看一下各种段寄存器(CS, DS, SS, ES, FS, GS)在 Windows 中的作用.</p>
+<ul>
+<li><p>CS (Code Segment)<br>代码段寄存器, 指向包含程序指令的段</p>
+</li>
+<li><p>DS (Data Segment)<br>数据段寄存器, 指向包含静态数据或全局数据的段</p>
+</li>
+<li><p>SS (Stack Segment)<br>栈段寄存器, 指向当前程序栈的段</p>
+</li>
+<li><p>ES (Extra Segment)<br>附加段寄存器, 暂时不知道干嘛的</p>
+</li>
+<li><p>FS (Flag Segment)<br>标志段寄存器<br>在 x86 系统, Ring3 中, FS:[0] 指向 nt!_TEB; Ring0 中, FS:[0] 指向 nt!_KPCR<br>在 x64 系统, 只有在 WOW64 进程中, FS 寄存器才会同 x86 寄存器一样, 其他情况未使用</p>
+</li>
+<li><p>GS (Global Segment)<br>全局段寄存器<br>在 x86 系统, 未使用<br>在 x64 系统, 代替了 FS 寄存器, x86系统下的功能.</p>
+</li>
+</ul>
 
       
     </div>
@@ -487,13 +762,9 @@
       
         <div class="post-tags">
           
-            <a href="/StaticBlog/tags/内核/" rel="tag"># 内核</a>
-          
-            <a href="/StaticBlog/tags/ARK/" rel="tag"># ARK</a>
-          
             <a href="/StaticBlog/tags/Windows/" rel="tag"># Windows</a>
           
-            <a href="/StaticBlog/tags/DTL/" rel="tag"># DTL</a>
+            <a href="/StaticBlog/tags/Kernel/" rel="tag"># Kernel</a>
           
         </div>
       
@@ -506,8 +777,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/StaticBlog/2016/02/08/0-ARK-Tool-develop-log-前言/" rel="next" title="[0] ARK-Tool develop log : 前言">
-                <i class="fa fa-chevron-left"></i> [0] ARK-Tool develop log : 前言
+              <a href="/StaticBlog/2016/09/03/Language/Objective-C-学习笔记/" rel="next" title="Objective-C 学习笔记">
+                <i class="fa fa-chevron-left"></i> Objective-C 学习笔记
               </a>
             
           </div>
@@ -516,8 +787,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/StaticBlog/2016/02/09/2-ARK-Tool-develop-log-Enumerate-process-thread/" rel="prev" title="[2] ARK-Tool develop log : Enumerate Process & Thread.">
-                [2] ARK-Tool develop log : Enumerate Process & Thread. <i class="fa fa-chevron-right"></i>
+              <a href="/StaticBlog/2017/05/12/Windows kernel learning/Windows-kernel-learning-2-System-Call/" rel="prev" title="Windows kernel learning: 2. System Call">
+                Windows kernel learning: 2. System Call <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -590,7 +861,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/StaticBlog/archives">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">17</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -601,7 +872,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/StaticBlog/categories/index.html">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -612,7 +883,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/StaticBlog/tags/index.html">
-                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -683,7 +954,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#全局重载-New-amp-Delete（DTL系列）"><span class="nav-number">1.</span> <span class="nav-text">全局重载 New & Delete（DTL系列）</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Windows-系统结构图"><span class="nav-number">1.</span> <span class="nav-text">Windows 系统结构图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#中断请求等级-IRQL"><span class="nav-number">2.</span> <span class="nav-text">中断请求等级 IRQL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Windows-内核函数的名称前缀"><span class="nav-number">3.</span> <span class="nav-text">Windows 内核函数的名称前缀</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#寄存器"><span class="nav-number">4.</span> <span class="nav-text">寄存器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#段寄存器"><span class="nav-number">4.1.</span> <span class="nav-text">段寄存器</span></a></li></ol></li></ol></div>
             
 
           </div>
