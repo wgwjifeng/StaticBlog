@@ -76,7 +76,7 @@
 <link href="/StaticBlog/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="windows,kernel,meesong" />
+  <meta name="keywords" content="WSL," />
 
 
 
@@ -94,15 +94,17 @@
 
 
 
-<meta name="description" content="生活就是不断地调试~">
-<meta property="og:type" content="website">
-<meta property="og:title" content="MeeSong&#39;s Blog">
-<meta property="og:url" content="https://meesong.github.io/tags/WSL/index.html">
+<meta name="description" content="系统: Windows 10 1703">
+<meta name="keywords" content="WSL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Install ArchLinux to WSL">
+<meta property="og:url" content="https://meesong.github.io/2017/05/12/Install-ArchLinux-to-WSL/index.html">
 <meta property="og:site_name" content="MeeSong&#39;s Blog">
-<meta property="og:description" content="生活就是不断地调试~">
+<meta property="og:description" content="系统: Windows 10 1703">
+<meta property="og:updated_time" content="2017-05-12T09:35:37.547Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MeeSong&#39;s Blog">
-<meta name="twitter:description" content="生活就是不断地调试~">
+<meta name="twitter:title" content="Install ArchLinux to WSL">
+<meta name="twitter:description" content="系统: Windows 10 1703">
 
 
 
@@ -130,13 +132,13 @@
 
 
 
-  <link rel="canonical" href="https://meesong.github.io/tags/WSL/"/>
+  <link rel="canonical" href="https://meesong.github.io/2017/05/12/Install-ArchLinux-to-WSL/"/>
 
 
 
 
 
-  <title>标签: WSL | MeeSong's Blog</title>
+  <title>Install ArchLinux to WSL | MeeSong's Blog</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -170,7 +172,7 @@
     
   
 
-  <div class="container sidebar-position-left  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -318,72 +320,226 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h1>WSL<small>标签</small>
-      </h1>
-    </div>
-
+  <div id="posts" class="posts-expand">
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/StaticBlog/2017/05/12/Install-ArchLinux-to-WSL/" itemprop="url">
-              
-                <span itemprop="name">Install ArchLinux to WSL</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-05-12T17:33:52+08:00"
-              content="2017-05-12" >
-          05-12
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/StaticBlog/2016/08/28/更改-Bash-on-Ubuntu-on-Windows-的默认-shell/" itemprop="url">
-              
-                <span itemprop="name">更改 Bash on Ubuntu on Windows 的默认 shell</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-08-28T23:32:15+08:00"
-              content="2016-08-28" >
-          08-28
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-  </div>
 
   
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://meesong.github.io/StaticBlog/2017/05/12/Install-ArchLinux-to-WSL/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MeeSong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/StaticBlog/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MeeSong's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Install ArchLinux to WSL</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-12T17:33:52+08:00">
+                2017-05-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/StaticBlog/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>系统: Windows 10 1703</p>
+<a id="more"></a>
+<h2 id="工具准备"><a href="#工具准备" class="headerlink" title="工具准备"></a>工具准备</h2><p>首先下载 <a href="https://github.com/alwsl/alwsl" target="_blank" rel="external">alwsl</a>, alwsl 是一个已经做好 arch-rootfs 的开源项目, 通过作者提供的 alwsl.bat 可以很容易的安装 ArchLinux 到 WSL. </p>
+<p>在 <code>Update Apr 2017</code> 的版本, 有一个小问题: archlinux.ico 的下载连接失效. 所以我们要小小修改一下 alwsl.bat.</p>
+<p>你可以选一个自己喜欢的 ico 放到 alwsl.bat 的目录. 我是在 <a href="https://www.iconfinder.com/icons/386451/arch_linux_archlinux_icon" target="_blank" rel="external">archlinux.ico</a> 下载的.</p>
+<p>打开 alwsl.bat, 替换一条命令</p>
+<figure class="highlight bat"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">bitsadmin /RAWRETURN /transfer alwsl /download /priority FOREGROUND "https://antiquant.com/alwsl/archlinux.ico" "<span class="variable">%localappdata%</span>\lxss\archlinux.ico"</div><div class="line"></div><div class="line">:: 替换为</div><div class="line"></div><div class="line"><span class="built_in">copy</span> /V "archlinux.ico" "<span class="variable">%localappdata%</span>\lxss\archlinux.ico"</div></pre></td></tr></table></figure>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>首先你要打开开发者模式并且在 “启用或关闭 Windows 功能” 中勾选 Linux 子系统</p>
+<p>然后执行下面命令</p>
+<figure class="highlight bat"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; <span class="built_in">cd</span> XXXX/alwsl/</div><div class="line">&gt; alwsl.bat install</div></pre></td></tr></table></figure>
+<p>然后进入 WSL, 要修正一下证书问题, 以及根据自己需要调整自己的源 (换国内源速度会快很多)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">pacman -Syuw</div><div class="line">rm /etc/ssl/certs/ca-certificates.crt</div><div class="line">update-ca-trust</div><div class="line">pacman -Su</div></pre></td></tr></table></figure>
+<h2 id="创建快照"><a href="#创建快照" class="headerlink" title="创建快照"></a>创建快照</h2><p>alwsl 有一个我非常喜欢的功能, 就是可以创建 WSL 的快照. 这样我就再也不用担心被我搞脏 WSL 了.</p>
+<p>个人建议在 WSL 配置前拍摄一个快照, 在 WSL 配置完成后拍摄一个快照, 最后可以根据需要选择是否删除第一次拍着的快照.</p>
+<figure class="highlight bat"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt; alwsl.bat snapshot create</div></pre></td></tr></table></figure>
+<p>恢复和删除快照等参数, 自己运行下 alwsl 看一下最好.</p>
+<h2 id="配置过程中遇到的问题"><a href="#配置过程中遇到的问题" class="headerlink" title="配置过程中遇到的问题"></a>配置过程中遇到的问题</h2><p>安装完之后, 你就可以像刚刚安装完 ArchLinux 那样开始各种配置 (比如添加用户, 配置 Shell), 我在这里说一下我在配置 ArchLinux 过程中遇到的一些问题.</p>
+<h3 id="pacman"><a href="#pacman" class="headerlink" title="pacman"></a>pacman</h3><p>问题</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">root@MeeSong-PC:~<span class="comment"># pacman -Syu</span></div><div class="line">pacman: error <span class="keyword">while</span> loading shared libraries: libcrypto.so.1.0.0: cannot open shared object file: No such file or directory</div></pre></td></tr></table></figure>
+<p>解决方案</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ln <span class="_">-s</span> /usr/lib/libcrypto.so /usr/lib/libcrypto.so.1.0.0</div></pre></td></tr></table></figure>
+<h3 id="locale-gen"><a href="#locale-gen" class="headerlink" title="locale-gen"></a>locale-gen</h3><p>问题</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">root@MeeSong-PC:~<span class="comment"># cat /etc/locale.gen</span></div><div class="line">en_US.UTF-8 UTF-8</div><div class="line">zh_CN.UTF-8 UTF-8</div><div class="line">zh_TW.UTF-8 UTF-8</div><div class="line"></div><div class="line">root@MeeSong-PC:~<span class="comment"># locale-gen</span></div><div class="line">Generating locales...</div><div class="line">  en_US.UTF-8...localedef: ../sysdeps/unix/sysv/linux/spawni.c:360: __spawnix: Assertion `ec &gt;= 0<span class="string">' failed.</span></div><div class="line">/usr/sbin/locale-gen: line 41:  2361 Aborted                 (core dumped) localedef -i $input -c -f $charset -A /usr/share/locale/locale.alias $locale</div></pre></td></tr></table></figure>
+<p>解决方案</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">root@MeeSong-PC:~<span class="comment"># cd /usr/share/i18n/charmaps/</span></div><div class="line">root@MeeSong-PC:/usr/share/i18n/charmaps<span class="comment"># gzip -dk UTF-8.gz</span></div><div class="line">root@MeeSong-PC:/usr/share/i18n/charmaps<span class="comment"># locale-gen</span></div></pre></td></tr></table></figure>
+<h3 id="ca-certificates-crt"><a href="#ca-certificates-crt" class="headerlink" title="ca-certificates.crt"></a>ca-certificates.crt</h3><p>问题</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">curl: (77) error setting certificate verify locations:</div><div class="line">  CAfile: /etc/ssl/certs/ca-certificates.crt</div><div class="line">  CApath: /etc/ssl/certs/</div><div class="line"></div><div class="line"><span class="comment"># git 有同样的问题</span></div></pre></td></tr></table></figure>
+<p>解决方案</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 重新安装一次...</span></div><div class="line">pacman -S ca-certificates-utils</div></pre></td></tr></table></figure>
+<h3 id="shell"><a href="#shell" class="headerlink" title="shell"></a>shell</h3><p>我个人喜欢用zsh作为shell, 但是在 WSL 中更改默认shell用 chsh 是无效的..<br>所以, 我们要改一下 .bashrc 让它来调用 zsh</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 在 ~/.bashrc 开头添加下面命令</span></div><div class="line"></div><div class="line"><span class="comment"># Launch Zsh</span></div><div class="line"><span class="keyword">if</span> [ -t 1 ]; <span class="keyword">then</span></div><div class="line"><span class="built_in">exec</span> zsh</div><div class="line"><span class="keyword">fi</span></div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>如果喜欢, 请给我加个🍗~</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/StaticBlog/uploads/wechat.jpg" alt="MeeSong WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/StaticBlog/uploads/alipay.jpg" alt="MeeSong Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/StaticBlog/tags/WSL/" rel="tag"># WSL</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/StaticBlog/2017/05/12/Debug/BCDEdit-命令行选项帮助/" rel="next" title="BCDEdit 命令行选项帮助">
+                <i class="fa fa-chevron-left"></i> BCDEdit 命令行选项帮助
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -391,6 +547,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -410,8 +570,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/StaticBlog/uploads/avatar.jpg"
@@ -509,6 +678,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#工具准备"><span class="nav-number">1.</span> <span class="nav-text">工具准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建快照"><span class="nav-number">3.</span> <span class="nav-text">创建快照</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置过程中遇到的问题"><span class="nav-number">4.</span> <span class="nav-text">配置过程中遇到的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pacman"><span class="nav-number">4.1.</span> <span class="nav-text">pacman</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#locale-gen"><span class="nav-number">4.2.</span> <span class="nav-text">locale-gen</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ca-certificates-crt"><span class="nav-number">4.3.</span> <span class="nav-text">ca-certificates.crt</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#shell"><span class="nav-number">4.4.</span> <span class="nav-text">shell</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -631,6 +816,10 @@
   
 
   
+  <script type="text/javascript" src="/StaticBlog/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/StaticBlog/js/src/post-details.js?v=5.1.1"></script>
+
+
 
   
 

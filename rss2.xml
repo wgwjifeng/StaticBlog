@@ -8,8 +8,22 @@
     <atom:link href="/StaticBlog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>生活就是不断地调试~</description>
-    <pubDate>Fri, 12 May 2017 06:10:34 GMT</pubDate>
+    <pubDate>Fri, 12 May 2017 09:35:37 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>Install ArchLinux to WSL</title>
+      <link>https://meesong.github.io/2017/05/12/Install-ArchLinux-to-WSL/</link>
+      <guid>https://meesong.github.io/2017/05/12/Install-ArchLinux-to-WSL/</guid>
+      <pubDate>Fri, 12 May 2017 09:33:52 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;系统: Windows 10 1703&lt;/p&gt;
+      
+      </description>
+      
+      <comments>https://meesong.github.io/2017/05/12/Install-ArchLinux-to-WSL/#disqus_thread</comments>
+    </item>
     
     <item>
       <title>BCDEdit 命令行选项帮助</title>
@@ -163,20 +177,6 @@
       </description>
       
       <comments>https://meesong.github.io/2016/08/21/2016-%E9%98%85%E8%AF%BB%E4%B9%A6%E5%8D%95/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title>《Writing Solid Python Code》 Notes</title>
-      <link>https://meesong.github.io/2016/08/02/Language/Writing-Solid-Python-Code-Notes/</link>
-      <guid>https://meesong.github.io/2016/08/02/Language/Writing-Solid-Python-Code-Notes/</guid>
-      <pubDate>Tue, 02 Aug 2016 01:44:56 GMT</pubDate>
-      <description>
-      
-        &lt;h1 id=&quot;《编写高质量代码：改善-Python-程序的-91-个建议》-学习笔记&quot;&gt;&lt;a href=&quot;#《编写高质量代码：改善-Python-程序的-91-个建议》-学习笔记&quot; class=&quot;headerlink&quot; title=&quot;《编写高质量代码：改善 Python 程序的 91 个建议》 学习笔记&quot;&gt;&lt;/a&gt;《编写高质量代码：改善 Python 程序的 91 个建议》 学习笔记&lt;/h1&gt;&lt;p&gt;之前自己学了很多次 Python，由于用不到，所以总是学完就忘掉了。&lt;br&gt;刚好最近工作需要用到 Python，就借此机会好好学习了一番。&lt;br&gt;Pyhton 的各种特性和风格让我甚是喜欢。不过我总是感觉自己写的代码不是那么漂亮，不够 Pythonic。&lt;br&gt;所以我想通过学习一些经典建议来让我有个思路。&lt;br&gt;
-      
-      </description>
-      
-      <comments>https://meesong.github.io/2016/08/02/Language/Writing-Solid-Python-Code-Notes/#disqus_thread</comments>
     </item>
     
   </channel>
