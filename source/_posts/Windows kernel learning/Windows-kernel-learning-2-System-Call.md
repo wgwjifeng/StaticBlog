@@ -325,7 +325,7 @@ typedef struct _KSERVICE_TABLE_DESCRIPTOR
 
 然而, x86 与 x64 有些许差别, x86 中 ServiceTableBase 存储的就是系统服务函数地址.  
 而 x64 中 ServiceTableBase 存储的是相对于ServiceTableBase的系统服务函数的偏移, 同样使用4字节表示一项.  
-由于函数的起始地址最低四位都是0, 所以微软将 SSDT 中的低四位用来记录这个函数有多少个参数.
+由于函数的起始地址最低四位都是0, 所以微软将 SSDT 中的低四位用来记录这个函数有多少个参数需要在**栈**中传递, 即 `ArgumentCount - 4` (RCX, RDX, R8, R9).
 
 那么根据 KiSystemServiceStart 函数可得到算法:
 

@@ -1,7 +1,8 @@
 ---
 title: 'Windows kernel learning: 1. Basis'
 comments: true
-date: 2017-05-12 13:37:23
+date: 2017-05-12 12:37:23
+updated: 2017-05-18 14:20:23
 tags: ['Windows', 'Kernel']
 categories: ['Windows kernel learning']
 ---
@@ -12,7 +13,7 @@ categories: ['Windows kernel learning']
 
 图中水平粗线表示用户空间和系统空间的分界.
 
-在 32 位 Windows 系统中, 整个 4GB 的虚拟内存地址被对分成两块, 从地址 `0x80000000` 开始向上是系统空间, 就是内核所在的地方, 下面则是用户空间, 是应用程序所在的地方.
+在 32 位 Windows 系统中, 整个 4GB 的虚拟内存地址被对分成两块, 从地址 `0x80000000` 开始向上是系统空间, 就是内核所在的地方, 下面则是用户空间, 是应用程序所在的地方. (64 位系统会在后面的内存管理说到, 这里只是简单了解下概念)
 
 CPU 进入内核只有三种途径:
 1. 系统调用
@@ -20,6 +21,44 @@ CPU 进入内核只有三种途径:
 3. 异常
 
 <!--more-->
+
+## Windows 内核函数的名称前缀
+
+表中列出了内核函数的大多数名称前缀, 其中每个也都会使用前缀变化形式来标记内部函数. 
+例如前缀的第一个字母后面跟一个 i (代表内部的 internal), 或者整个前缀后面跟一个 p (代表私有的, private), 或者前缀后面跟一个 f (代表快速的, fast). Ki 代表内核内部函数, Psp 代表内部的进程支持函数, Obf 代表对象管理器的快速调用函数.
+
+前缀    | 内核组件
+:-------|:------------------------------------------------------------
+Alpc    | 高级本地进程间通信 (Advanced Local Inter-Process Communication)
+Cc      | 公共缓存 (Common Cache)
+Cm      | 系统配置管理器 (Configuration manager)
+Dbgk    | 用户模式调试框架
+Em      | 错误修正管理器
+Etw     | Windows 事件跟踪
+Ex      | 管理层 (Executive)
+FsRtl   | 文件系统驱动程序运行库
+Hvl     | 超级管理器库
+Hal     | 硬件抽象层 (Hardware abstraction layer)
+Io      | I/O管理器 (I/O manager)
+Kd      | 内核调试器 (Kernel debug)
+Ke      | 核心层 (Kernel core)
+Lsa     | 本地安全权威
+Mm      | 内存管理器 (Memory manager)
+Ob      | 对象管理器 (Object manager)
+Pf      | 预取器
+Po      | 电源管理器 (Power manager)
+Pp      | Pnp 管理器 (Pnp magager)
+Ps      | 进程支持 (Process support)
+Rtl     | 运行库 (Runtime library)
+Se      | 安全性
+Sm      | 存储管理器 (Store manager)
+Tm      | 事务管理器 (Transaction manager)
+Vf      | 检验器 (Verifier)
+Wdi     | Windows 诊断设施 (Windows Diagnostic Infrastructure)
+Whea    | Windows 硬件错误体系架构 (WIndows Hardware Error Architecture)
+Wmi     | Windows 管理设施
+Nt      | NT系统服务 (Native system services)
+Zw      | 与 R3 中 Zw 为 Nt 的别名不同, 在内核中 Zw 是以 Nt 开头的系统服务入口点的镜像, 它把原来的访问模式设置为内核模式, 从而消除了参数的有效性检查过程, 因为 Nt 系统服务只有当原来的访问模式为用户模式时才进行参数有效性检查.
 
 ## 中断请求等级 IRQL
 
@@ -79,47 +118,14 @@ x64 中断请求级别
 当一个高优先级的中断发生时, 处理器把中断的线程状态保存起来, 并调用与该中断关联的陷阱分发器.
 该陷阱分发器提升 IRQL, 并调用该中断的服务例程. 完成后再降低处理器的 IRQL, 然后装入保存的机器状态, 从中断的地方恢复执行.
 
-## Windows 内核函数的名称前缀
+## 处理器
 
-表中列出了内核函数的大多数名称前缀, 其中每个也都会使用前缀变化形式来标记内部函数. 
-例如前缀的第一个字母后面跟一个 i (代表内部的 internal), 或者整个前缀后面跟一个 p (代表私有的, private), 或者前缀后面跟一个 f (代表快速的, fast). Ki 代表内核内部函数, Psp 代表内部的进程支持函数, Obf 代表对象管理器的快速调用函数.
+在x86-64处理器架构中, 当处于长模式 (Long-mode) 时, 64位应用程序 (或者是操作系统) 可以使用64位指令和寄存器, 而32位和16位程序将以一种兼容子模式 (Legacy-mode, 传统模式) 运行. 
+不在长模式下运行时, 处理器支持真实模式和保护模式两个子模式, 在这两个模式下的x86-64处理器与x86-32处理器运行方式完全相同. 
 
-前缀    | 内核组件
-:-------|:------------------------------------------------------------
-Alpc    | 高级本地进程间通信 (Advanced Local Inter-Process Communication)
-Cc      | 公共缓存 (Common Cache)
-Cm      | 系统配置管理器 (Configuration manager)
-Dbgk    | 用户模式调试框架
-Em      | 错误修正管理器
-Etw     | Windows 事件跟踪
-Ex      | 管理层 (Executive)
-FsRtl   | 文件系统驱动程序运行库
-Hvl     | 超级管理器库
-Hal     | 硬件抽象层 (Hardware abstraction layer)
-Io      | I/O管理器 (I/O manager)
-Kd      | 内核调试器 (Kernel debug)
-Ke      | 核心层 (Kernel core)
-Lsa     | 本地安全权威
-Mm      | 内存管理器 (Memory manager)
-Ob      | 对象管理器 (Object manager)
-Pf      | 预取器
-Po      | 电源管理器 (Power manager)
-Pp      | Pnp 管理器 (Pnp magager)
-Ps      | 进程支持 (Process support)
-Rtl     | 运行库 (Runtime library)
-Se      | 安全性
-Sm      | 存储管理器 (Store manager)
-Tm      | 事务管理器 (Transaction manager)
-Vf      | 检验器 (Verifier)
-Wdi     | Windows 诊断设施 (Windows Diagnostic Infrastructure)
-Whea    | Windows 硬件错误体系架构 (WIndows Hardware Error Architecture)
-Wmi     | Windows 管理设施
-Nt      | NT系统服务 (Native system services)
-Zw      | 与 R3 中 Zw 为 Nt 的别名不同, 在内核中 Zw 是以 Nt 开头的系统服务入口点的镜像, 它把原来的访问模式设置为内核模式, 从而消除了参数的有效性检查过程, 因为 Nt 系统服务只有当原来的访问模式为用户模式时才进行参数有效性检查.
+### 寄存器
 
-## 寄存器
-
-### 段寄存器
+#### 段寄存器
 
 接下来看一下各种段寄存器(CS, DS, SS, ES, FS, GS)在 Windows 中的作用.
 

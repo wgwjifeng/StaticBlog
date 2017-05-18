@@ -3,7 +3,6 @@ title: Hexo 基本使用
 date: 2016-01-11 21:52:07
 comments: true
 tags: [Hexo]
-categories: [Linux]
 ---
 
 ### Hexo 安装步骤
