@@ -104,7 +104,7 @@
 <meta property="og:image" content="https://meesong.github.io/2017/05/12/Windows%20kernel%20learning/Windows-kernel-learning-2-System-Call/syscall_msr.jpg">
 <meta property="og:image" content="https://meesong.github.io/2017/05/12/Windows%20kernel%20learning/Windows-kernel-learning-2-System-Call/syscall_star.jpg">
 <meta property="og:image" content="https://meesong.github.io/2017/05/12/Windows%20kernel%20learning/Windows-kernel-learning-2-System-Call/serivce_dispatch.jpg">
-<meta property="og:updated_time" content="2017-05-12T05:52:21.872Z">
+<meta property="og:updated_time" content="2017-05-18T06:29:01.304Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Windows kernel learning: 2. System Call">
 <meta name="twitter:description" content="CPU 既可以运行于非特权的”用户空间”, 也可以运行于特权的”系统空间”. CPU 要从系统空间转入用户空间是容易的, 因为运行于系统空间的CPU可以通过一些特权指令改变其运行状态. 但是从用户空间转入系统空间就不容易了, 因为运行于用户空间的 CPU 是不能执行特权指令的. 一般而言,只有下面几种手段可以从用户空间转入系统空间:  中断 (Interrupt): 在开启了中断的情况下,只要有中">
@@ -509,7 +509,7 @@
 <p>在 NT 4.0 以上的 Windows 操作系统中, 默认就存在两个系统服务描述表, 这两个调度表对应了两类不同的系统服务, 这两个调度表为：KeServiceDescriptorTable 和 KeServiceDescriptorTableShadow, 其中 KeServiceDescriptorTable 主要是处理来自 Ring3 层得 Kernel32.dll中的系统调用, 而 KeServiceDescriptorTableShadow 则主要处理来自 User32.dll 和 GDI32.dll 以及 Win32u.dll 中的系统调用, 并且 KeServiceDescriptorTable 在ntoskrnl.exe(Windows 操作系统内核文件, 包括内核和执行体层)是导出的, 而 KeServiceDescriptorTableShadow 则是没有被 Windows 操作系统所导出, 而关于 SSDT 的全部内容则都是通过 KeServiceDescriptorTable 来完成的 ~</p>
 <p>ntoskrnl.exe中的一个导出项 KeServiceDescriptorTable 即是SSDT的真身, 亦即它在内核中的数据实体. SSDT的数 据结构定义如下: </p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">KSYSTEM_SERVICE_TABLE</span></span></div><div class="line">&#123;</div><div class="line">    PULONG  ServiceTableBase;                               <span class="comment">// SSDT (System Service Dispatch Table)的基地址</span></div><div class="line">    PULONG  ServiceCounterTableBase;                        <span class="comment">// 用于 checked builds, 包含 SSDT 中每个服务被调用的次数</span></div><div class="line">    ULONG   NumberOfService;                                <span class="comment">// 服务函数的个数, NumberOfService * 4 就是整个地址表的大小</span></div><div class="line">    ULONG   ParamTableBase;                                 <span class="comment">// SSPT(System Service Parameter Table)的基地址, 该表格包含了每个服务所需的参数字节数</span></div><div class="line">&#125; KSYSTEM_SERVICE_TABLE, *PKSYSTEM_SERVICE_TABLE;</div><div class="line"></div><div class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">KSERVICE_TABLE_DESCRIPTOR</span></span></div><div class="line">&#123;</div><div class="line">    KSYSTEM_SERVICE_TABLE   ntoskrnl;                       <span class="comment">// ntoskrnl.exe 的服务函数</span></div><div class="line">    KSYSTEM_SERVICE_TABLE   win32k;                         <span class="comment">// win32k.sys 的服务函数(GDI32.dll/User32.dll 的内核支持)</span></div><div class="line">    KSYSTEM_SERVICE_TABLE   notUsed1;</div><div class="line">    KSYSTEM_SERVICE_TABLE   notUsed2;</div><div class="line">&#125;KSERVICE_TABLE_DESCRIPTOR, *PKSERVICE_TABLE_DESCRIPTOR;</div></pre></td></tr></table></figure>
-<p>然而, x86 与 x64 有些许差别, x86 中 ServiceTableBase 存储的就是系统服务函数地址.<br>而 x64 中 ServiceTableBase 存储的是相对于ServiceTableBase的系统服务函数的偏移, 同样使用4字节表示一项.<br>由于函数的起始地址最低四位都是0, 所以微软将 SSDT 中的低四位用来记录这个函数有多少个参数.</p>
+<p>然而, x86 与 x64 有些许差别, x86 中 ServiceTableBase 存储的就是系统服务函数地址.<br>而 x64 中 ServiceTableBase 存储的是相对于ServiceTableBase的系统服务函数的偏移, 同样使用4字节表示一项.<br>由于函数的起始地址最低四位都是0, 所以微软将 SSDT 中的低四位用来记录这个函数有多少个参数需要在<strong>栈</strong>中传递, 即 <code>ArgumentCount - 4</code> (RCX, RDX, R8, R9).</p>
 <p>那么根据 KiSystemServiceStart 函数可得到算法:</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">x86: Address = ServiceTableBase + (SystemCallNumber * <span class="number">4</span>)</div><div class="line"></div><div class="line">x64: Address = ServiceTableBase + (((<span class="keyword">int</span>*)(ServiceTableBase + (SystemCallNumber &amp; <span class="number">0x0FFF</span>) * <span class="number">4</span>))[<span class="number">0</span>] &gt;&gt; <span class="number">4</span>)</div></pre></td></tr></table></figure>
 <h2 id="拿个栗子说事儿"><a href="#拿个栗子说事儿" class="headerlink" title="拿个栗子说事儿"></a>拿个栗子说事儿</h2><h3 id="Windows-8-1-x64-syscall-sysret"><a href="#Windows-8-1-x64-syscall-sysret" class="headerlink" title="Windows 8.1 x64, syscall/sysret"></a>Windows 8.1 x64, syscall/sysret</h3><p>首先我们来看下 <code>syscall/sysret</code> 相关的几个寄存器</p>
@@ -551,6 +551,28 @@
     <div>
       
         
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      MeeSong
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://meesong.github.io/2017/05/12/Windows kernel learning/Windows-kernel-learning-2-System-Call/" title="Windows kernel learning: 2. System Call">https://meesong.github.io/2017/05/12/Windows kernel learning/Windows-kernel-learning-2-System-Call/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0 CN</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <div>
+      
+        
   <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
     <div>如果喜欢, 请给我加个🍗~</div>
     <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
@@ -572,13 +594,6 @@
     </div>
   </div>
 
-
-      
-    </div>
-
-    <div>
-      
-        
 
       
     </div>
@@ -640,6 +655,41 @@
           
   <div class="comments" id="comments">
     
+      <div onclick="showGitment()" id="gitment_title" class="gitment_title">显示 Gitment 评论</div>
+      <div id="container" style="display:none"></div>
+      <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+      <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+      <script>
+      const myTheme = {
+        render(state, instance) {
+          const container = document.createElement('div');
+          container.lang = "en-US";
+          container.className = 'gitment-container gitment-root-container';
+          container.appendChild(instance.renderHeader(state, instance));
+          container.appendChild(instance.renderEditor(state, instance));
+          container.appendChild(instance.renderComments(state, instance));
+          container.appendChild(instance.renderFooter(state, instance));
+          return container;
+        }
+      }
+
+      function showGitment() {
+        $("#gitment_title").attr("style", "display:none");
+        $("#container").attr("style", "").addClass("gitment_container");
+        var gitment = new Gitment({
+          id: window.location.pathname,
+          theme: myTheme,
+          owner: 'MeeSong',
+          repo: 'BlogComments',
+          oauth: {
+            client_id: 'ebc04c32e0a0c7e77aa6',
+            client_secret: 'b5840ad7487a199656353a050223a77be4d39f3c'
+          }
+        });
+        gitment.render('container');
+      }
+      </script>
+    
   </div>
 
 
@@ -686,7 +736,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/StaticBlog/archives">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">22</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -708,7 +758,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/StaticBlog/tags/index.html">
-                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-count">17</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

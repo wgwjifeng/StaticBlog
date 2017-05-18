@@ -447,6 +447,28 @@
     <div>
       
         
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      MeeSong
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://meesong.github.io/2017/05/12/Debug/IDA-VMWare-调试-Windows-内核/" title="IDA + VMWare 调试 Windows 内核">https://meesong.github.io/2017/05/12/Debug/IDA-VMWare-调试-Windows-内核/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0 CN</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <div>
+      
+        
   <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
     <div>如果喜欢, 请给我加个🍗~</div>
     <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
@@ -468,13 +490,6 @@
     </div>
   </div>
 
-
-      
-    </div>
-
-    <div>
-      
-        
 
       
     </div>
@@ -536,6 +551,41 @@
           
   <div class="comments" id="comments">
     
+      <div onclick="showGitment()" id="gitment_title" class="gitment_title">显示 Gitment 评论</div>
+      <div id="container" style="display:none"></div>
+      <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+      <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+      <script>
+      const myTheme = {
+        render(state, instance) {
+          const container = document.createElement('div');
+          container.lang = "en-US";
+          container.className = 'gitment-container gitment-root-container';
+          container.appendChild(instance.renderHeader(state, instance));
+          container.appendChild(instance.renderEditor(state, instance));
+          container.appendChild(instance.renderComments(state, instance));
+          container.appendChild(instance.renderFooter(state, instance));
+          return container;
+        }
+      }
+
+      function showGitment() {
+        $("#gitment_title").attr("style", "display:none");
+        $("#container").attr("style", "").addClass("gitment_container");
+        var gitment = new Gitment({
+          id: window.location.pathname,
+          theme: myTheme,
+          owner: 'MeeSong',
+          repo: 'BlogComments',
+          oauth: {
+            client_id: 'ebc04c32e0a0c7e77aa6',
+            client_secret: 'b5840ad7487a199656353a050223a77be4d39f3c'
+          }
+        });
+        gitment.render('container');
+      }
+      </script>
+    
   </div>
 
 
@@ -573,7 +623,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/StaticBlog/archives">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">22</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -595,7 +645,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/StaticBlog/tags/index.html">
-                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-count">17</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
