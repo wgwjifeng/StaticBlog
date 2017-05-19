@@ -14,7 +14,7 @@ timezone:
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
 url: https://meesong.github.io/
 root: /StaticBlog/
-permalink: :category/:id/
+permalink: :year/:title/
 permalink_defaults:
 
 # Directory
