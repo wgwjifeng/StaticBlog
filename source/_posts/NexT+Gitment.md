@@ -129,10 +129,10 @@ Gitment 是作者[imsun](https://github.com/imsun/gitment)实现的一款基于 
 # Gitment comments
 gitment:
   enable: true
-  owner: 
-  repo: 
-  client_id: 
-  client_secret: 
+  owner: xxxx
+  repo: xxxx
+  client_id: xxxx
+  client_secret: xxxx
 ```
 
 最终效果见本博客下方~
