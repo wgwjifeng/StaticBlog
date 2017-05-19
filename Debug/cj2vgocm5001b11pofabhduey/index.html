@@ -1,0 +1,1587 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="google15310e762694357f.html" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/StaticBlog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/StaticBlog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/StaticBlog/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Debug," />
+
+
+
+
+
+  <link rel="alternate" href="/StaticBlog/rss2.xml" title="MeeSong's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/StaticBlog/uploads/avatar.jpg?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="/? ID查看所有已知标识符 bcdedit /? ID">
+<meta name="keywords" content="Debug">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BCDEdit 命令行选项帮助">
+<meta property="og:url" content="https://meesong.github.io/Debug/cj2vgocm5001b11pofabhduey/index.html">
+<meta property="og:site_name" content="MeeSong&#39;s Blog">
+<meta property="og:description" content="/? ID查看所有已知标识符 bcdedit /? ID">
+<meta property="og:updated_time" content="2017-05-12T06:10:34.067Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="BCDEdit 命令行选项帮助">
+<meta name="twitter:description" content="/? ID查看所有已知标识符 bcdedit /? ID">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/StaticBlog/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://meesong.github.io/Debug/cj2vgocm5001b11pofabhduey/"/>
+
+
+
+
+
+  <title>BCDEdit 命令行选项帮助 | MeeSong's Blog</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-80255644-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/StaticBlog/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">MeeSong's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">探索有趣的事物~</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/StaticBlog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/StaticBlog/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/StaticBlog/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/StaticBlog/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/StaticBlog/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/StaticBlog/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://meesong.github.io/StaticBlog/Debug/cj2vgocm5001b11pofabhduey/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MeeSong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/StaticBlog/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MeeSong's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">BCDEdit 命令行选项帮助</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-12T14:09:12+08:00">
+                2017-05-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/StaticBlog/categories/Debug/" itemprop="url" rel="index">
+                    <span itemprop="name">Debug</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="ID"><a href="#ID" class="headerlink" title="/? ID"></a><code>/? ID</code></h2><p>查看所有已知标识符</p>
+<p><code>bcdedit /? ID</code></p>
+<a id="more"></a>
+<h2 id="types-lt-apptype-gt"><a href="#types-lt-apptype-gt" class="headerlink" title="/? types &lt;apptype&gt;"></a><code>/? types &lt;apptype&gt;</code></h2><p>查看所有数据类型附加信息</p>
+<p><code>apptype</code> 可以是以下其中一项:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">apptype</th>
+<th style="text-align:left">description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">bootapp</td>
+<td style="text-align:left">启动应用程序.这些类型也应用于启动管理器, 内存诊断应用程序, Windows OS 加载器和回复应用程序</td>
+</tr>
+<tr>
+<td style="text-align:left">bootmgr</td>
+<td style="text-align:left">启动管理器</td>
+</tr>
+<tr>
+<td style="text-align:left">bootsector</td>
+<td style="text-align:left">启动扇区应用程序</td>
+</tr>
+<tr>
+<td style="text-align:left">customtypes</td>
+<td style="text-align:left">自定义类型</td>
+</tr>
+<tr>
+<td style="text-align:left">devobject</td>
+<td style="text-align:left">设备对象附加选项</td>
+</tr>
+<tr>
+<td style="text-align:left">fwbootmgr</td>
+<td style="text-align:left">固件启动管理器</td>
+</tr>
+<tr>
+<td style="text-align:left">memdiag</td>
+<td style="text-align:left">内存诊断应用程序</td>
+</tr>
+<tr>
+<td style="text-align:left">ntldr</td>
+<td style="text-align:left">Vista 之前版本附带的 OS 加载器</td>
+</tr>
+<tr>
+<td style="text-align:left">osloader</td>
+<td style="text-align:left">Vista OS 加载器</td>
+</tr>
+<tr>
+<td style="text-align:left">resume</td>
+<td style="text-align:left">恢复应用程序</td>
+</tr>
+</tbody>
+</table>
+<h2 id="enum"><a href="#enum" class="headerlink" title="/enum"></a><code>/enum</code></h2><p>列出存储中的项</p>
+<p><code>bcdedit [/store &lt;filename&gt;] /enum [&lt;type&gt; | &lt;id&gt;] [/v]</code></p>
+<p><code>type</code> 指定要列出的项的类型. 可以是以下类型之一:</p>
+<ul>
+<li>Active  : 启动管理器显示顺序中的所有项, 这是默认值.</li>
+<li>Firmware: 所有固件应用程序.</li>
+<li>Bootapp : 所有启动环境应用程序.</li>
+<li>Bootmgr : 启动管理器.</li>
+<li>Osloader: 所有操作系统项.</li>
+<li>Resume  : 所有从休眠状态恢复项.</li>
+<li>Inherit : 所有继承项.</li>
+<li>All     : 所有项.</li>
+</ul>
+<p><code>/v</code> 完整显示标识符,而不是使用已知标识符名称</p>
+<h2 id="store"><a href="#store" class="headerlink" title="/store"></a><code>/store</code></h2><p>用于指定当前系统默认值以外的 BCD 存储.</p>
+<p><code>bcdedit /store &lt;filename&gt;</code></p>
+<p>此命令行选项可与大多数 <code>Bcdedit</code> 命令一起使用以指定要使用的存储.<br>如果未指定此选项, 则使用系统存储.</p>
+<p>此选项不能与 <code>/createstore</code>, <code>/import</code> 和 <code>/export</code> 命令一起使用.</p>
+<h2 id="createstore"><a href="#createstore" class="headerlink" title="/createstore"></a><code>/createstore</code></h2><p>新建空的启动配置数据存储, 创建的存储不是系统存储.</p>
+<p><code>bcdedit /createstore &lt;filename&gt;</code></p>
+<h2 id="export"><a href="#export" class="headerlink" title="/export"></a><code>/export</code></h2><p>此命令将系统存储的内容导出到文件.<br>以后可以使用此文件还原系统存储的状态. 此命令仅对系统存储有效.</p>
+<p><code>bcdedit /export &lt;filename&gt;</code></p>
+<h2 id="import"><a href="#import" class="headerlink" title="/import"></a><code>/import</code></h2><p>此命令使用以前使用 <code>/export</code> 命令生成的备份数据文件.</p>
+<p><code>bcdedit /import &lt;filename&gt; [/clean]</code></p>
+<p>还原系统存储的状态.<br>在进行导入前, 将删除系统存储中的所有现有项. 此命令仅对系统存储有效</p>
+<p><code>/clean</code> 仅影响 EFI 系统.</p>
+<h2 id="sysstore"><a href="#sysstore" class="headerlink" title="/sysstore"></a><code>/sysstore</code></h2><p>此命令用于设置系统存储设备.<br>对于 EFI 系统, 仅在系统存储设备不确定的情况下, 此命令才有效. 此设置在重新启动后不再有效.</p>
+<p><code>bcdedit /sysstore &lt;devicename&gt;</code></p>
+<p>devicename 为系统分区盘符</p>
+<h2 id="copy"><a href="#copy" class="headerlink" title="/copy"></a><code>/copy</code></h2><p>创建指定启动项的副本.</p>
+<p><code>bcdedit [/store &lt;filename&gt;] /copy {&lt;id&gt;} /d &lt;description&gt;</code></p>
+<h2 id="create"><a href="#create" class="headerlink" title="/create"></a><code>/create</code></h2><p>在启动配置数据存储中创建新项.<br>如果指定了已知的标识符, 则不能指定 <code>/application</code>, <code>/inherit</code> 和 <code>/device</code> 选项.<br>如果未指定 id, 或者 id 未知, 则必须指定 <code>/application</code>, <code>/inherit</code> 或 <code>/device</code> 选项.</p>
+<p><code>bcdedit /create [{&lt;id&gt;}] [/d &lt;description&gt;] [/application &lt;apptype&gt; | /inherit [&lt;apptype&gt;] | /inherit DEVICE | /device]</code></p>
+<h2 id="delete"><a href="#delete" class="headerlink" title="/delete"></a><code>/delete</code></h2><p>删除启动配置数据存储中的项.</p>
+<p><code>bcdedit [/store &lt;filename&gt;] /delete &lt;id&gt; [/f] [/cleanup | /nocleanup]</code></p>
+<p><code>/f</code> 删除指定的项. 如果没有此项,则将无法删除任何具有已知标识符的项.</p>
+<p><code>/cleanup</code> 删除指定的项, 并从显示顺序中删除该项. 并将从存储中删除任何其他涉及到所删除的项目.</p>
+<p><code>/nocleanup</code> 删除指定的项,但不从显示顺序中删除该项.</p>
+<h2 id="mirror"><a href="#mirror" class="headerlink" title="/mirror"></a><code>/mirror</code></h2><p>创建指定启动项的镜像.</p>
+<p><code>bcdedit [/store &lt;filename&gt;] /mirror {&lt;id&gt;}</code></p>
+<h2 id="bootsequence"><a href="#bootsequence" class="headerlink" title="/bootsequence"></a><code>/bootsequence</code></h2><p>设置启动管理器使用的一次性启动序列.</p>
+<p><code>bcdedit /bootsequence &lt;id&gt; [...] [ /addfirst | /addlast | /remove ]</code></p>
+<p><code>/addfirst</code> 将指定的项标识符添加到启动序列的顶部.<br>如果已指定此参数, 则只能指定一个项标识符.如果列表中已存在该标识符, 则将其移动到列表顶部.</p>
+<p><code>/addlast</code> 将指定的项标识符添加到启动序列的尾部.<br>如果已指定此参数, 则只能指定一个项标识符.如果列表中已存在该标识符, 则将其移动到列表尾部.</p>
+<p><code>/remove</code> 从启动序列中删除指定的项标识符.<br>如果已指定此参数, 则只能指定一个项标识. 如果该标识符不在列表中, 则该操作不起作用.<br>如果删除最后一项, 则启动序列值将会从启动管理器项中删除.</p>
+<h2 id="default"><a href="#default" class="headerlink" title="/default"></a><code>/default</code></h2><p>设置启动管理器将使用的默认项</p>
+<p><code>bcdedit /default &lt;id&gt;</code></p>
+<h2 id="displayorder"><a href="#displayorder" class="headerlink" title="/displayorder"></a><code>/displayorder</code></h2><p>设置启动管理器显示, 多重启动菜单的顺序</p>
+<p><code>bcdedit /displayorder &lt;id&gt; [...] [ /addfirst | /addlast | /remove ]</code></p>
+<p>参数含义同 <code>/bootsequence</code></p>
+<h2 id="timeout"><a href="#timeout" class="headerlink" title="/timeout"></a><code>/timeout</code></h2><p>设置启动管理器的超时值, 单位 <code>秒</code></p>
+<p><code>bcdedit /timeout &lt;timeout&gt;</code></p>
+<h2 id="toolsdisplayorder"><a href="#toolsdisplayorder" class="headerlink" title="/toolsdisplayorder"></a><code>/toolsdisplayorder</code></h2><p>设置启动管理器显示工具菜单的顺序</p>
+<p><code>bcdedit /toolsdisplayorder &lt;id&gt; [...] [ /addfirst | /addlast | /remove ]</code></p>
+<p>参数含义同 <code>/bootsequence</code></p>
+<h2 id="bootdebug"><a href="#bootdebug" class="headerlink" title="/bootdebug"></a><code>/bootdebug</code></h2><p>开启当前或指定的系统引导调试</p>
+<p><code>bcdedit /bootdebug [{GUID}] { on | off }</code></p>
+<blockquote>
+<p>注: 使用 <code>/dbgsettings</code> 选项配置要使用的调试连接类型和连接参数.<br>如果没有指定, 则使用默认全局调试设置.</p>
+</blockquote>
+<h2 id="dbgsettings"><a href="#dbgsettings" class="headerlink" title="/dbgsettings"></a><code>/dbgsettings</code></h2><p>指定或显示系统的全局调试程序设置. 此命令不启用或禁用内核调试程序；使用 <code>/debug</code> 选项完成此目的. 若要设置单个全局调试程序设置, 请使用 <code>bcdedit /setdbgsettings type value</code> 命令.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">bcdedit /dbgsettings SERIAL [DEBUGPORT:port] [BAUDRATE:baud] [/start startpolicy] [/noumex] </div><div class="line">bcdedit /dbgsettings 1394 [CHANNEL:channel] [/start startpolicy] [/noumex] </div><div class="line">bcdedit /dbgsettings USB [TARGETNAME:targetname] [/start startpolicy] [/noumex] </div><div class="line">bcdedit /dbgsettings NET HOSTIP:ip PORT:port [KEY:key] [nodhcp] [newkey] [/start startpolicy] [/noumex]</div></pre></td></tr></table></figure>
+<p><code>/start startpolicy</code> 此选项指定了调试器启动策略, 下面显示了策略选项:<br>Option        | Description<br>:———–|:———–<br>ACTIVE      | 指定内核调试器处于活动状态<br>AUTOENABLE  | 指定当异常或者其他严重事件发生时, 内核调试器将自动启用. 在此之前, 内核调试器处于活动状态, 但已被禁用<br>DISABLE     | 指定当您键入kdbgctrl以清除启用块时启用内核调试器. 在此之前, 调试器处于活动状态, 但已被禁用</p>
+<p><code>/noumex</code> 指定内核调试器忽略用户模式异常,默认情况下, 某些用户模式异常会中断内核调试器, 例如 STATUS_BREAKPOINT 和 STATUS_SINGLE_STEP. 只有当没有用户模式调试器附加到进程时, 该参数才有效</p>
+<h3 id="Serial"><a href="#Serial" class="headerlink" title="Serial"></a>Serial</h3><p><a href="https://msdn.microsoft.com/en-us/library/windows/hardware/ff556867(v=vs.85" target="_blank" rel="external">Setting Up Kernel-Mode Debugging over a Serial Cable Manually</a>.aspx)</p>
+<h3 id="1394"><a href="#1394" class="headerlink" title="1394"></a>1394</h3><p><a href="https://msdn.microsoft.com/en-us/library/windows/hardware/ff556866(v=vs.85" target="_blank" rel="external"> Setting Up Kernel-Mode Debugging over a 1394 Cable Manually</a>.aspx)</p>
+<h3 id="USB"><a href="#USB" class="headerlink" title="USB"></a>USB</h3><p><a href="https://msdn.microsoft.com/en-us/library/windows/hardware/ff556869(v=vs.85" target="_blank" rel="external">Setting Up Kernel-Mode Debugging over a USB 2.0 Cable Manually</a>.aspx)</p>
+<p><a href="https://msdn.microsoft.com/en-us/library/windows/hardware/hh439372(v=vs.85" target="_blank" rel="external">Setting Up Kernel-Mode Debugging over a USB 3.0 Cable Manually</a>.aspx)</p>
+<h3 id="Net"><a href="#Net" class="headerlink" title="Net"></a>Net</h3><p><a href="https://msdn.microsoft.com/en-us/library/windows/hardware/hh439346(v=vs.85" target="_blank" rel="external">Setting Up Kernel-Mode Debugging over a Network Cable Manually</a>.aspx)</p>
+<p><a href="https://msdn.microsoft.com/en-us/library/windows/hardware/dn337010(v=vs.85" target="_blank" rel="external">Supported Ethernet NICs for Network Kernel Debugging in Windows 8.1</a>.aspx)</p>
+<p><a href="https://msdn.microsoft.com/en-us/library/windows/hardware/dn337009(v=vs.85" target="_blank" rel="external">Supported Ethernet NICs for Network Kernel Debugging in Windows 8</a>.aspx)</p>
+<h3 id="Local"><a href="#Local" class="headerlink" title="Local"></a>Local</h3><p><a href="https://msdn.microsoft.com/en-us/library/windows/hardware/dn553412(v=vs.85" target="_blank" rel="external">Setting Up Local Kernel Debugging of a Single Computer Manually</a>.aspx)</p>
+<h3 id="默认全局调试设置"><a href="#默认全局调试设置" class="headerlink" title="默认全局调试设置"></a>默认全局调试设置</h3><table>
+<thead>
+<tr>
+<th style="text-align:left">dbgsetting parameter</th>
+<th style="text-align:left">Default value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Debugtype</td>
+<td style="text-align:left">Serial</td>
+</tr>
+<tr>
+<td style="text-align:left">Debugport</td>
+<td style="text-align:left">1</td>
+</tr>
+<tr>
+<td style="text-align:left">Baudrate</td>
+<td style="text-align:left">115200</td>
+</tr>
+</tbody>
+</table>
+<h2 id="debug"><a href="#debug" class="headerlink" title="/debug"></a><code>/debug</code></h2><p>启用或禁用指定启动项的内核调试程序。</p>
+<p><code>bcdedit /debug [{ID}] { on | off }</code></p>
+<blockquote>
+<p>注: 使用 <code>/dbgsettings</code> 选项配置要使用的调试连接类型和连接参数.<br>如果没有指定, 则使用默认全局调试设置.</p>
+</blockquote>
+<h2 id="hypervisorsettings"><a href="#hypervisorsettings" class="headerlink" title="/hypervisorsettings"></a><code>/hypervisorsettings</code></h2><p>设置虚拟机监控程序的参数</p>
+<p>若要为特定的操作系统加载器项启用或禁用虚拟机监控程序调试程序, 请使用 <code>bcdedit /set &lt;id&gt; hypervisordebug on</code></p>
+<p><code>bcdedit /hypervisorsettings [ &lt;debugtype&gt; [DEBUGPORT:&lt;port&gt;] [BAUDRATE:&lt;baud&gt;] [CHANNEL:&lt;channel&gt;] [HOSTIP:&lt;ip&gt;] [PORT:&lt;port&gt;] ]</code></p>
+<p><code>debugtype</code> 指定调试程序的类型. 可以是 Serial, 1394, Net 之一</p>
+<p><code>port</code> 对于 Serial 调试, 指定要用作调试端口的串口</p>
+<p><code>baud</code> 对于 Serial 调试, 指定用于调试的波特率</p>
+<p><code>channel</code> 对于 1394 调试, 指定用于调试的 1394 通道</p>
+<p><code>ip</code> 对于 Net 调试, 指定主机调试程序的 IPV4 地址</p>
+<p><code>port</code> 对于 Net 调试, 指定在主机调试程序上通信的端口,应该是 49152 或更高</p>
+<h2 id="event"><a href="#event" class="headerlink" title="/event"></a><code>/event</code></h2><p>启用或禁用操作系统项的远程事件日志记录</p>
+<p><code>bcdedit /event [&lt;id&gt;] { ON | OFF }</code></p>
+<p>标识符只能指定 Windows 启动加载程序项.如果未指定,则使用 <code>{current}</code></p>
+<h2 id="deletevalue"><a href="#deletevalue" class="headerlink" title="/deletevalue"></a><code>/deletevalue</code></h2><p>删除启动项中指定的元素。</p>
+<p><code>bcdedit /deletevalue [{ID}] datatype</code></p>
+<h2 id="bootems"><a href="#bootems" class="headerlink" title="/bootems"></a><code>/bootems</code></h2><p>启用或禁用引导项的紧急管理服务</p>
+<p><code>bcdedit /bootems [&lt;id&gt;] { ON | OFF }</code></p>
+<h2 id="ems"><a href="#ems" class="headerlink" title="/ems"></a><code>/ems</code></h2><p>启用或禁用指定的操作系统启动项的紧急管理服务 (EMS).</p>
+<p><code>bcdedit /ems [{ID}] { on | off }</code></p>
+<h2 id="emsstings"><a href="#emsstings" class="headerlink" title="/emsstings"></a><code>/emsstings</code></h2><p>设置计算机的全局 EMS 设置. <code>/emssettings</code> 不启用或禁用任何特定启动项的 EMS.</p>
+<p><code>bcdedit /emssettings [ BIOS ] | [ EMSPORT: port | [EMSBAUDRATE: baudrate] ]</code></p>
+<h2 id="set"><a href="#set" class="headerlink" title="/set"></a><code>/set</code></h2><p>设置一个项选项值.</p>
+<p><code>bcdedit  /set [{ID}] datatype value</code></p>
+<p><code>datatype</code> 有以下几种类型:</p>
+<p><code>bootlog [yes | no]</code></p>
+<p><code>bootmenupolicy [ Legacy | Standard ]</code></p>
+<p><code>bootstatuspolicy policy</code></p>
+<p><code>bootux [ disabled | basic | standard ]</code></p>
+<p><code>disabledynamictick [ yes | no ]</code></p>
+<p><code>disableelamdrivers [ yes | no ]</code></p>
+<p><code>forcelegacyplatform [ yes | no ]</code></p>
+<p><code>groupsize maxsize</code></p>
+<p><code>groupaware [ on | off ]</code></p>
+<p><code>hal file</code></p>
+<p><code>hypervisorbusparams Bus.Device.Function</code></p>
+<p><code>hypervisordebug [ On | Off ]</code></p>
+<p><code>hypervisordebugport port</code></p>
+<p><code>hypervisordebugtype [ Serial | 1394 | Net ]</code></p>
+<p><code>hypervisorbaudrate [ 9600 | 19200 | 38400 | 57600 | 115200 ]</code></p>
+<p><code>hypervisorchannel [ channel ]</code></p>
+<p><code>hypervisorhostip IP</code></p>
+<p><code>hypervisorhostport [ port ]</code></p>
+<p><code>hypervisordhcp [ yes | no ]</code></p>
+<p><code>hypervisoriommupolicy [ default | enable | disable]</code></p>
+<p><code>hypervisorlaunchtype [ Off | Auto ]</code></p>
+<p><code>hypervisorloadoptions NOFORCESNOOP [ Yes | No ]</code></p>
+<p><code>hypervisornumproc number</code></p>
+<p><code>hypervisorrootproc number</code></p>
+<p><code>hypervisorrootprocpernode number</code></p>
+<p><code>hypervisorusekey [ key ]</code></p>
+<p><code>hypervisoruselargevtlb [ yes | no ]</code></p>
+<p><code>increaseuserva Megabytes</code></p>
+<p><code>kernel file</code></p>
+<p><code>loadoptions busparams=Bus.Device.Function</code></p>
+<p><code>maxgroup [ on | off ]</code></p>
+<p><code>nointegritychecks [ on | off ]</code></p>
+<p><code>nolowmem [ on | off ]</code></p>
+<p><code>novesa [ on | off ]</code></p>
+<p><code>novga [ on | off ]</code></p>
+<p><code>nx [Optin |OptOut | AlwaysOn |AlwaysOff]</code></p>
+<p><code>onecpu [ on | off ]</code></p>
+<p><code>onetimeadvancedoptions [ on | off ]</code></p>
+<p><code>pae [ Default | ForceEnable | ForceDisable ]</code></p>
+<p><code>pciexpress [ default | forcedisable]</code></p>
+<p><code>quietboot [ on | off ]</code></p>
+<p><code>removememory Megabytes</code></p>
+<p><code>sos [ on | off ]</code></p>
+<p><code>testsigning [ on | off ]</code></p>
+<p><code>tpmbootentropy [ default | ForceEnable | ForceDisable]</code></p>
+<p><code>truncatememory address</code></p>
+<p><code>tscsyncpolicy [ Default | Legacy | Enhanced ]</code></p>
+<p><code>usefirmwarepcisettings [ yes | no ]</code></p>
+<p><code>useplatformclock [ yes | no ]</code></p>
+<p><code>uselegacyapicmode [ yes | no ]</code></p>
+<p><code>useplatformtick [ yes | no ]</code></p>
+<p><code>vga [ on | off ]</code></p>
+<p><code>xsavedisable [ 0 | 1 ]</code></p>
+<p><code>x2apicpolicy [ enable | disable ]</code></p>
+<h1 id="Boot-in-选项和-BCDEdit-选项的映射关系"><a href="#Boot-in-选项和-BCDEdit-选项的映射关系" class="headerlink" title="Boot.in 选项和 BCDEdit 选项的映射关系"></a>Boot.in 选项和 BCDEdit 选项的映射关系</h1><table>
+<thead>
+<tr>
+<th style="text-align:left">Boot.ini</th>
+<th style="text-align:left">BCDEdit option</th>
+<th style="text-align:left">BCD element type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">/3GB</td>
+<td style="text-align:left">increaseuserva</td>
+<td style="text-align:left">BcdOSLoaderInteger_IncreaseUserVa</td>
+</tr>
+<tr>
+<td style="text-align:left">/BASEVIDEO</td>
+<td style="text-align:left">vga</td>
+<td style="text-align:left">BcdOSLoaderBoolean_UseVgaDriver</td>
+</tr>
+<tr>
+<td style="text-align:left">/BOOTLOG</td>
+<td style="text-align:left">bootlog</td>
+<td style="text-align:left">BcdOSLoaderBoolean_BootLogInitialization</td>
+</tr>
+<tr>
+<td style="text-align:left">/BREAK</td>
+<td style="text-align:left">halbreakpoint</td>
+<td style="text-align:left">BcdOSLoaderBoolean_DebuggerHalBreakpoint</td>
+</tr>
+<tr>
+<td style="text-align:left">/CRASHDEBUG</td>
+<td style="text-align:left">/dbgsettings /start</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">/DEBUG, BOOTDEBUG</td>
+<td style="text-align:left">/debug  /bootdebug</td>
+<td style="text-align:left">BcdLibraryBoolean_DebuggerEnabled</td>
+</tr>
+<tr>
+<td style="text-align:left">/DEBUG</td>
+<td style="text-align:left">/debug</td>
+<td style="text-align:left">BcdOSLoaderBoolean_KernelDebuggerEnabled</td>
+</tr>
+<tr>
+<td style="text-align:left">/DEBUG, /DEBUGPORT=</td>
+<td style="text-align:left">/dbgsettings</td>
+<td style="text-align:left">BcdLibraryInteger_DebuggerType</td>
+</tr>
+<tr>
+<td style="text-align:left">/DEBUGPORT=</td>
+<td style="text-align:left">/dbgsettings</td>
+<td style="text-align:left">BcdLibraryInteger_SerialDebuggerPort  BcdLibraryInteger_SerialDebuggerBaudRate  BcdLibraryInteger_1394DebuggerChannel  BcdLibraryString_UsbDebuggerTargetName  BcdLibraryInteger_DebuggerNetHostIP  BcdLibraryInteger_DebuggerNetPort  BcdLibraryBoolean_DebuggerNetDhcp  BcdLibraryString_DebuggerNetKey</td>
+</tr>
+<tr>
+<td style="text-align:left">/EXECUTE</td>
+<td style="text-align:left">nx</td>
+<td style="text-align:left">BcdOSLoaderInteger_NxPolicy</td>
+</tr>
+<tr>
+<td style="text-align:left">/FASTDETECT</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">/HAL=</td>
+<td style="text-align:left">hal</td>
+<td style="text-align:left">BcdOSLoaderString_HalPath</td>
+</tr>
+<tr>
+<td style="text-align:left">/KERNEL=</td>
+<td style="text-align:left">kernel</td>
+<td style="text-align:left">BcdOSLoaderString_KernelPath</td>
+</tr>
+<tr>
+<td style="text-align:left">/MAXMEM=</td>
+<td style="text-align:left">truncatememory</td>
+<td style="text-align:left">BcdLibraryInteger_TruncatePhysicalMemory</td>
+</tr>
+<tr>
+<td style="text-align:left">/NODEBUG</td>
+<td style="text-align:left">/debug</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">/NOEXECUTE</td>
+<td style="text-align:left">nx {</td>
+<td style="text-align:left">BcdOSLoaderInteger_NxPolicy</td>
+</tr>
+<tr>
+<td style="text-align:left">/NOGUIBOOT</td>
+<td style="text-align:left">quietboot</td>
+<td style="text-align:left">BcdOSLoaderBoolean_DisableBootDisplay</td>
+</tr>
+<tr>
+<td style="text-align:left">/NOLOWMEM</td>
+<td style="text-align:left">nolowmem</td>
+<td style="text-align:left">BcdOSLoaderBoolean_NoLowMemory</td>
+</tr>
+<tr>
+<td style="text-align:left">/NOPAE</td>
+<td style="text-align:left">pae</td>
+<td style="text-align:left">BcdOSLoaderInteger_PAEPolicy</td>
+</tr>
+<tr>
+<td style="text-align:left">/ONECPU</td>
+<td style="text-align:left">onecpu</td>
+<td style="text-align:left">BcdOSLoaderBoolean_UseBootProcessorOnly</td>
+</tr>
+<tr>
+<td style="text-align:left">/PAE</td>
+<td style="text-align:left">pae</td>
+<td style="text-align:left">BcdOSLoaderInteger_PAEPolicy</td>
+</tr>
+<tr>
+<td style="text-align:left">/PCILOCK</td>
+<td style="text-align:left">usefirmwarepcisettings</td>
+<td style="text-align:left">BcdOSLoaderInteger_UseFirmwarePciSettings</td>
+</tr>
+<tr>
+<td style="text-align:left">/REDIRECT</td>
+<td style="text-align:left">/ems  /emssettings [ BIOS ] or  [ EMSPORT:{port}</td>
+<td style="text-align:left">[EMSBAUDRATE: {baudrate}] ]</td>
+<td>BcdOSLoaderBoolean_EmsEnabled</td>
+</tr>
+<tr>
+<td style="text-align:left">/SOS</td>
+<td style="text-align:left">sos</td>
+<td style="text-align:left"></td>
+</tr>
+</tbody>
+</table>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      MeeSong
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://meesong.github.io/Debug/cj2vgocm5001b11pofabhduey/" title="BCDEdit 命令行选项帮助">https://meesong.github.io/Debug/cj2vgocm5001b11pofabhduey/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0 CN</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>如果喜欢, 请给我加个🍗~</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/StaticBlog/uploads/wechat.jpg" alt="MeeSong WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/StaticBlog/uploads/alipay.jpg" alt="MeeSong Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/StaticBlog/tags/Debug/" rel="tag"># Debug</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/StaticBlog/Debug/cj2vgocm7001c11po71yogosd/" rel="next" title="IDA + VMWare 调试 Windows 内核">
+                <i class="fa fa-chevron-left"></i> IDA + VMWare 调试 Windows 内核
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/StaticBlog/Windows/cj2vgocg3000811pokfmbww6h/" rel="prev" title="Install ArchLinux to WSL">
+                Install ArchLinux to WSL <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div onclick="showGitment()" id="gitment_title" class="gitment_title">显示 Gitment 评论</div>
+      <div id="container" style="display:none"></div>
+      <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+      <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+      <script>
+      const myTheme = {
+        render(state, instance) {
+          const container = document.createElement('div');
+          container.lang = "en-US";
+          container.className = 'gitment-container gitment-root-container';
+          container.appendChild(instance.renderHeader(state, instance));
+          container.appendChild(instance.renderEditor(state, instance));
+          container.appendChild(instance.renderComments(state, instance));
+          container.appendChild(instance.renderFooter(state, instance));
+          return container;
+        }
+      }
+
+      function showGitment() {
+        $("#gitment_title").attr("style", "display:none");
+        $("#container").attr("style", "").addClass("gitment_container");
+        var gitment = new Gitment({
+          id: window.location.pathname,
+          theme: myTheme,
+          owner: 'MeeSong',
+          repo: 'BlogComments',
+          oauth: {
+            client_id: 'ebc04c32e0a0c7e77aa6',
+            client_secret: 'b5840ad7487a199656353a050223a77be4d39f3c'
+          }
+        });
+        gitment.render('container');
+      }
+      </script>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/StaticBlog/uploads/avatar.jpg"
+               alt="MeeSong" />
+          <p class="site-author-name" itemprop="name">MeeSong</p>
+           
+              <p class="site-description motion-element" itemprop="description">生活就是不断地调试~</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/StaticBlog/archives">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/StaticBlog/categories/index.html">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/StaticBlog/tags/index.html">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/StaticBlog/rss2.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/MeeSong" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github-alt"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/MeesongKwok" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/2438280555" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ID"><span class="nav-number">1.</span> <span class="nav-text">/? ID</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#types-lt-apptype-gt"><span class="nav-number">2.</span> <span class="nav-text">/? types <apptype></span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#enum"><span class="nav-number">3.</span> <span class="nav-text">/enum</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#store"><span class="nav-number">4.</span> <span class="nav-text">/store</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#createstore"><span class="nav-number">5.</span> <span class="nav-text">/createstore</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#export"><span class="nav-number">6.</span> <span class="nav-text">/export</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#import"><span class="nav-number">7.</span> <span class="nav-text">/import</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sysstore"><span class="nav-number">8.</span> <span class="nav-text">/sysstore</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#copy"><span class="nav-number">9.</span> <span class="nav-text">/copy</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#create"><span class="nav-number">10.</span> <span class="nav-text">/create</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#delete"><span class="nav-number">11.</span> <span class="nav-text">/delete</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mirror"><span class="nav-number">12.</span> <span class="nav-text">/mirror</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bootsequence"><span class="nav-number">13.</span> <span class="nav-text">/bootsequence</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#default"><span class="nav-number">14.</span> <span class="nav-text">/default</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#displayorder"><span class="nav-number">15.</span> <span class="nav-text">/displayorder</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#timeout"><span class="nav-number">16.</span> <span class="nav-text">/timeout</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#toolsdisplayorder"><span class="nav-number">17.</span> <span class="nav-text">/toolsdisplayorder</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bootdebug"><span class="nav-number">18.</span> <span class="nav-text">/bootdebug</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dbgsettings"><span class="nav-number">19.</span> <span class="nav-text">/dbgsettings</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Serial"><span class="nav-number">19.1.</span> <span class="nav-text">Serial</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1394"><span class="nav-number">19.2.</span> <span class="nav-text">1394</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#USB"><span class="nav-number">19.3.</span> <span class="nav-text">USB</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Net"><span class="nav-number">19.4.</span> <span class="nav-text">Net</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Local"><span class="nav-number">19.5.</span> <span class="nav-text">Local</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#默认全局调试设置"><span class="nav-number">19.6.</span> <span class="nav-text">默认全局调试设置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#debug"><span class="nav-number">20.</span> <span class="nav-text">/debug</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hypervisorsettings"><span class="nav-number">21.</span> <span class="nav-text">/hypervisorsettings</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#event"><span class="nav-number">22.</span> <span class="nav-text">/event</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#deletevalue"><span class="nav-number">23.</span> <span class="nav-text">/deletevalue</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bootems"><span class="nav-number">24.</span> <span class="nav-text">/bootems</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ems"><span class="nav-number">25.</span> <span class="nav-text">/ems</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#emsstings"><span class="nav-number">26.</span> <span class="nav-text">/emsstings</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#set"><span class="nav-number">27.</span> <span class="nav-text">/set</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Boot-in-选项和-BCDEdit-选项的映射关系"><span class="nav-number"></span> <span class="nav-text">Boot.in 选项和 BCDEdit 选项的映射关系</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">MeeSong</span>
+</div>
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/StaticBlog/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/StaticBlog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/StaticBlog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/StaticBlog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/StaticBlog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/StaticBlog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/StaticBlog/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/StaticBlog/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/StaticBlog/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/StaticBlog/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/StaticBlog/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (search_path.endsWith("json")) {
+      isXml = false;
+    }
+    var path = "/StaticBlog/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <script type="text/javascript" src="/StaticBlog/js/src/js.cookie.js?v=5.1.1"></script>
+  <script type="text/javascript" src="/StaticBlog/js/src/scroll-cookie.js?v=5.1.1"></script>
+
+
+  
+
+</body>
+</html>
