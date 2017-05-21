@@ -54,6 +54,8 @@ CPU 根据实际需要把当前用到的页面映射表项告诉混存在内部�
 * 局部数据所占用的空间, 一般是在调用一个函数或分配局部变量的时候, 自动从栈上动态分配的, vu你在于这个函数的调用框架之中, 其寿命取决于 CPU 运行于这个函数中的时间. 这部分空间的分配和释放也是不可见的.
 * 通过 malloc 一类的函数动态分配的堆缓冲区, 所占用的空间一直会存在到通过 free 一类的函数加以释放, 或者程序退出运行. 其空间的分配和释放是可见的, 运行中的程序完全掌握主动, 也承担责任.
 
+----
+
 ## 分页
 
 ### 处理器对虚拟地址的限制
@@ -211,6 +213,15 @@ PAE 自动使用页大小位, 所以 PAE形式忽略 CR4.PSE 的值.
 ![4-Kbyte PAE Page Translation—Legacy Mode](legacy-pae-4-v2p.jpg)
 ![4-Kbyte PxE—PAE Paging Legacy-Mode](legacy-pae-4-table-format.jpg)
 
+### TLB 和 Paging-Structure Cache 简单概述
+
+为了将虚拟地址转换为物理地址, 处理器必须执行 4 个存储器访问, 一个用于层次结构中的每个PS. 由于内存延迟比指令执行时间长得多, 因此这显着减慢了处理器的浪费.  
+为了避免这种情况, 使用两种类型的缓存：TLB 和 Paging-Structure Cache.
+
+TLB (Translation Lookaside Buffers) 就是 Cache 的一类. TLB 缓存从虚拟地址到物理地址的完整翻译, 以及所有控制信息, 即页面是读/写还是只读, 是否可以在 Ring3 访问等. 如果虚拟的翻译地址在 TLB 中找到, 不需要访问内存中的分页结构.
+
+Paging-Structure Cache, 它缓存页表的各级 Table-Entry. 它是与 TLB 互补的.
+
 
 ### 举个例子, 动动手~
 
@@ -222,6 +233,7 @@ printf("0x%p\n", vStr);
 ```
 
 #### 动手翻译长模式虚拟地址
+> 操作系统: Windows 8.1 x64
 
 我们用这两行代码来输出这个字符串的虚拟地址为 `0x0076FA1C`, 然后我们去找到对应的物理地址.
 
@@ -291,6 +303,7 @@ cr3=00000000768e1000
 ```
 
 #### 动手翻译传统模式虚拟地址
+> 操作系统: Windows 8.1 x86
 
 字符串的虚拟地址为 `0x00C2FA60`
 
@@ -358,85 +371,353 @@ kd> !db (80000000`1763b867 & 000fffff`fffff000) + a60
 
 嘿~是不是很神奇?
 
-> 下面开始就是未完成部分...
+----
+
+## 在 Windows 系统中与内存管理相关的基础概念
+
+### 页的几个术语
+
+* `Virtual Page Offset`, VPO (虚拟页偏移) 也就是前面说的分页模式中虚拟地址在物理 Page Frame 内的 Offset 值.
+* `Virtual Page Number`, VPN (虚拟页号) 与 VPO 相对应, 用来查找最终的物理地址 Page Frame 地址. 在其中忽略的各种 Table Entry 的 Index 的值.
+* `Page Frame`, PF (页帧) 是在物理地址空间里, 一个页的起始地址 (基地址), 分为 4 种: 4K Page Frame, 2M Page Frame, 4M Page Frame, 1G Page Frame.
+* `Page Frame Number`, PFN (页帧号) 是以 PF, 即以页为单位对内存进行编号, 该编号可作为页数组的索引. 计算方法为 PF / PageSize
+
+他们的关系如图:
+
+![PxN](PxN.jpg)
+
+### Windows 虚拟地址空间
+
+![Windows x64 Main System Regions](win-main-system-regions.jpg)
+
+### IRQL
+在 << Windows kernel learning: 1. Basis >> 中我们了解到有几种 IRQL. 其中定义了两个软件中断: APC 和 DPC.  
+他们具有相关的 IRQL 级别: APC 中断为 1, DPC 为 2. 当检查软件中断的代码发现有一个正在等待处理时, 且当前 IRQL 小于中断 IRQL 则调用处理程序, 从而模拟处理器对硬件中断的处理.
+
+当处理器的 IRQL 大于等于 2 时, 该处理器被阻止执行上下文切换的线程调度代码.  
+处理器在 IRQL 为 1 时可以切换线程上下文, 并且当线程恢复时, IRQL 将恢复为线程被抢占时的值. 
+
+用户模式代码始终在 IRQL=PASSIVE 执行, 并且没有可用的 API 来更改当前的 IRQL. 所以, 用户模式代码总是可以中断, 并且线程上下文切换总是可能的.
+
+处理程序代码绝不能降低 IRQL, 除非它在最后阶段即将要从中断返回. 当这种情况发生时, 处理程序必须恢复在中断发生前生效的 IRQL. 特别是, 它不能将 IRQL 设置为低于中断前的值.
+
+一个代码块可以将IRQL显式提升到当前级别以上, 以禁止较高的IRQL中断. 这可以在处理程序和不是处理程序的任何一部分的代码中完成.
+
+所有硬件中断都具有大于 DPC 的IRQL, 因此软件中断总是在硬件中断处理程序中被屏蔽 (但是只有在执行处理程序的处理器上才会被屏蔽, 其他处理器可能处于任何IRQL).
+
+内核检查软件中断的一个阶段是在退出处理程序之前还原IRQL. 例如, 可能会发生以下事件序列:
+
+* PASSIVE执行的代码被硬件中断中断.
+* 处理程序代码请求软件 DPC 中断. 当前的 IRQL 大于 DPC, 因为它已经在处理程序逻辑开始处被提升为硬件中断的 IRQL, 所以 DPC 中断保持不变.
+* 处理程序代码返回, 将 IRQL 还原为 PASSIVE.
+* 降低 IRQL 的代码检查待处理的软件中断, 并找到DPC. 由于 IRQL 被设置为 PASSIVE, 所以可以对其中断. IRQL 设置为DPC, 并调用 DPC 中断的处理程序.
+* 当处理程序返回时, IRQL 将再次恢复为 PASSIVE. 这一次没有进一步的中断等待, 并且被中断的代码被恢复.
+
+### APC 中断
+
+APC (异步过程调用) 提供了一种在特定用户线程环境中执行用户程序和系统代码的途径. 
+
+**APC 例程可以访问资源(对象), 等待对象句柄, 引发页面错误, 以及调用系统服务.**
+
+DPC 队列是系统范围的, 而 APC 队列是存在于每个线程中的.
+
+有两种 APC 类型: 内核模式和用户模式.  
+内核模式的 APC 并不要求目标线程获得许可(Alertable State), 而用户模式的线程必须获得许可才可以执行.
+
+内核模式的 APC 也有两种类型: 普通的和特殊的.  
+特殊的 APC 在 APC 级别上执行, 并且允许 APC 例程修改某些 APC 参数; 普通的 APC 在 PASSIVE 级别上执行, 并且执行被特殊APC 修改过的参数.
+
+APC 插入和交付的图表
+
+APC 类型          | 插入行为                      | 交付行为
+:-----------------|:-----------------------------|:-----------------
+特殊的 (内核模式)  | 插入在内核模式 APC 列表的尾部  | 只要 IRQL 降下来并且线程未在守护区域内, 就在 APC 级别上被交付. 相应的指针指向在插入 APC 时指定的参数
+普通的 (内核模式)  | 插入在最后一个特殊 APC 的正后面 (也就是所有其他普通 APC 的头部) | 在关联的特殊 APC 被执行后, 在 PASSIVE 级别上被交付, 此特殊 APC 返回的参数也被传递过来
+普通的 (用户模式)  | 插入在用户模式 APC 列表的尾部   | 只要 IRQL 降下来, 并且线程未在临界区或守护区域内, 而且该线程处于 Alertable 的状态, 就在 PASSIVE 级别上被交付. 所关联的特殊 APC 返回的参数也被传递过来
+普通的 (用户模式) 线程退出 (PsExitSpecialApc) | 插入在用户模式 APC 列表的头部 | 如果线程正在执行可被 Alertable 的用户模式等待, 则当返回用户模式时, 在 PASSIVE 级别上被交付, 线程终止特殊 APC 所返回的参数也被传递过来
+
+内核使用 APC 来询问线程环境, 以及终止目标线程.
+
+设备驱动程序在拥有一把锁后, 常常会阻塞 APC, 或者进入一个临界区或守护区域, 以防止这种操作发生; 不然,该锁有可能永远不会被释放, 从而导致系统停住.
+
+### DPC 中断
+
+DPC (延迟过程调用) 中断也用于请求异步执行回调, 但与 APC 中断不同, 因为:
+
+* 它是一个 "真正的" 中断, 一旦 IRQL 允许, 它可以在任意的线程上下文中执行.
+* 它具有更高的 IRQL, 因此它在 APC 中断之前处理.
+
+内核利用 DPC 来处理定时器到期 (并解除那些正在等待定时器的线程), 以及在一个线程的时限到期以后重新调度处理器.  
+设备驱动程序利用 DPC 来处理中断, 为了给硬件中断提供及时服务, Windows 在设备驱动程序的配合下, 试图将 IRQL 曝出在设备 IRQL 级别之下. 达到这个目的的方法是, 让设备驱动程序 ISR (中断服务例程) 执行最少最必要的工作来响应它们的设备, 将易变的中断状态保存起来, 并将数据传输或者其他并非时间紧迫的中断处理活动延迟到一个位于 DPC 级别的 DPC 中执行.
+
+正在等待执行的 DPC 例程被存储在由内核管理的队列中, 每个处理器都有一个这样的队列 (DPC 队列).
+
+DPC 中断产生规则图表
+
+DPC 优先级     | DPC 被定为在 ISR 的处理器上    | DPC 被定为在另一个处理器上
+:-------------|:-----------------------------|:-------------------------------------------
+低级          | DPC 队列长度超过了最大 DPC 队列长度值, 或者 DPC 请求率小于最小 DPC 请求率 | DPC 队列长度超过了最大 DPC 队列长度值, 或者系统空闲
+中级          | 总是激发                      | DPC 队列长度超过了最大 DPC 队列长度值, 或者系统空闲
+中-高级       | 总是激发                      | 目标处理器空闲
+高级          | 总是激发                      | 目标处理器空闲
+
+**DPC 例程可以调用内核函数, 但是不能调用系统服务, 产生页面错误, 或者创建或等待分发器对象.**
+
+编写 DPC 例程规则: 不能访问换页的内存, 不能执行分发等待操作, 也不能对它们将来运行在哪个 IRQL 上做假设. 
+而且, 绝对不能使用 `KeAcquire/ReleaseSpinLockAtDpcLevel` API, 因为这些 API 函数假设运行在 DPC 级别上.
 
 ----
 
-## 内核对用户空间的管理
+## VMM (Virtual Memory Manager) 数据结构
 
-每个进程都有自己的用户空间, 其 "进程控制块" EPROCESS 中有个指针 VadRoot, 指向代表这个用户空间的数据结构.
+### VAD (Virtual Address Descriptor)
 
-先看一下涉及到的几个数据结构:
+VAD 用于在用户模式范围内跟踪保留和提交的地址 (内核空间并不受 VAD 的管理). 
+VAD 会存储保留或提交的每个地址范围, 以及保护状态和访问权限.
 
-```C
-0: kd> dtx nt!_EPROCESS ffffe000082ea080
-(*((nt!_EPROCESS *)0xffffe000082ea080))                 [Type: _EPROCESS]
-    [+0x000] Pcb              [Type: _KPROCESS]
-    ...
-    [+0x5d8] VadRoot          [Type: _RTL_AVL_TREE]
-    [+0x5e0] VadHint          : 0xffffe00008591930 [Type: void *]
-    [+0x5e8] VadCount         : 0x229 [Type: unsigned __int64]
-    [+0x5f0] VadPhysicalPages : 0x0 [Type: unsigned __int64]
-    [+0x5f8] VadPhysicalPagesLimit : 0x0 [Type: unsigned __int64]
-    ...
+VAD 以 AVL 自平衡树的结构组织, 其中每个节点是 VAD 实例, 最多可以有两个子节点.  
+左边的 Children 如果存在, 是一个地址范围小于 parent 节点地址范围的 VAD; 右边的 Children 大于 parent 节点地址范围. 
 
-0: kd> dx -r1 (*((ntkrnlmp!_RTL_AVL_TREE *)0xffffe000082ea658))
-(*((ntkrnlmp!_RTL_AVL_TREE *)0xffffe000082ea658))                 [Type: _RTL_AVL_TREE]
-    [+0x000] Root             : 0xffffe000088acb60 [Type: _RTL_BALANCED_NODE *]
-
-0: kd> dx -r1 (*((ntkrnlmp!_RTL_BALANCED_NODE *)0xffffe000088acb60))
-(*((ntkrnlmp!_RTL_BALANCED_NODE *)0xffffe000088acb60))                 [Type: _RTL_BALANCED_NODE]
-    [+0x000] Children         [Type: _RTL_BALANCED_NODE * [2]]
-    [+0x000] Left             : 0xffffe0000868a9f0 [Type: _RTL_BALANCED_NODE *]
-    [+0x008] Right            : 0xffffe000082d8990 [Type: _RTL_BALANCED_NODE *]
-    [+0x010 ( 0: 0)] Red              : 0x0 [Type: unsigned char]
-    [+0x010 ( 1: 0)] Balance          : 0x0 [Type: unsigned char]
-    [+0x010] ParentValue      : 0x0 [Type: unsigned __int64]
-
-0: kd> dx -r1 (*((ntkrnlmp!_RTL_BALANCED_NODE *)0xffffe0000868a9f0))
-(*((ntkrnlmp!_RTL_BALANCED_NODE *)0xffffe0000868a9f0))                 [Type: _RTL_BALANCED_NODE]
-    [+0x000] Children         [Type: _RTL_BALANCED_NODE * [2]]
-    [+0x000] Left             : 0xffffe00007f9f380 [Type: _RTL_BALANCED_NODE *]
-    [+0x008] Right            : 0xffffe00008680e20 [Type: _RTL_BALANCED_NODE *]
-    [+0x010 ( 0: 0)] Red              : 0x1 [Type: unsigned char]
-    [+0x010 ( 1: 0)] Balance          : 0x3 [Type: unsigned char]
-    [+0x010] ParentValue      : 0xffffe000088acb63 [Type: unsigned __int64]
-
-
-0: kd> dx -r1 (*((ntkrnlmp!_MMVAD_SHORT *)0xffffe0000868a9f0))
-(*((ntkrnlmp!_MMVAD_SHORT *)0xffffe0000868a9f0))                 [Type: _MMVAD_SHORT]
-    [+0x000] VadNode          [Type: _RTL_BALANCED_NODE]
-    [+0x000] NextVad          : 0xffffe00007f9f380 [Type: _MMVAD_SHORT *]
-    [+0x018] StartingVpn      : 0xb3f0 [Type: unsigned long]
-    [+0x01c] EndingVpn        : 0xb5a2 [Type: unsigned long]
-    [+0x020] StartingVpnHigh  : 0x0 [Type: unsigned char]
-    [+0x021] EndingVpnHigh    : 0x0 [Type: unsigned char]
-    [+0x022] CommitChargeHigh : 0x0 [Type: unsigned char]
-    [+0x023] LargeImageBias   : 0x0 [Type: unsigned char]
-    [+0x024] ReferenceCount   : 0 [Type: long]
-    [+0x028] PushLock         [Type: _EX_PUSH_LOCK]
-    [+0x030] u                [Type: <unnamed-tag>]
-    [+0x034] u1               [Type: <unnamed-tag>]
-    [+0x038] EventList        : 0x0 [Type: _MI_VAD_EVENT_BLOCK *]
-
-0: kd> dtx nt!_MMVAD 0xffffe0000868a9f0
-(*((nt!_MMVAD *)0xffffe0000868a9f0))                 [Type: _MMVAD]
-    [+0x000] Core             [Type: _MMVAD_SHORT]
-    [+0x040] u2               [Type: <unnamed-tag>]
-    [+0x048] Subsection       : 0xffffe000077847e8 [Type: _SUBSECTION *]
-    [+0x050] FirstPrototypePte : 0xffffc00001806010 [Type: _MMPTE *]
-    [+0x058] LastContiguousPte : 0xffffc00001806da0 [Type: _MMPTE *]
-    [+0x060] ViewLinks        [Type: _LIST_ENTRY]
-    [+0x070] VadsProcess      : 0xffffe000082ea081 [Type: _EPROCESS *]
-    [+0x078] u4               [Type: <unnamed-tag>]
-
-
-```
-
-VAD 全称 Virtual Address Descriptor ( 虚拟地址描述符 ), 在 Windows 的进程空间都是通过一个对象来描述整个地址空间, 保留或者提交的虚拟内存, 然而这个对象就是VAD对象, 也就是说你在某个进程分配内存(VirtualAlloc), 
-释放内存(VirtualFree)的时候, 其实真正变动的都在这里, 而且此对象是一个二叉树, 而 VAD便是此树的根, 而每一个 `nt!_RTL_BALANCED_NODE` 中便是一段虚拟内存描述信息.
+VAD 是此树的根, 每一个 `nt!_RTL_BALANCED_NODE` 中便是一段虚拟内存描述信息.
 
 比如说 0x1000 这一段内存是保留的, 0x2000这一段内存是提交的, 那我们怎么知道它是保留还是提交就体现在这个 `nt!_RTL_BALANCED_NODE` 上, 也就是每一块虚拟内存 (我说的是一块, 不是一页) 都会一一对应着一个节点 (这个问题很关键, 很关键)
 
-通过上面调试的数据结构可以看到, `nt!_MMVAD` 的首字段是 `nt!_MMVAD_SHORT`, 而 `nt!_MMVAD_SHORT` 首字段是 `nt!_RTL_BALANCED_NODE`. 所以, 每个节点实际上就是 `nt!_MMVAD` 结构
+通过调试的数据结构可以看到, `nt!_MMVAD` 的首字段是 `nt!_MMVAD_SHORT`, 而 `nt!_MMVAD_SHORT` 首字段是 `nt!_RTL_BALANCED_NODE`. 所以, 每个节点实际上就是 `nt!_MMVAD` 结构
 
+让我们看下相关的数据结构
+
+```C
+1: kd> dt nt!_RTL_BALANCED_NODE
+   +0x000 Children         : [2] Ptr64 _RTL_BALANCED_NODE
+   +0x000 Left             : Ptr64 _RTL_BALANCED_NODE
+   +0x008 Right            : Ptr64 _RTL_BALANCED_NODE
+   +0x010 Red              : Pos 0, 1 Bit
+   +0x010 Balance          : Pos 0, 2 Bits
+   +0x010 ParentValue      : Uint8B
+
+1: kd> dt nt!_MMVAD_SHORT -r
+   +0x000 VadNode          : _RTL_BALANCED_NODE
+      +0x000 Children         : [2] Ptr64 _RTL_BALANCED_NODE
+         +0x000 Children         : [2] Ptr64 _RTL_BALANCED_NODE
+         +0x000 Left             : Ptr64 _RTL_BALANCED_NODE
+         +0x008 Right            : Ptr64 _RTL_BALANCED_NODE
+         +0x010 Red              : Pos 0, 1 Bit
+         +0x010 Balance          : Pos 0, 2 Bits
+         +0x010 ParentValue      : Uint8B
+      +0x000 Left             : Ptr64 _RTL_BALANCED_NODE
+      +0x008 Right            : Ptr64 _RTL_BALANCED_NODE
+      +0x010 Red              : Pos 0, 1 Bit
+      +0x010 Balance          : Pos 0, 2 Bits
+      +0x010 ParentValue      : Uint8B
+   +0x000 NextVad          : Ptr64 _MMVAD_SHORT
+   +0x018 StartingVpn      : Uint4B
+   +0x01c EndingVpn        : Uint4B
+   +0x020 StartingVpnHigh  : UChar
+   +0x021 EndingVpnHigh    : UChar
+   +0x022 CommitChargeHigh : UChar
+   +0x023 LargeImageBias   : UChar
+   +0x024 ReferenceCount   : Int4B
+   +0x028 PushLock         : _EX_PUSH_LOCK
+      +0x000 Locked           : Pos 0, 1 Bit
+      +0x000 Waiting          : Pos 1, 1 Bit
+      +0x000 Waking           : Pos 2, 1 Bit
+      +0x000 MultipleShared   : Pos 3, 1 Bit
+      +0x000 Shared           : Pos 4, 60 Bits
+      +0x000 Value            : Uint8B
+      +0x000 Ptr              : Ptr64 Void
+   +0x030 u                : <unnamed-tag>
+      +0x000 LongFlags        : Uint4B
+      +0x000 VadFlags         : _MMVAD_FLAGS
+         +0x000 VadType          : Pos 0, 3 Bits
+         +0x000 Protection       : Pos 3, 5 Bits
+         +0x000 PreferredNode    : Pos 8, 6 Bits
+         +0x000 NoChange         : Pos 14, 1 Bit
+         +0x000 PrivateMemory    : Pos 15, 1 Bit
+         +0x000 Teb              : Pos 16, 1 Bit
+         +0x000 PrivateFixup     : Pos 17, 1 Bit
+         +0x000 Spare            : Pos 18, 13 Bits
+         +0x000 DeleteInProgress : Pos 31, 1 Bit
+   +0x034 u1               : <unnamed-tag>
+      +0x000 LongFlags1       : Uint4B
+      +0x000 VadFlags1        : _MMVAD_FLAGS1
+         +0x000 CommitCharge     : Pos 0, 31 Bits
+         +0x000 MemCommit        : Pos 31, 1 Bit
+   +0x038 EventList        : Ptr64 _MI_VAD_EVENT_BLOCK
+      +0x000 Next             : Ptr64 _MI_VAD_EVENT_BLOCK
+      +0x008 WaitReason       : Uint4B
+      +0x010 Gate             : _KGATE
+         +0x000 Header           : _DISPATCHER_HEADER
+      +0x010 SecureInfo       : _MMADDRESS_LIST
+         +0x000 u1               : <unnamed-tag>
+         +0x008 EndVa            : Ptr64 Void
+      +0x010 BitMap           : _RTL_BITMAP_EX
+         +0x000 SizeOfBitMap     : Uint8B
+         +0x008 Buffer           : Ptr64 Uint8B
+      +0x010 InPageSupport    : Ptr64 _MMINPAGE_SUPPORT
+         +0x000 ListEntry        : _LIST_ENTRY
+         +0x010 ListHead         : _LIST_ENTRY
+         +0x020 Event            : _KEVENT
+         +0x038 CollidedEvent    : _KEVENT
+         +0x050 IoStatus         : _IO_STATUS_BLOCK
+         +0x060 ReadOffset       : _LARGE_INTEGER
+         +0x068 PteContents      : _MMPTE
+         +0x070 Thread           : Ptr64 _ETHREAD
+         +0x078 LockedProtoPfn   : Ptr64 _MMPFN
+         +0x080 WaitCount        : Int4B
+         +0x084 ByteCount        : Uint4B
+         +0x088 u3               : <unnamed-tag>
+         +0x08c u1               : <unnamed-tag>
+         +0x090 FilePointer      : Ptr64 _FILE_OBJECT
+         +0x098 ControlArea      : Ptr64 _CONTROL_AREA
+         +0x0a0 Autoboost        : Ptr64 Void
+         +0x0a8 FaultingAddress  : Ptr64 Void
+         +0x0b0 PointerPte       : Ptr64 _MMPTE
+         +0x0b8 BasePte          : Ptr64 _MMPTE
+         +0x0c0 Pfn              : Ptr64 _MMPFN
+         +0x0c8 PrefetchMdl      : Ptr64 _MDL
+         +0x0d0 Mdl              : _MDL
+         +0x100 Page             : [16] Uint8B
+      +0x010 PhysicalMemory   : _MI_PHYSMEM_BLOCK
+         +0x000 IoTracker        : Ptr64 _MMIO_TRACKER
+      +0x010 LargePage        : Ptr64 _MI_LARGEPAGE_MEMORY_INFO
+         +0x000 ListHead         : _LIST_ENTRY
+         +0x010 ColoredPageInfoBase : Ptr64 _COLORED_PAGE_INFO
+         +0x018 PagesNeedZeroing : Uint4B
+
+1: kd> dt nt!_MMVAD -r
+   +0x000 Core             : _MMVAD_SHORT
+   +0x040 u2               : <unnamed-tag>
+      +0x000 LongFlags2       : Uint4B
+      +0x000 VadFlags2        : _MMVAD_FLAGS2
+         +0x000 FileOffset       : Pos 0, 24 Bits
+         +0x000 Large            : Pos 24, 1 Bit
+         +0x000 TrimBehind       : Pos 25, 1 Bit
+         +0x000 Inherit          : Pos 26, 1 Bit
+         +0x000 CopyOnWrite      : Pos 27, 1 Bit
+         +0x000 NoValidationNeeded : Pos 28, 1 Bit
+         +0x000 Spare            : Pos 29, 3 Bits
+   +0x048 Subsection       : Ptr64 _SUBSECTION
+      +0x000 ControlArea      : Ptr64 _CONTROL_AREA
+         +0x000 Segment          : Ptr64 _SEGMENT
+         +0x008 ListHead         : _LIST_ENTRY
+         +0x018 NumberOfSectionReferences : Uint8B
+         +0x020 NumberOfPfnReferences : Uint8B
+         +0x028 NumberOfMappedViews : Uint8B
+         +0x030 NumberOfUserReferences : Uint8B
+         +0x038 u                : <unnamed-tag>
+         +0x040 FilePointer      : _EX_FAST_REF
+         +0x048 ControlAreaLock  : Int4B
+         +0x04c ModifiedWriteCount : Uint4B
+         +0x050 WaitList         : Ptr64 _MI_CONTROL_AREA_WAIT_BLOCK
+         +0x058 u2               : <unnamed-tag>
+         +0x068 LockedPages      : Uint8B
+         +0x070 FileObjectLock   : _EX_PUSH_LOCK
+      +0x008 SubsectionBase   : Ptr64 _MMPTE
+         +0x000 u                : <unnamed-tag>
+      +0x010 NextSubsection   : Ptr64 _SUBSECTION
+         +0x000 ControlArea      : Ptr64 _CONTROL_AREA
+         +0x008 SubsectionBase   : Ptr64 _MMPTE
+         +0x010 NextSubsection   : Ptr64 _SUBSECTION
+         +0x018 PtesInSubsection : Uint4B
+         +0x020 UnusedPtes       : Uint4B
+         +0x020 GlobalPerSessionHead : _RTL_AVL_TREE
+         +0x028 u                : <unnamed-tag>
+         +0x02c StartingSector   : Uint4B
+         +0x030 NumberOfFullSectors : Uint4B
+      +0x018 PtesInSubsection : Uint4B
+      +0x020 UnusedPtes       : Uint4B
+      +0x020 GlobalPerSessionHead : _RTL_AVL_TREE
+         +0x000 Root             : Ptr64 _RTL_BALANCED_NODE
+      +0x028 u                : <unnamed-tag>
+         +0x000 LongFlags        : Uint4B
+         +0x000 SubsectionFlags  : _MMSUBSECTION_FLAGS
+      +0x02c StartingSector   : Uint4B
+      +0x030 NumberOfFullSectors : Uint4B
+   +0x050 FirstPrototypePte : Ptr64 _MMPTE
+      +0x000 u                : <unnamed-tag>
+         +0x000 Long             : Uint8B
+         +0x000 VolatileLong     : Uint8B
+         +0x000 Hard             : _MMPTE_HARDWARE
+         +0x000 Flush            : _HARDWARE_PTE
+         +0x000 Proto            : _MMPTE_PROTOTYPE
+         +0x000 Soft             : _MMPTE_SOFTWARE
+         +0x000 TimeStamp        : _MMPTE_TIMESTAMP
+         +0x000 Trans            : _MMPTE_TRANSITION
+         +0x000 Subsect          : _MMPTE_SUBSECTION
+         +0x000 List             : _MMPTE_LIST
+   +0x058 LastContiguousPte : Ptr64 _MMPTE
+   +0x060 ViewLinks        : _LIST_ENTRY
+   +0x070 VadsProcess      : Ptr64 _EPROCESS
+   +0x078 u4               : <unnamed-tag>
+      +0x000 SequentialVa     : _MI_VAD_SEQUENTIAL_INFO
+         +0x000 Length           : Pos 0, 12 Bits
+         +0x000 Vpn              : Pos 12, 52 Bits
+      +0x000 ExtendedInfo     : Ptr64 _MMEXTEND_INFO
+         +0x000 CommittedSize    : Uint8B
+         +0x008 ReferenceCount   : Uint4B
+```
+
+可以在 Windbg 使用 `!vad` 命令来显示 VAD 所有内容:
+
+```x86asm
+1: kd> !process 0 1 explorer.exe
+PROCESS ffffe000080b5900
+    SessionId: 1  Cid: 05c0    Peb: 7ff6baea6000  ParentCid: 05b0
+    DirBase: 2693f000  ObjectTable: ffffc00001b4b240  HandleCount: <Data Not Accessible>
+    Image: explorer.exe
+->  VadRoot ffffe0000a4fa3d0 Vads 487 Clone 0 Private 21876. Modified 2328. Locked 4293.
+    DeviceMap ffffc00001809d90
+    Token                             ffffc00001b5e060
+    ElapsedTime                       00:03:05.489
+    UserTime                          00:00:00.562
+    KernelTime                        00:00:01.171
+    QuotaPoolUsage[PagedPool]         1164104
+    QuotaPoolUsage[NonPagedPool]      65696
+    Working Set Sizes (now,min,max)  (45742, 50, 345) (182968KB, 200KB, 1380KB)
+    PeakWorkingSetSize                47348
+    VirtualSize                       502 Mb
+    PeakVirtualSize                   532 Mb
+    PageFaultCount                    61975
+    MemoryPriority                    FOREGROUND
+    BasePriority                      8
+    CommitCharge                      25753
+
+1: kd> !vad 0xffffe0000a4fa3d0 
+VAD           Level     Start       End Commit
+ffffe00008100830  7       de0       def      0 Mapped       READWRITE          Pagefile section, shared commit 0x10
+ffffe000080f5bd0  8       df0       dfc      2 Private      READWRITE          
+ffffe00008093c50  6       e00       e0e      0 Mapped       READONLY           Pagefile section, shared commit 0xf
+ffffe0000810a500  8       e10       e8f     13 Private      READWRITE          
+ffffe000080b4e40  7       e90       e93      0 Mapped       READONLY           Pagefile section, shared commit 0x4
+ffffe00008093a70  8       ea0       ea2      0 Mapped       READONLY           Pagefile section, shared commit 0x3
+ffffe000080e62f0  5       eb0       eb1      2 Private      READWRITE          
+ffffe000080f2d10  7       ec0       f3d      0 Mapped       READONLY           \Windows\System32\locale.nls
+...
+ffffe000078a8d60  9 7ffc64010 7ffc64079      2 Mapped  Exe  EXECUTE_WRITECOPY  \Windows\System32\ws2_32.dll
+ffffe000080f0200  8 7ffc64080 7ffc64234     10 Mapped  Exe  EXECUTE_WRITECOPY  \Windows\System32\ntdll.dll
+
+Total VADs: 487, average level: 8, maximum depth: 10
+Total private commit: 0x635e pages (101752 KB)
+Total shared commit:  0x12e9 pages (19364 KB)
+```
+
+实际上, VadRoot 的地址存在于 `_EPROCESS->VadRoot->Root` 中的
+
+`!vad` 输出各项含义:
+
+* VAD, _MMVAD 数据结构的地址
+* Level, 树的深度
+* Start/End, 表示为虚拟页号(VPN, Virtual Page Number), 即地址除以页面大小 (4KB) 的值.  
+  例如第一行定义从 `0xde0000` 开始, 以 `0xdeffff` 结束, 注意结束地址是最后一页的 VPN, 所以最后一个字节的地址是 `0x1F000 + 0xFFF`
+* Commit, 范围内已提交的页面数, 我们可以选择保留一个范围, 然后只提交其中一部分.
+* 分配类型.
+* 页面上允许的访问类型.
+
+当 PML4E 当前位清零时, 对应的 VA 范围不存在 PDPT, PD 或 PT. 没有存储该范围的 PDPT 的物理页面, 没有存储 PD 的页面等.  
+同样, PML4E 可以指向现有的 PDPT, 但是 PDPTE 可以使当前位清零, 因此对于该特定范围不存在 PD 或 PT.
+
+对于 `_MMVAD_SHORT.u.VadFlags.MemCommit = 1`, VMM必须在PTE内部记录其已被分解的信息, 因为VAD标志将范围标记为完全提交. 对于这样的范围, 将VAD标志设置为1, 并且按照说明设置分解的PTE. 
+
+对于 `_MMVAD_SHORT.u.VadFlags.MemCommit = 0` 的范围, VMM可以设想将PTE设置为0: 范围不会在VAD中标记为已提交, 因此PTE设置为0表示未提交的页面. 然而, 实际发生的情况是, PTE设置为 `0x00000000'00000200`. 
+
+> 下面还未完成... (内容太多...)
