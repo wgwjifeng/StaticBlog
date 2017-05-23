@@ -4,17 +4,33 @@
   xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>MeeSong&#39;s Blog</title>
-    <link>https://meesong.github.io/</link>
+    <link>https://meesong.github.io/StaticBlog/</link>
     <atom:link href="/StaticBlog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>生活就是不断地调试~</description>
-    <pubDate>Fri, 19 May 2017 00:19:39 GMT</pubDate>
+    <pubDate>Sun, 21 May 2017 04:24:18 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
     <item>
+      <title>Windows kernel learning: 4. Object Management</title>
+      <link>https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/4-Object-Management/</link>
+      <guid>https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/4-Object-Management/</guid>
+      <pubDate>Sun, 21 May 2017 04:24:18 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;对象管理是 Windows Executive 的一个子系统实现, 用于管理 Windows 资源. 资源包括物理设备, 文件, 文件目录, 注册表条目, 正在运行的进程等等. 所有子系统访问资源都必须通过对象管理子系统. &lt;/p&gt;
+&lt;p&gt;对象实际上就是一组数据结构加操作(函数). &lt;/p&gt;
+&lt;p&gt;各种 Object 的共有的信息 (例如, 对象类型, 对象的引用计数, 句柄数等信息) 保存在 OBJECT_HEADER 与其他的几个结构中. 换而言之, 在对象管理器内部, 不同类型的对象具有相同的 Object Header, 但 Object Body 部分却是不同的.&lt;/p&gt;
+      
+      </description>
+      
+      <comments>https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/4-Object-Management/#disqus_thread</comments>
+    </item>
+    
+    <item>
       <title>为 hexo NexT 添加 Gitment 评论插件</title>
-      <link>https://meesong.github.io/2017/NexT+Gitment/</link>
-      <guid>https://meesong.github.io/2017/NexT+Gitment/</guid>
+      <link>https://meesong.github.io/StaticBlog/2017/NexT+Gitment/</link>
+      <guid>https://meesong.github.io/StaticBlog/2017/NexT+Gitment/</guid>
       <pubDate>Thu, 18 May 2017 17:28:52 GMT</pubDate>
       <description>
       
@@ -24,13 +40,13 @@
       
       </description>
       
-      <comments>https://meesong.github.io/2017/NexT+Gitment/#disqus_thread</comments>
+      <comments>https://meesong.github.io/StaticBlog/2017/NexT+Gitment/#disqus_thread</comments>
     </item>
     
     <item>
       <title>PDU 编码规则</title>
-      <link>https://meesong.github.io/2017/PDU-Encode/</link>
-      <guid>https://meesong.github.io/2017/PDU-Encode/</guid>
+      <link>https://meesong.github.io/StaticBlog/2017/PDU-Encode/</link>
+      <guid>https://meesong.github.io/StaticBlog/2017/PDU-Encode/</guid>
       <pubDate>Thu, 18 May 2017 03:36:02 GMT</pubDate>
       <description>
       
@@ -38,13 +54,13 @@
       
       </description>
       
-      <comments>https://meesong.github.io/2017/PDU-Encode/#disqus_thread</comments>
+      <comments>https://meesong.github.io/StaticBlog/2017/PDU-Encode/#disqus_thread</comments>
     </item>
     
     <item>
       <title>Windows kernel learning: 3. Memory Management</title>
-      <link>https://meesong.github.io/2017/Windows-kernel-learning/Windows-kernel-learning-3-Memory-Management/</link>
-      <guid>https://meesong.github.io/2017/Windows-kernel-learning/Windows-kernel-learning-3-Memory-Management/</guid>
+      <link>https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/Windows-kernel-learning-3-Memory-Management/</link>
+      <guid>https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/Windows-kernel-learning-3-Memory-Management/</guid>
       <pubDate>Mon, 15 May 2017 07:00:36 GMT</pubDate>
       <description>
       
@@ -53,13 +69,13 @@
       
       </description>
       
-      <comments>https://meesong.github.io/2017/Windows-kernel-learning/Windows-kernel-learning-3-Memory-Management/#disqus_thread</comments>
+      <comments>https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/Windows-kernel-learning-3-Memory-Management/#disqus_thread</comments>
     </item>
     
     <item>
       <title>Install ArchLinux to WSL</title>
-      <link>https://meesong.github.io/2017/Install-ArchLinux-to-WSL/</link>
-      <guid>https://meesong.github.io/2017/Install-ArchLinux-to-WSL/</guid>
+      <link>https://meesong.github.io/StaticBlog/2017/Install-ArchLinux-to-WSL/</link>
+      <guid>https://meesong.github.io/StaticBlog/2017/Install-ArchLinux-to-WSL/</guid>
       <pubDate>Fri, 12 May 2017 09:33:52 GMT</pubDate>
       <description>
       
@@ -67,13 +83,13 @@
       
       </description>
       
-      <comments>https://meesong.github.io/2017/Install-ArchLinux-to-WSL/#disqus_thread</comments>
+      <comments>https://meesong.github.io/StaticBlog/2017/Install-ArchLinux-to-WSL/#disqus_thread</comments>
     </item>
     
     <item>
       <title>BCDEdit 命令行选项帮助</title>
-      <link>https://meesong.github.io/2017/Debug/BCDEdit-option/</link>
-      <guid>https://meesong.github.io/2017/Debug/BCDEdit-option/</guid>
+      <link>https://meesong.github.io/StaticBlog/2017/Debug/BCDEdit-option/</link>
+      <guid>https://meesong.github.io/StaticBlog/2017/Debug/BCDEdit-option/</guid>
       <pubDate>Fri, 12 May 2017 06:09:12 GMT</pubDate>
       <description>
       
@@ -82,13 +98,13 @@
       
       </description>
       
-      <comments>https://meesong.github.io/2017/Debug/BCDEdit-option/#disqus_thread</comments>
+      <comments>https://meesong.github.io/StaticBlog/2017/Debug/BCDEdit-option/#disqus_thread</comments>
     </item>
     
     <item>
       <title>IDA + VMWare 调试 Windows 内核</title>
-      <link>https://meesong.github.io/2017/Debug/IDA-VMWare-debug-Windows-kernel/</link>
-      <guid>https://meesong.github.io/2017/Debug/IDA-VMWare-debug-Windows-kernel/</guid>
+      <link>https://meesong.github.io/StaticBlog/2017/Debug/IDA-VMWare-debug-Windows-kernel/</link>
+      <guid>https://meesong.github.io/StaticBlog/2017/Debug/IDA-VMWare-debug-Windows-kernel/</guid>
       <pubDate>Fri, 12 May 2017 06:05:41 GMT</pubDate>
       <description>
       
@@ -98,13 +114,13 @@
       
       </description>
       
-      <comments>https://meesong.github.io/2017/Debug/IDA-VMWare-debug-Windows-kernel/#disqus_thread</comments>
+      <comments>https://meesong.github.io/StaticBlog/2017/Debug/IDA-VMWare-debug-Windows-kernel/#disqus_thread</comments>
     </item>
     
     <item>
       <title>Windows 调试环境搭建</title>
-      <link>https://meesong.github.io/2017/Debug/Windows-debug-env/</link>
-      <guid>https://meesong.github.io/2017/Debug/Windows-debug-env/</guid>
+      <link>https://meesong.github.io/StaticBlog/2017/Debug/Windows-debug-env/</link>
+      <guid>https://meesong.github.io/StaticBlog/2017/Debug/Windows-debug-env/</guid>
       <pubDate>Fri, 12 May 2017 06:02:55 GMT</pubDate>
       <description>
       
@@ -114,13 +130,13 @@
       
       </description>
       
-      <comments>https://meesong.github.io/2017/Debug/Windows-debug-env/#disqus_thread</comments>
+      <comments>https://meesong.github.io/StaticBlog/2017/Debug/Windows-debug-env/#disqus_thread</comments>
     </item>
     
     <item>
       <title>Windows kernel learning: 2. System Call</title>
-      <link>https://meesong.github.io/2017/Windows-kernel-learning/Windows-kernel-learning-2-System-Call/</link>
-      <guid>https://meesong.github.io/2017/Windows-kernel-learning/Windows-kernel-learning-2-System-Call/</guid>
+      <link>https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/Windows-kernel-learning-2-System-Call/</link>
+      <guid>https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/Windows-kernel-learning-2-System-Call/</guid>
       <pubDate>Fri, 12 May 2017 05:41:43 GMT</pubDate>
       <description>
       
@@ -141,13 +157,13 @@
       
       </description>
       
-      <comments>https://meesong.github.io/2017/Windows-kernel-learning/Windows-kernel-learning-2-System-Call/#disqus_thread</comments>
+      <comments>https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/Windows-kernel-learning-2-System-Call/#disqus_thread</comments>
     </item>
     
     <item>
       <title>Windows kernel learning: 1. Basis</title>
-      <link>https://meesong.github.io/2017/Windows-kernel-learning/Windows-kernel-learning-1-Basis/</link>
-      <guid>https://meesong.github.io/2017/Windows-kernel-learning/Windows-kernel-learning-1-Basis/</guid>
+      <link>https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/Windows-kernel-learning-1-Basis/</link>
+      <guid>https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/Windows-kernel-learning-1-Basis/</guid>
       <pubDate>Fri, 12 May 2017 04:37:23 GMT</pubDate>
       <description>
       
@@ -163,22 +179,7 @@
       
       </description>
       
-      <comments>https://meesong.github.io/2017/Windows-kernel-learning/Windows-kernel-learning-1-Basis/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title>Windows kernel learning: 0. Preface</title>
-      <link>https://meesong.github.io/2017/Windows-kernel-learning/Windows-kernel-learning-0-Preface/</link>
-      <guid>https://meesong.github.io/2017/Windows-kernel-learning/Windows-kernel-learning-0-Preface/</guid>
-      <pubDate>Fri, 12 May 2017 04:37:00 GMT</pubDate>
-      <description>
-      
-        &lt;p&gt;&amp;lt;&amp;lt; Windows kernel learning &amp;gt;&amp;gt; 系列的文章是我学习 Windows 内核的笔记.&lt;/p&gt;
-&lt;p&gt;以 &amp;lt;&amp;lt; Windows 内核情景分析 &amp;gt;&amp;gt; 为学习主线, 扩展其他学习资料以及通过调试来适应现代版本
-      
-      </description>
-      
-      <comments>https://meesong.github.io/2017/Windows-kernel-learning/Windows-kernel-learning-0-Preface/#disqus_thread</comments>
+      <comments>https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/Windows-kernel-learning-1-Basis/#disqus_thread</comments>
     </item>
     
   </channel>

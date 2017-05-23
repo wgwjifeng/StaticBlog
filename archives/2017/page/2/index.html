@@ -76,7 +76,7 @@
 <link href="/StaticBlog/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Windows,Debug," />
+  <meta name="keywords" content="windows,kernel,meesong" />
 
 
 
@@ -94,17 +94,15 @@
 
 
 
-<meta name="description" content="打开虚拟机 vmx 文件, 增加下面内容  12345debugStub.listen.guest32.remote = &quot;TRUE&quot;  // 默认端口 8832debugStub.listen.guest64.remote = &quot;TRUE&quot;  // 默认端口 8864monitor.debugOnStartGuest32 = &quot;TRUE&quot;      // 在第一条指令 (在BIOS! 中警告)">
-<meta name="keywords" content="Windows,Debug">
-<meta property="og:type" content="article">
-<meta property="og:title" content="IDA + VMWare 调试 Windows 内核">
-<meta property="og:url" content="https://meesong.github.io/StaticBlog/2017/Debug/IDA-VMWare-debug-Windows-kernel/index.html">
+<meta name="description" content="生活就是不断地调试~">
+<meta property="og:type" content="website">
+<meta property="og:title" content="MeeSong&#39;s Blog">
+<meta property="og:url" content="https://meesong.github.io/StaticBlog/archives/2017/page/2/index.html">
 <meta property="og:site_name" content="MeeSong&#39;s Blog">
-<meta property="og:description" content="打开虚拟机 vmx 文件, 增加下面内容  12345debugStub.listen.guest32.remote = &quot;TRUE&quot;  // 默认端口 8832debugStub.listen.guest64.remote = &quot;TRUE&quot;  // 默认端口 8864monitor.debugOnStartGuest32 = &quot;TRUE&quot;      // 在第一条指令 (在BIOS! 中警告)">
-<meta property="og:updated_time" content="2017-05-12T06:14:02.892Z">
+<meta property="og:description" content="生活就是不断地调试~">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="IDA + VMWare 调试 Windows 内核">
-<meta name="twitter:description" content="打开虚拟机 vmx 文件, 增加下面内容  12345debugStub.listen.guest32.remote = &quot;TRUE&quot;  // 默认端口 8832debugStub.listen.guest64.remote = &quot;TRUE&quot;  // 默认端口 8864monitor.debugOnStartGuest32 = &quot;TRUE&quot;      // 在第一条指令 (在BIOS! 中警告)">
+<meta name="twitter:title" content="MeeSong&#39;s Blog">
+<meta name="twitter:description" content="生活就是不断地调试~">
 
 
 
@@ -132,13 +130,13 @@
 
 
 
-  <link rel="canonical" href="https://meesong.github.io/StaticBlog/2017/Debug/IDA-VMWare-debug-Windows-kernel/"/>
+  <link rel="canonical" href="https://meesong.github.io/StaticBlog/archives/2017/page/2/"/>
 
 
 
 
 
-  <title>IDA + VMWare 调试 Windows 内核 | MeeSong's Blog</title>
+  <title>归档 | MeeSong's Blog</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -172,7 +170,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail ">
+  <div class="container sidebar-position-left  page-archive  ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -320,228 +318,70 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-expand">
-    
+  <section id="posts" class="posts-collapse">
+    <span class="archive-move-on"></span>
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://meesong.github.io/StaticBlog/StaticBlog/2017/Debug/IDA-VMWare-debug-Windows-kernel/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MeeSong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/StaticBlog/uploads/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MeeSong's Blog">
+    <span class="archive-page-counter">
+      
+      
+      
+        
+      
+      嗯..! 目前共计 23 篇日志。 继续努力。
     </span>
 
     
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">IDA + VMWare 调试 Windows 内核</h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-12T14:05:41+08:00">
-                2017-05-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/StaticBlog/categories/Debug/" itemprop="url" rel="index">
-                    <span itemprop="name">Debug</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-            <span class="post-meta-divider">|</span>
-            <span class="page-pv"><i class="fa fa-file-o"></i>
-            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
-            </span>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
 
       
       
-
       
-        <ol>
-<li><p>打开虚拟机 vmx 文件, 增加下面内容</p>
- <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">debugStub.listen.guest32.remote = "TRUE"  // 默认端口 8832</div><div class="line">debugStub.listen.guest64.remote = "TRUE"  // 默认端口 8864</div><div class="line">monitor.debugOnStartGuest32 = "TRUE"      // 在第一条指令 (在BIOS! 中警告) 中断进入调试存根, 这将在第一条指令在0xFFFF0处停止VM, 您可以设置下一个断点来破坏* 0x7c00引导加载程序由BIOS加载</div><div class="line">debugStub.hideBreakpoints = "TRUE"        // 启用使用硬件断点而不是软件（INT3）断点</div><div class="line">bios.bootDelay = "3000"                   // 延迟启动BIOS代码</div></pre></td></tr></table></figure>
-</li>
-<li><p>IDA -&gt; Debugger -&gt; Attach -&gt; Remote GDB debugger</p>
-<p> hostname 填 <code>localhost</code>, port 填上面给出的默认端口</p>
-</li>
-<li><p>Alt + S, 设置内存布局 (0 ~ 0xFFFFFFF0 or x64: 0xFFFFFFFFFFFFFFF0)</p>
-</li>
-<li><p>如果是要调试 BIOS 代码, 那么应创建一个从 0xF0000 到 0x10000 的 16 位段</p>
-</li>
-</ol>
 
-      
-    </div>
-
-    <div>
       
         
-
-      
-    </div>
-
-    <div>
-      
-        
-  <ul class="post-copyright">
-    <li class="post-copyright-author">
-      <strong>本文作者：</strong>
-      MeeSong
-    </li>
-    <li class="post-copyright-link">
-      <strong>本文链接：</strong>
-      <a href="https://meesong.github.io/StaticBlog/2017/Debug/IDA-VMWare-debug-Windows-kernel/" title="IDA + VMWare 调试 Windows 内核">https://meesong.github.io/StaticBlog/2017/Debug/IDA-VMWare-debug-Windows-kernel/</a>
-    </li>
-    <li class="post-copyright-license">
-      <strong>版权声明： </strong>
-      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0 CN</a> 许可协议。转载请注明出处！
-    </li>
-  </ul>
-
-
-      
-    </div>
-
-    <div>
-      
-        
-  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
-    <div>如果喜欢, 请给我加个🍗~</div>
-    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
-      <span>赏</span>
-    </button>
-    <div id="QR" style="display: none;">
-      
-        <div id="wechat" style="display: inline-block">
-          <img id="wechat_qr" src="/StaticBlog/uploads/wechat.jpg" alt="MeeSong WeChat Pay"/>
-          <p>微信打赏</p>
+        <div class="collection-title">
+          <h2 class="archive-year motion-element" id="archive-year-2017">2017</h2>
         </div>
       
       
-        <div id="alipay" style="display: inline-block">
-          <img id="alipay_qr" src="/StaticBlog/uploads/alipay.jpg" alt="MeeSong Alipay"/>
-          <p>支付宝打赏</p>
-        </div>
-      
-    </div>
-  </div>
-
 
       
-    </div>
 
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/StaticBlog/tags/Windows/" rel="tag"># Windows</a>
-          
-            <a href="/StaticBlog/tags/Debug/" rel="tag"># Debug</a>
-          
-        </div>
-      
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
 
-      
+      <h2 class="post-title">
         
-      
+            <a class="post-title-link" href="/StaticBlog/2017/Windows-kernel-learning/Windows-kernel-learning-0-Preface/" itemprop="url">
+              
+                <span itemprop="name">Windows kernel learning: 0. Preface</span>
+              
+            </a>
+        
+      </h2>
 
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/StaticBlog/2017/Debug/Windows-debug-env/" rel="next" title="Windows 调试环境搭建">
-                <i class="fa fa-chevron-left"></i> Windows 调试环境搭建
-              </a>
-            
-          </div>
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2017-05-12T12:37:00+08:00"
+              content="2017-05-12" >
+          05-12
+        </time>
+      </div>
 
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/StaticBlog/2017/Debug/BCDEdit-option/" rel="prev" title="BCDEdit 命令行选项帮助">
-                BCDEdit 命令行选项帮助 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
+    </header>
   </article>
 
 
 
-    <div class="post-spread">
-      
-    </div>
-  </div>
+    
+
+  </section>
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/StaticBlog/archives/2017/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/StaticBlog/archives/2017/">1</a><span class="page-number current">2</span>
+  </nav>
+
+
 
 
           </div>
@@ -549,45 +389,6 @@
 
 
           
-  <div class="comments" id="comments">
-    
-      <div onclick="showGitment()" id="gitment_title" class="gitment_title">显示 Gitment 评论</div>
-      <div id="container" style="display:none"></div>
-      <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
-      <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
-      <script>
-      const myTheme = {
-        render(state, instance) {
-          const container = document.createElement('div');
-          container.lang = "en-US";
-          container.className = 'gitment-container gitment-root-container';
-          container.appendChild(instance.renderHeader(state, instance));
-          container.appendChild(instance.renderEditor(state, instance));
-          container.appendChild(instance.renderComments(state, instance));
-          container.appendChild(instance.renderFooter(state, instance));
-          return container;
-        }
-      }
-
-      function showGitment() {
-        $("#gitment_title").attr("style", "display:none");
-        $("#container").attr("style", "").addClass("gitment_container");
-        var gitment = new Gitment({
-          id: window.location.pathname,
-          theme: myTheme,
-          owner: 'MeeSong',
-          repo: 'BlogComments',
-          oauth: {
-            client_id: 'ebc04c32e0a0c7e77aa6',
-            client_secret: 'b5840ad7487a199656353a050223a77be4d39f3c'
-          }
-        });
-        gitment.render('container');
-      }
-      </script>
-    
-  </div>
-
 
         </div>
         
@@ -828,9 +629,11 @@
   
 
   
-  <script type="text/javascript" src="/StaticBlog/js/src/scrollspy.js?v=5.1.1"></script>
-<script type="text/javascript" src="/StaticBlog/js/src/post-details.js?v=5.1.1"></script>
-
+  
+    <script type="text/javascript" id="motion.page.archive">
+      $('.archive-year').velocity('transition.slideLeftIn');
+    </script>
+  
 
 
   

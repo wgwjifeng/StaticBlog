@@ -76,7 +76,7 @@
 <link href="/StaticBlog/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Windows,内核,ARK," />
+  <meta name="keywords" content="Windows,Kernel," />
 
 
 
@@ -94,17 +94,20 @@
 
 
 
-<meta name="description" content="枚举 Process &amp;amp; Thread按照惯例，玩儿这些东西总是从进程开始哒，那么我们今儿就说一下枚举进程&amp;amp;线程~ 在R3，我们阔以用以下方法来遍历进程&amp;amp;线程：  ToolHelp ZwQuerySystemInformation  但是到了R0，就阔以用各种方法来实现：  ZwQuerySystemInformation 遍历 活动进程链（PEPROCESS-&amp;gt;Ac">
-<meta name="keywords" content="Windows,内核,ARK">
+<meta name="description" content="对象管理是 Windows Executive 的一个子系统实现, 用于管理 Windows 资源. 资源包括物理设备, 文件, 文件目录, 注册表条目, 正在运行的进程等等. 所有子系统访问资源都必须通过对象管理子系统.  对象实际上就是一组数据结构加操作(函数).  各种 Object 的共有的信息 (例如, 对象类型, 对象的引用计数, 句柄数等信息) 保存在 OBJECT_HEADER 与">
+<meta name="keywords" content="Windows,Kernel">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[2] ARK-Tool develop log : Enumerate Process &amp; Thread.">
-<meta property="og:url" content="https://meesong.github.io/StaticBlog/2016/ARK/2-ARK-Tool-develop-log-Enumerate-process-thread/index.html">
+<meta property="og:title" content="Windows kernel learning: 4. Object Management">
+<meta property="og:url" content="https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/4-Object-Management/index.html">
 <meta property="og:site_name" content="MeeSong&#39;s Blog">
-<meta property="og:description" content="枚举 Process &amp;amp; Thread按照惯例，玩儿这些东西总是从进程开始哒，那么我们今儿就说一下枚举进程&amp;amp;线程~ 在R3，我们阔以用以下方法来遍历进程&amp;amp;线程：  ToolHelp ZwQuerySystemInformation  但是到了R0，就阔以用各种方法来实现：  ZwQuerySystemInformation 遍历 活动进程链（PEPROCESS-&amp;gt;Ac">
-<meta property="og:updated_time" content="2017-05-12T03:56:26.087Z">
+<meta property="og:description" content="对象管理是 Windows Executive 的一个子系统实现, 用于管理 Windows 资源. 资源包括物理设备, 文件, 文件目录, 注册表条目, 正在运行的进程等等. 所有子系统访问资源都必须通过对象管理子系统.  对象实际上就是一组数据结构加操作(函数).  各种 Object 的共有的信息 (例如, 对象类型, 对象的引用计数, 句柄数等信息) 保存在 OBJECT_HEADER 与">
+<meta property="og:image" content="https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/4-Object-Management/Structure-object0.jpg">
+<meta property="og:image" content="https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/4-Object-Management/Structure-object.jpg">
+<meta property="og:updated_time" content="2017-05-21T04:24:18.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="[2] ARK-Tool develop log : Enumerate Process &amp; Thread.">
-<meta name="twitter:description" content="枚举 Process &amp;amp; Thread按照惯例，玩儿这些东西总是从进程开始哒，那么我们今儿就说一下枚举进程&amp;amp;线程~ 在R3，我们阔以用以下方法来遍历进程&amp;amp;线程：  ToolHelp ZwQuerySystemInformation  但是到了R0，就阔以用各种方法来实现：  ZwQuerySystemInformation 遍历 活动进程链（PEPROCESS-&amp;gt;Ac">
+<meta name="twitter:title" content="Windows kernel learning: 4. Object Management">
+<meta name="twitter:description" content="对象管理是 Windows Executive 的一个子系统实现, 用于管理 Windows 资源. 资源包括物理设备, 文件, 文件目录, 注册表条目, 正在运行的进程等等. 所有子系统访问资源都必须通过对象管理子系统.  对象实际上就是一组数据结构加操作(函数).  各种 Object 的共有的信息 (例如, 对象类型, 对象的引用计数, 句柄数等信息) 保存在 OBJECT_HEADER 与">
+<meta name="twitter:image" content="https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/4-Object-Management/Structure-object0.jpg">
 
 
 
@@ -132,13 +135,13 @@
 
 
 
-  <link rel="canonical" href="https://meesong.github.io/StaticBlog/2016/ARK/2-ARK-Tool-develop-log-Enumerate-process-thread/"/>
+  <link rel="canonical" href="https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/4-Object-Management/"/>
 
 
 
 
 
-  <title>[2] ARK-Tool develop log : Enumerate Process & Thread. | MeeSong's Blog</title>
+  <title>Windows kernel learning: 4. Object Management | MeeSong's Blog</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -330,7 +333,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://meesong.github.io/StaticBlog/StaticBlog/2016/ARK/2-ARK-Tool-develop-log-Enumerate-process-thread/">
+    <link itemprop="mainEntityOfPage" href="https://meesong.github.io/StaticBlog/StaticBlog/2017/Windows-kernel-learning/4-Object-Management/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="MeeSong">
@@ -347,7 +350,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">[2] ARK-Tool develop log : Enumerate Process & Thread.</h1>
+          <h1 class="post-title" itemprop="name headline">Windows kernel learning: 4. Object Management</h1>
         
 
         <div class="post-meta">
@@ -359,8 +362,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-02-09T10:48:10+08:00">
-                2016-02-09
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-21T12:24:18+08:00">
+                2017-05-21
               </time>
             
 
@@ -382,8 +385,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/StaticBlog/categories/ARK/" itemprop="url" rel="index">
-                    <span itemprop="name">ARK</span>
+                  <a href="/StaticBlog/categories/Windows-kernel-learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Windows kernel learning</span>
                   </a>
                 </span>
 
@@ -421,45 +424,433 @@
       
 
       
-        <h1 id="枚举-Process-amp-Thread"><a href="#枚举-Process-amp-Thread" class="headerlink" title="枚举 Process &amp; Thread"></a>枚举 Process &amp; Thread</h1><p>按照惯例，玩儿这些东西总是从进程开始哒，那么我们今儿就说一下枚举进程&amp;线程~</p>
-<p>在R3，我们阔以用以下方法来遍历进程&amp;线程：</p>
-<ol>
-<li>ToolHelp</li>
-<li>ZwQuerySystemInformation</li>
-</ol>
-<p>但是到了R0，就阔以用各种方法来实现：</p>
-<ol>
-<li>ZwQuerySystemInformation</li>
-<li>遍历 活动进程链（PEPROCESS-&gt;ActiveProcessLinks）</li>
-<li>通过 PsLookupProcessByProcessId 搜索</li>
-<li>遍历 PspCidTable 句柄表</li>
-</ol>
+        <p>对象管理是 Windows Executive 的一个子系统实现, 用于管理 Windows 资源. 资源包括物理设备, 文件, 文件目录, 注册表条目, 正在运行的进程等等. 所有子系统访问资源都必须通过对象管理子系统. </p>
+<p>对象实际上就是一组数据结构加操作(函数). </p>
+<p>各种 Object 的共有的信息 (例如, 对象类型, 对象的引用计数, 句柄数等信息) 保存在 OBJECT_HEADER 与其他的几个结构中. 换而言之, 在对象管理器内部, 不同类型的对象具有相同的 Object Header, 但 Object Body 部分却是不同的.</p>
 <a id="more"></a>
-<h6 id="ZwQuerySystemInformation"><a href="#ZwQuerySystemInformation" class="headerlink" title="ZwQuerySystemInformation"></a>ZwQuerySystemInformation</h6><p>这个算是标准的方法，网上一堆，不再赘述。</p>
-<h6 id="遍历进程活动链表"><a href="#遍历进程活动链表" class="headerlink" title="遍历进程活动链表"></a>遍历进程活动链表</h6><p>什么是活动进程链？</p>
+<p>Windows 有三种类型的对象: 内核对象 (Kernel objects) , 执行体对象 (Executive objects), 和 GDI/User 对象. </p>
+<ul>
+<li><p>内核对象: 表示一些基本资源, 如物理设备, 同步服务等等. 用户态的程序不能访问内核对象.  </p>
+</li>
+<li><p>执行体对象: 用户态的系统服务与应用程序使用执行对象, 这是 Windows Executive 对外暴露的对象, 用来封装一个或多个内核对象. 执行对象还用于实现 NT 子系统或 POSIX 子系统的一些功能. </p>
+</li>
+<li><p>用户对象: 每个对象仅有一个句柄, 句柄不能复制或继承, 不能引用其他用户会话中的进程的用户句柄. 任何进程只要有对某个用户句柄访问权限, 即可以访问该用户对象. 一个进程最多有 65536 个用户对象句柄.<br>用户对象包括: 快捷键表 HACCEL, 插入点光标, 鼠标指针 HCURSOR, DDE 会话, 窗口钩子, 图标 HICON, 菜单 HMENU, 窗口 HWND, 窗口位置.</p>
+</li>
+<li><p>GDI 对象: 每个对象仅有一个句柄, 句柄为进程私有. 一个进程最多有 65536 个 GDI 对象句柄.<br>GDI 对象包括: 位图 HBITMAP, 画刷 HBRUSH, 设备环境 (DC) HDC, 增强型图元文件 (EMF) , EMF 设备环境, 字体 HFONT, 内存 DC, 图元文件, 图元文件 DC, 调色板 HPALETTE, 画笔 HPEN, 区域 (Region) HRGN. </p>
+</li>
+</ul>
+<h2 id="Windows-NT-暴露的执行对象"><a href="#Windows-NT-暴露的执行对象" class="headerlink" title="Windows NT 暴露的执行对象"></a>Windows NT 暴露的执行对象</h2><table>
+<thead>
+<tr>
+<th style="text-align:left">对象类型</th>
+<th style="text-align:left">结构</th>
+<th style="text-align:left">代表含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Process</td>
+<td style="text-align:left">_EPROCESS</td>
+<td style="text-align:left">执行一组线程对象所必须的虚拟地址空间和控制信息</td>
+</tr>
+<tr>
+<td style="text-align:left">Thread</td>
+<td style="text-align:left">_ETHREAD</td>
+<td style="text-align:left">进程内部的一个可执行实体</td>
+</tr>
+<tr>
+<td style="text-align:left">Job</td>
+<td style="text-align:left">_EJOB</td>
+<td style="text-align:left">指一组进程, 通过作业机制, 可以像单个实体那样来管理他们</td>
+</tr>
+<tr>
+<td style="text-align:left">Section</td>
+<td style="text-align:left">_SECTION_OBJECT</td>
+<td style="text-align:left">共享内存的一个区域 (也称为 File mapping)</td>
+</tr>
+<tr>
+<td style="text-align:left">File</td>
+<td style="text-align:left">_FILE_OBJECT</td>
+<td style="text-align:left">一个已打开的文件或者 I/O 设备的实例</td>
+</tr>
+<tr>
+<td style="text-align:left">Token</td>
+<td style="text-align:left">_TOKEN</td>
+<td style="text-align:left">一个进程或者线程的安全轮廓 (安全ID, 用户权限等)</td>
+</tr>
+<tr>
+<td style="text-align:left">Event</td>
+<td style="text-align:left">_KEVENT</td>
+<td style="text-align:left">一种具有持久状态 (有信号或无信号的) 对象,可用于同步或者通知</td>
+</tr>
+<tr>
+<td style="text-align:left">Semaphore</td>
+<td style="text-align:left">_KSEMAPHORE</td>
+<td style="text-align:left">信号量是一个计数器, 提供资源门控制能力, 对于该信号量所保护的资源只允许某个最大数目的线程访问</td>
+</tr>
+<tr>
+<td style="text-align:left">Mutex</td>
+<td style="text-align:left">_KMUTEX</td>
+<td style="text-align:left">用于顺序访问一个资源的一种同步机制</td>
+</tr>
+<tr>
+<td style="text-align:left">Timer</td>
+<td style="text-align:left">_ETIMER</td>
+<td style="text-align:left">这是一种当固定长度的时间过去时通知某个线程的机制</td>
+</tr>
+<tr>
+<td style="text-align:left">IoCompletion</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">使线程能够将 “I/O 操作完成通知” 进出队列的一种方法</td>
+</tr>
+<tr>
+<td style="text-align:left">Key</td>
+<td style="text-align:left">_CM_KEY_BODY</td>
+<td style="text-align:left">一种引用注册表中数据的机制. 虽然键出现在对象管理器的命名空间中, 但是却是由配置管理器来管理的, 其管理方式类似于文件系统驱动程序管理文件对象的方式. 与该键对象关联在一起的有零个或多个键值; 一个键值中包含有关该键的数据</td>
+</tr>
+<tr>
+<td style="text-align:left">Directory</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">对象管理器中命名空间的虚拟目录, 负责包含其他的对象或对象目录</td>
+</tr>
+<tr>
+<td style="text-align:left">TpWorkerFactory</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">负责执行一组特定任务的线程集合. Windows 通过线程池的方式暴露工作者工厂对象</td>
+</tr>
+<tr>
+<td style="text-align:left">Tm (资源管理器), TmTx (事务), TmTm (事务管理器), TmEn (登记)</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">内核事务管理器 (KTM) 为各种事物或登记而使用的对象, 他们是资源管理器或事务管理器的一部分.</td>
+</tr>
+<tr>
+<td style="text-align:left">WindowStation</td>
+<td style="text-align:left">tagWINDOWSTATION</td>
+<td style="text-align:left">该对象包含一个剪贴板, 一组全局原子, 一组桌面对象</td>
+</tr>
+<tr>
+<td style="text-align:left">Desktop</td>
+<td style="text-align:left">tagDESKTOP</td>
+<td style="text-align:left">这是一个包含在窗口站内部的对象. 它有一个逻辑显示器表面, 包含了窗口, 菜单 和 钩子.</td>
+</tr>
+<tr>
+<td style="text-align:left">PowerRequest</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">该对象与一个线程关联在一起, 该线程执行 SetThreadExecutionState 调用请求指定的电源改变, 比如防止睡眠.</td>
+</tr>
+<tr>
+<td style="text-align:left">EtwConsumer</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">代表一个已连接的 ETW 实时消费者已经通过 StartTrace API 进行了注册</td>
+</tr>
+<tr>
+<td style="text-align:left">EtwRegistration</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">代表一个注册对象, 它与某个用户模式(或内核模式) ETW 提供者关联</td>
+</tr>
+<tr>
+<td style="text-align:left">SymbolicLink</td>
+<td style="text-align:left">_OBJECT_SYMBOLIC_LINK</td>
+<td style="text-align:left">被创建用来支持别名,这些别名可以来用帮助映射网络共享</td>
+</tr>
+<tr>
+<td style="text-align:left">Type</td>
+<td style="text-align:left">_OBJECT_TYPE</td>
+<td style="text-align:left">通过元数据来描述所有其他对象常见属性的一个对象</td>
+</tr>
+</tbody>
+</table>
 <blockquote>
-<p>EPROCESS 块中有一个 ActiveProcessLinks 成员，它是一个 PLIST_ENTRY 结构的双向链表。当一个新进程建立的时候父进程负责完成 EPROCESS 块，然后把 ActiveProcessLinks 链接到一个全局内核变量 PsActiveProcessHead 链表中。</p>
-<p>在 PspCreateProcess 内核API中能清晰的找到：</p>
-<p><code>InsertTailList (&amp;PsActiveProcessHead, &amp;Process-&gt;ActiveProcessLinks);</code></p>
-<p>当进程结束的时候，该进程EPROCESS结构从活动进程链上摘除。（但是 EPROCESS 结构不一定马上释放。）</p>
-<p>在 PspExitProcess 内核API中能看到</p>
-<p><code>RemoveEntryList(&amp;Process-&gt;ActiveProcessLinks);</code><br><a href="http://www.blogfshare.com/activeprocesslinks-dkom.html" target="_blank" rel="external">遍历进程活动链表（ActiveProcessLinks）、DKOM隐藏进程</a></p>
+<p>其他对象参考 <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms724515(v=vs.85" target="_blank" rel="external">Windows Object Categories</a>.aspx)</p>
 </blockquote>
-<p>ZwQuerySystemInformation 就是遍历这个链表来实现的。</p>
-<p>由于很容易摘链来隐藏进程，所以这里只是简单的说下。</p>
-<p>有一个要注意的地方，就是链表里面存的是 EPROCESS-&gt;ActiveProcessLinks</p>
-<p>所以要得到EPROCESS就要减去这个偏移。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">kd&gt; dt nt!_EPROCESS 0xfffffa80`03510f80</div><div class="line">   +0x000 Pcb              : _KPROCESS</div><div class="line">   +0x160 ProcessLock      : _EX_PUSH_LOCK</div><div class="line">   +0x168 CreateTime       : _LARGE_INTEGER 0x0</div><div class="line">   +0x170 ExitTime         : _LARGE_INTEGER 0x00000003`00000006</div><div class="line">   +0x178 RundownProtect   : _EX_RUNDOWN_REF</div><div class="line">   +0x180 UniqueProcessId  : 0xfffffa80`03511010 Void</div><div class="line">   +0x188 ActiveProcessLinks : _LIST_ENTRY [ 0xfffff8a0`014aac28 - 0xfffffa80`03511138 ]</div><div class="line">   ...</div><div class="line">   </div><div class="line">kd&gt; ? 0xfffffa80`02de4ab8 - 0x188</div><div class="line">Evaluate expression: -6047265830608 = fffffa80`02de4930</div><div class="line">kd&gt; !object fffffa80`02de4930</div><div class="line">Object: fffffa8002de4930  Type: (fffffa800184aa20) Process</div><div class="line">    ObjectHeader: fffffa8002de4900 (new version)</div><div class="line">    HandleCount: 1  PointerCount: 25</div></pre></td></tr></table></figure>
-<h6 id="通过-PsLookupProcessByProcessId-搜索"><a href="#通过-PsLookupProcessByProcessId-搜索" class="headerlink" title="通过 PsLookupProcessByProcessId 搜索"></a>通过 PsLookupProcessByProcessId 搜索</h6><p>这个方案虽然简单，但相对于以上两种方法，更推荐使用这种方案。</p>
-<p>原因就是 活动进程链 太简单，很容易被摘掉。</p>
-<p>而 PsLookupProcessByProcessId 是通过遍历 PspCidTable 来实现。</p>
-<p>进程要逃避检测，必须从 PspCidTable 中删除自身对象，句柄项被用 NULL 替代。但当系统关闭进程的时候，它将找到 PspCidTable 并且得到一个 NULL 对象指针，这将导致蓝屏。隐藏进程在被终止之前必须调用 PsSetCreateProcessNotifyRoutine 安装一个回调避免BSOD，但实现方法难度相对来说略高。</p>
-<p>当然，也有我不并不知道的方法，请各位童鞋告知~共同探讨学习~~</p>
-<p><strong>注意：可以通过HOOK来解决掉这个函数，所以阔以自己遍历 PspCidTable 来尽量避免隐藏进程</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">template &lt;typename F&gt;</div><div class="line">static NTSTATUS EnumProcess(</div><div class="line">    _In_ F aCallBack</div><div class="line">    )</div><div class="line">&#123;</div><div class="line">   NTSTATUS vStatus    = STATUS_UNSUCCESSFUL;</div><div class="line">   PEPROCESS vProcess  = NULL;</div><div class="line"></div><div class="line">   for (Size_t i = 4; i &lt; 262144; i += 4) // 262144 = 2^18</div><div class="line">   &#123;</div><div class="line">        // 遍历线程同理，换成 PsLookupThreadByThreadId</div><div class="line">        vStatus = PsLookupProcessByProcessId((HANDLE)i, &amp;vProcess);</div><div class="line">        if (NT_SUCCESS(vStatus))</div><div class="line">        &#123;</div><div class="line">            vStatus = aCallBack(vProcess);</div><div class="line">            ObDereferenceObject(vProcess);</div><div class="line"></div><div class="line">            if (STATUS_SUCCESS == vStatus)</div><div class="line">            &#123;</div><div class="line">               break;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    return vStatus;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h6 id="遍历-PspCidTable-句柄表"><a href="#遍历-PspCidTable-句柄表" class="headerlink" title="遍历 PspCidTable 句柄表"></a>遍历 PspCidTable 句柄表</h6><p>这部分内容留到下一篇文章 “检测隐藏进程” ~</p>
-<p>我先去研究研究（逃~</p>
-
+<p>除了以上这些对象之外, 还有 Device, Driver, Adapter 等用于设备驱动的对象类型, 这些对象类型并由有专用的系统调用, 而是借用 <code>NtCreateFile()</code> 作为创建/打开的方法</p>
+<h2 id="对象结构"><a href="#对象结构" class="headerlink" title="对象结构"></a>对象结构</h2><p><img src="Structure-object0.jpg" alt="对象结构图0"><br><img src="Structure-object.jpg" alt="对象结构图"></p>
+<p>如图所示, 每个对象都有一个对象头和一个对象体. 每个对象头中有一个索引, 指向一个被称为类型对象的特殊对象, 该对象包含的信息对于它的每个实例是公共的.</p>
+<p>另外,还可以有多达 7 个可选的子头: </p>
+<ul>
+<li>名称信息头(<code>_OBJECT_HEADER_NAME_INFO</code>)</li>
+<li>配额信息头(<code>_OBJECT_HEADER_QUOTA_INFO</code>)</li>
+<li>进程信息头(<code>_OBJECT_HEADER_PROCESS_INFO</code>)</li>
+<li>句柄信息头(<code>_OBJECT_HEADER_HANDLE_INFO</code>)</li>
+<li>创建者信息头(<code>_OBJECT_HEADER_CREATOR_INFO</code>)</li>
+<li>审计信息头(<code>_OBJECT_HEADER_AUDIT_INFO</code>)</li>
+<li>填充信息头(<code>_OBJECT_HEADER_PADDING_INFO</code>)</li>
+</ul>
+<h2 id="对象头"><a href="#对象头" class="headerlink" title="对象头"></a>对象头</h2><p>我们来看下对象头的定义:</p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="number">0</span>: kd&gt; <span class="built_in">dt</span> nt!_OBJECT_HEADER</div><div class="line">   +<span class="number">0x000</span> PointerCount     : Int8B</div><div class="line">   +<span class="number">0x008</span> HandleCount      : Int8B</div><div class="line">   +<span class="number">0x008</span> NextToFree       : Ptr64 Void</div><div class="line">   +<span class="number">0x010</span> <span class="keyword">Lock</span>             : _EX_PUSH_LOCK</div><div class="line">   +<span class="number">0x018</span> TypeIndex        : UChar</div><div class="line">   +<span class="number">0x019</span> TraceFlags       : UChar</div><div class="line">   +<span class="number">0x019</span> DbgRefTrace      : Pos <span class="number">0</span>, <span class="number">1</span> Bit</div><div class="line">   +<span class="number">0x019</span> DbgTracePermanent : Pos <span class="number">1</span>, <span class="number">1</span> Bit</div><div class="line">   +<span class="number">0x01a</span> InfoMask         : UChar</div><div class="line">   +<span class="number">0x01b</span> Flags            : UChar</div><div class="line">   +<span class="number">0x01b</span> NewObject        : Pos <span class="number">0</span>, <span class="number">1</span> Bit</div><div class="line">   +<span class="number">0x01b</span> KernelObject     : Pos <span class="number">1</span>, <span class="number">1</span> Bit</div><div class="line">   +<span class="number">0x01b</span> KernelOnlyAccess : Pos <span class="number">2</span>, <span class="number">1</span> Bit</div><div class="line">   +<span class="number">0x01b</span> ExclusiveObject  : Pos <span class="number">3</span>, <span class="number">1</span> Bit</div><div class="line">   +<span class="number">0x01b</span> PermanentObject  : Pos <span class="number">4</span>, <span class="number">1</span> Bit</div><div class="line">   +<span class="number">0x01b</span> DefaultSecurityQuota : Pos <span class="number">5</span>, <span class="number">1</span> Bit</div><div class="line">   +<span class="number">0x01b</span> SingleHandleEntry : Pos <span class="number">6</span>, <span class="number">1</span> Bit</div><div class="line">   +<span class="number">0x01b</span> DeletedInline    : Pos <span class="number">7</span>, <span class="number">1</span> Bit</div><div class="line">   +<span class="number">0x01c</span> Spare            : Uint4B</div><div class="line">   +<span class="number">0x020</span> ObjectCreateInfo : Ptr64 _OBJECT_CREATE_INFORMATION</div><div class="line">   +<span class="number">0x020</span> QuotaBlockCharged : Ptr64 Void</div><div class="line">   +<span class="number">0x028</span> SecurityDescriptor : Ptr64 Void</div><div class="line">   +<span class="number">0x030</span> Body             : _QUAD              <span class="comment">; 占位符, 对象体的位置</span></div></pre></td></tr></table></figure>
+<p>Body 就是具体对象类型的数据结构本身, 即一个数据结构的起点.</p>
+<h3 id="对象头中的域"><a href="#对象头中的域" class="headerlink" title="对象头中的域"></a>对象头中的域</h3><table>
+<thead>
+<tr>
+<th style="text-align:left">域</th>
+<th style="text-align:left">用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">HandleCount</td>
+<td style="text-align:left">维护一个计数值, 记录了当前打开打开的指向该对象的句柄数</td>
+</tr>
+<tr>
+<td style="text-align:left">PointerCount</td>
+<td style="text-align:left">维护一个计数值, 记录了该对象的引用个数 (每个句柄也算一次引用). 内核模式组件可以不通过句柄, 而直接用指针来引用对象.</td>
+</tr>
+<tr>
+<td style="text-align:left">SecurityDescriptor</td>
+<td style="text-align:left">决定谁可以使用该对象, 以及允许他们如何使用它. (根据定义, 没有名称的对象是没有安全性的)</td>
+</tr>
+<tr>
+<td style="text-align:left">TypeIndex</td>
+<td style="text-align:left">包含一个指向类型对象的索引, 该类型对象包含了这种类型对象的公共属性, 所有的类型对象都存储在 <code>nt!ObTypeIndexTable</code> 表中</td>
+</tr>
+<tr>
+<td style="text-align:left">InfoMask</td>
+<td style="text-align:left">可选头掩码, 除了创建者信息子头外, 只要存在, 就位于对象的前面. 该掩码通过 <code>nt!ObpInfoMaskToOffset</code> 表被转换成一个负的偏移;每个可选头都有一个与之关联的 <code>1</code> 字节索引, 将该可选头置于相对其他子头出现的位置</td>
+</tr>
+<tr>
+<td style="text-align:left">Flags</td>
+<td style="text-align:left">对象的特征和对象属性</td>
+</tr>
+<tr>
+<td style="text-align:left">Lock</td>
+<td style="text-align:left">针对每个对象的锁, 当修改该对象头部的域或者任何子头的域时, 需要用到该锁</td>
+</tr>
+<tr>
+<td style="text-align:left">TraceFlags</td>
+<td style="text-align:left">追踪开启标志, 用来调试引用计数问题</td>
+</tr>
+</tbody>
+</table>
+<h3 id="对象-Flags"><a href="#对象-Flags" class="headerlink" title="对象 Flags"></a>对象 Flags</h3><table>
+<thead>
+<tr>
+<th style="text-align:left">属性标志</th>
+<th style="text-align:left">头标志</th>
+<th style="text-align:left">用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">OBJ_INHERIT</td>
+<td style="text-align:left">保存在句柄表项中</td>
+<td style="text-align:left">决定指向对象的句柄将来是否被子进程继承, 以及进程是否可以使用 DuplicateHandle 来执行句柄复制</td>
+</tr>
+<tr>
+<td style="text-align:left">OBJ_PERMANENT</td>
+<td style="text-align:left">OB_FLAG_PERMANENT_OBJECT</td>
+<td style="text-align:left">定义与引用计数相关的对象保持力行为</td>
+</tr>
+<tr>
+<td style="text-align:left">OBJ_EXCLUSIVE</td>
+<td style="text-align:left">OB_FLAG_EXCLUSIVE_OBJECT</td>
+<td style="text-align:left">决定一个对象只能被创建该对象的进程所使用</td>
+</tr>
+<tr>
+<td style="text-align:left">OBJ_CASE_INSENSITIVE</td>
+<td style="text-align:left">保存在句柄表项中</td>
+<td style="text-align:left">指定在命名空间中查找该对象应该按大小写无关的方式进行</td>
+</tr>
+<tr>
+<td style="text-align:left">OBJ_OPENIF</td>
+<td style="text-align:left">不保存, 仅在运行时使用</td>
+<td style="text-align:left">如果将此标志指定给创建对象的例程, 并且该对象已存在, 则例程应打开该对象. 否则, 创建对象的例程将返回 STATUS_OBJECT_NAME_COLLISION 的 NTSTATUS 代码.</td>
+</tr>
+<tr>
+<td style="text-align:left">OBJ_OPENLINK</td>
+<td style="text-align:left">不保存, 仅在运行时使用</td>
+<td style="text-align:left">指定对象管理器应该打开一个指向符号链接的句柄, 而不是指向目标对象的句柄</td>
+</tr>
+<tr>
+<td style="text-align:left">OBJ_KERNEL_HANDLE</td>
+<td style="text-align:left">OB_FLAG_KERNEL_OBJECT</td>
+<td style="text-align:left">指定指向该对象的句柄应该是一个内核句柄</td>
+</tr>
+<tr>
+<td style="text-align:left">OBJ_FORCE_ACCESS_CHECK</td>
+<td style="text-align:left">不保存, 仅在运行时使用</td>
+<td style="text-align:left">指定即使该对象是用内核模式中打开的, 也要执行完全的访问检查</td>
+</tr>
+<tr>
+<td style="text-align:left">OBJ_KERNEL_EXCLUSIVE</td>
+<td style="text-align:left">OB_FLAG_KERNEL_ONLY_ACCESS</td>
+<td style="text-align:left">禁止任何用户模式进程打开指向该对象的句柄, 用于保护 /Device/PhysicalMemory 内存区对象</td>
+</tr>
+<tr>
+<td style="text-align:left">-</td>
+<td style="text-align:left">OB_FLAG_DEFAULT_SECURITY_QUOTA</td>
+<td style="text-align:left">指定该对象的安全描述符使用模式的 2KB 配额</td>
+</tr>
+<tr>
+<td style="text-align:left">-</td>
+<td style="text-align:left">OB_FLAG_SINGLE_HANDLE_ENTRY</td>
+<td style="text-align:left">指定句柄信息可选头仅包含一项, 而不是一个数据库</td>
+</tr>
+<tr>
+<td style="text-align:left">-</td>
+<td style="text-align:left">OB_FLAG_NEW_OBJECT</td>
+<td style="text-align:left">指定该对象已被创建, 但是尚未被插入到对象命名空间中</td>
+</tr>
+<tr>
+<td style="text-align:left">-</td>
+<td style="text-align:left">OB_FLAG_DEFER_DELETE_INLINE</td>
+<td style="text-align:left">指定该对象正在通过一个延迟删除的辅助线程删除</td>
+</tr>
+</tbody>
+</table>
+<h2 id="可选对象头"><a href="#可选对象头" class="headerlink" title="可选对象头"></a>可选对象头</h2><p>一个对象的可选头包含了用于描述该对象各种类型的元数据. 很明显, 因为它们是可选的, 所以并不是所有的类型的对象都拥有可选头;<br>甚至于相同类型对象的不同实例也可能包含可选头的不同组合. </p>
+<p>这些结构的位置是从对象头的开始减去一个并不固定的偏移量, 此偏移值取决于与对象头相关联的可选头的数量.</p>
+<p>对于所有可选头各种可能的情形, 都存在一个响应的偏移量, 但是因为可选头总是按照固定不变的顺序来分配,<br>所以对于一个给定的头, 它可能出现的位置的数量, 与优先于它而出现的最多可选头数量相同.</p>
+<p>偏移的计算公式为: <code>Offset = ObpInfoMaskToOffset[OBJECT_HEADER-&gt;InfoMask &amp; (DesiredHeaderBit | (DesiredHeaderBit-1))]</code></p>
+<p><code>(DesiredHeaderBit | (DesiredHeaderBit-1))</code> 表示包含在此可选头结构之前的可选头结构.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th style="text-align:left">结构</th>
+<th style="text-align:left">掩位码</th>
+<th style="text-align:left">偏移</th>
+<th style="text-align:left">用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">创建者信息</td>
+<td style="text-align:left">_OBJECT_HEADER_CREATOR_INFO</td>
+<td style="text-align:left">0 (0x01)</td>
+<td style="text-align:left">ObpInfoMaskToOffset[0x01]</td>
+<td style="text-align:left">对于所有同一类型的对象, 链接成一个列表, 并记录下创建该对象的进程, 以及一个后向跟踪项</td>
+</tr>
+<tr>
+<td style="text-align:left">名称信息</td>
+<td style="text-align:left">_OBJECT_HEADER_NAME_INFO</td>
+<td style="text-align:left">1 (0x02)</td>
+<td style="text-align:left">ObpInfoMaskToOffset[0x03]</td>
+<td style="text-align:left">包含对象名称和一个指向对象目录的指针. 对象名称使用该对象对于其他进程也可见, 从而可以共享; 对象目录提供了存储对象名称的层次结构.</td>
+</tr>
+<tr>
+<td style="text-align:left">句柄信息</td>
+<td style="text-align:left">_OBJECT_HEADER_HANDLE_INFO</td>
+<td style="text-align:left">2 (0X04)</td>
+<td style="text-align:left">ObpInfoMaskToOffset[0X07]</td>
+<td style="text-align:left">包含一个进程项数据库 (或只有一项), 这些进程都有一个已打开的句柄指向该对象 (以及一个针对每个进程的句柄计数)</td>
+</tr>
+<tr>
+<td style="text-align:left">配额信息</td>
+<td style="text-align:left">_OBJECT_HEADER_QUOTA_INFO</td>
+<td style="text-align:left">3 (0x08)</td>
+<td style="text-align:left">ObpInfoMaskToOffset[0x0F]</td>
+<td style="text-align:left">列出了当一个进程打开指向该对象的句柄时需要消耗的资源花费</td>
+</tr>
+<tr>
+<td style="text-align:left">进程信息</td>
+<td style="text-align:left">_OBJECT_HEADER_PROCESS_INFO</td>
+<td style="text-align:left">4 (0x10)</td>
+<td style="text-align:left">ObpInfoMaskToOffset[0x1F]</td>
+<td style="text-align:left">如果这是一个排它性对象, 则包含一个指向所有者进程的指针</td>
+</tr>
+<tr>
+<td style="text-align:left">审计信息</td>
+<td style="text-align:left">_OBJECT_HEADER_AUDIT_INFO</td>
+<td style="text-align:left">5 (0x20)</td>
+<td style="text-align:left">ObpInfoMaskToOffset[0x3F]</td>
+<td style="text-align:left">未知</td>
+</tr>
+<tr>
+<td style="text-align:left">填充信息?</td>
+<td style="text-align:left">_OBJECT_HEADER_PADDING_INFO</td>
+<td style="text-align:left">6 (0x40)</td>
+<td style="text-align:left">ObpInfoMaskToOffset[0x7F]</td>
+<td style="text-align:left">未知</td>
+</tr>
+</tbody>
+</table>
+<p>对象可选头出现的条件</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th style="text-align:left">条件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">创建者信息</td>
+<td style="text-align:left">对象类型必须已经打开维护类型列表标志. 如果驱动程序检验器被启用, 则驱动程序对象已设置此标志. 然而, 若全局标志维护对象类型列表打开, 所有对象的维护类型列表标志也随之打开, 类型对象总是设置该标志</td>
+</tr>
+<tr>
+<td style="text-align:left">名称信息</td>
+<td style="text-align:left">对象创建时必须指定名称</td>
+</tr>
+<tr>
+<td style="text-align:left">句柄信息</td>
+<td style="text-align:left">对象类型必须已打开维护句柄计数标志. 文件对象, ALPC 对象, 窗口站对象和桌面对象已在其对象类型结构中设置了此标志</td>
+</tr>
+<tr>
+<td style="text-align:left">配额信息</td>
+<td style="text-align:left">对象必须不是由初始系统进程或空闲进程创建的</td>
+</tr>
+<tr>
+<td style="text-align:left">进程信息</td>
+<td style="text-align:left">对象创建时必须指定排他性对象标志</td>
+</tr>
+<tr>
+<td style="text-align:left">审计信息</td>
+<td style="text-align:left">开启对象访问审核功能时使用? 本地组策略有这么个选项…</td>
+</tr>
+<tr>
+<td style="text-align:left">填充信息</td>
+<td style="text-align:left">未知</td>
+</tr>
+</tbody>
+</table>
+<h3 id="通用对象服务"><a href="#通用对象服务" class="headerlink" title="通用对象服务"></a>通用对象服务</h3><p>Windows 子系统允许每个对象类型提供自己的对象服务供 Windows 应用程序使用.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">服务</th>
+<th style="text-align:left">用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Close</td>
+<td style="text-align:left">关闭指向某个对象的句柄</td>
+</tr>
+<tr>
+<td style="text-align:left">Duplicate</td>
+<td style="text-align:left">通过先复制句柄, 再将它交给另一进程的方法来共享对象</td>
+</tr>
+<tr>
+<td style="text-align:left">Make permanent/temporary</td>
+<td style="text-align:left">改变对象的保持力</td>
+</tr>
+<tr>
+<td style="text-align:left">Query object</td>
+<td style="text-align:left">获得关于对象的标准属性的信息</td>
+</tr>
+<tr>
+<td style="text-align:left">Query security</td>
+<td style="text-align:left">获取对象的安全描述符</td>
+</tr>
+<tr>
+<td style="text-align:left">Set security</td>
+<td style="text-align:left">改变对象上的保护设置</td>
+</tr>
+<tr>
+<td style="text-align:left">Wait for a single object</td>
+<td style="text-align:left">用一个对象来同步线程的执行</td>
+</tr>
+<tr>
+<td style="text-align:left">Signal an object and wait for another</td>
+<td style="text-align:left">给一个对象 (比如一个事件) 发信号, 并通过另一个对象来同步线程的执行</td>
+</tr>
+<tr>
+<td style="text-align:left">Wait for multiple objects</td>
+<td style="text-align:left">用多个对象来同步线程的执行</td>
+</tr>
+</tbody>
+</table>
+<h2 id="“对象类型”-对象"><a href="#“对象类型”-对象" class="headerlink" title="“对象类型” 对象"></a>“对象类型” 对象</h2><h2 id="内核池"><a href="#内核池" class="headerlink" title="内核池"></a>内核池</h2>
       
     </div>
 
@@ -480,7 +871,7 @@
     </li>
     <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://meesong.github.io/StaticBlog/2016/ARK/2-ARK-Tool-develop-log-Enumerate-process-thread/" title="[2] ARK-Tool develop log : Enumerate Process & Thread.">https://meesong.github.io/StaticBlog/2016/ARK/2-ARK-Tool-develop-log-Enumerate-process-thread/</a>
+      <a href="https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/4-Object-Management/" title="Windows kernel learning: 4. Object Management">https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/4-Object-Management/</a>
     </li>
     <li class="post-copyright-license">
       <strong>版权声明： </strong>
@@ -526,9 +917,7 @@
           
             <a href="/StaticBlog/tags/Windows/" rel="tag"># Windows</a>
           
-            <a href="/StaticBlog/tags/内核/" rel="tag"># 内核</a>
-          
-            <a href="/StaticBlog/tags/ARK/" rel="tag"># ARK</a>
+            <a href="/StaticBlog/tags/Kernel/" rel="tag"># Kernel</a>
           
         </div>
       
@@ -541,8 +930,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/StaticBlog/2016/ARK/1-ARK-Tool-develop-log-Global-Overloaded-new-delete/" rel="next" title="[1] ARK-Tool develop log : Global Overloaded new & delete.">
-                <i class="fa fa-chevron-left"></i> [1] ARK-Tool develop log : Global Overloaded new & delete.
+              <a href="/StaticBlog/2017/NexT+Gitment/" rel="next" title="为 hexo NexT 添加 Gitment 评论插件">
+                <i class="fa fa-chevron-left"></i> 为 hexo NexT 添加 Gitment 评论插件
               </a>
             
           </div>
@@ -550,10 +939,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/StaticBlog/2016/ArchLinux-install-notes/" rel="prev" title="ArchLinux 安装笔记">
-                ArchLinux 安装笔记 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -753,7 +1138,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#枚举-Process-amp-Thread"><span class="nav-number">1.</span> <span class="nav-text">枚举 Process & Thread</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#ZwQuerySystemInformation"><span class="nav-number">1.0.0.0.0.1.</span> <span class="nav-text">ZwQuerySystemInformation</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#遍历进程活动链表"><span class="nav-number">1.0.0.0.0.2.</span> <span class="nav-text">遍历进程活动链表</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#通过-PsLookupProcessByProcessId-搜索"><span class="nav-number">1.0.0.0.0.3.</span> <span class="nav-text">通过 PsLookupProcessByProcessId 搜索</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#遍历-PspCidTable-句柄表"><span class="nav-number">1.0.0.0.0.4.</span> <span class="nav-text">遍历 PspCidTable 句柄表</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Windows-NT-暴露的执行对象"><span class="nav-number">1.</span> <span class="nav-text">Windows NT 暴露的执行对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象结构"><span class="nav-number">2.</span> <span class="nav-text">对象结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象头"><span class="nav-number">3.</span> <span class="nav-text">对象头</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#对象头中的域"><span class="nav-number">3.1.</span> <span class="nav-text">对象头中的域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对象-Flags"><span class="nav-number">3.2.</span> <span class="nav-text">对象 Flags</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可选对象头"><span class="nav-number">4.</span> <span class="nav-text">可选对象头</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#通用对象服务"><span class="nav-number">4.1.</span> <span class="nav-text">通用对象服务</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#“对象类型”-对象"><span class="nav-number">5.</span> <span class="nav-text">“对象类型” 对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内核池"><span class="nav-number">6.</span> <span class="nav-text">内核池</span></a></li></ol></div>
             
 
           </div>

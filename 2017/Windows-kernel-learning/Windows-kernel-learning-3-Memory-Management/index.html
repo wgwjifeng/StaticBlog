@@ -98,29 +98,29 @@
 <meta name="keywords" content="Windows,Kernel">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Windows kernel learning: 3. Memory Management">
-<meta property="og:url" content="https://meesong.github.io/2017/Windows-kernel-learning/Windows-kernel-learning-3-Memory-Management/index.html">
+<meta property="og:url" content="https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/Windows-kernel-learning-3-Memory-Management/index.html">
 <meta property="og:site_name" content="MeeSong&#39;s Blog">
 <meta property="og:description" content="一个操作系统要称为现代意义上的操作系统就必须提供对内核的保护, 对不同用户程序之间的隔离, 并允许软件的载入位置浮动.而满足这些基本要求的手段, 就是采用基于页面映射的 “虚拟内存” 机制, 或者说提供 “分页内存管理”. 在硬件上, 这是由 CPU 芯片的 “存储管理单元” MMU 支持的. 而在软件商, 则由操作系统内核中的内存管理模块实现.">
-<meta property="og:image" content="https://meesong.github.io/2017/Windows-kernel-learning/Windows-kernel-learning-3-Memory-Management/MMU.jpg">
-<meta property="og:image" content="https://meesong.github.io/2017/Windows-kernel-learning/Windows-kernel-learning-3-Memory-Management/valid-address.jpg">
-<meta property="og:image" content="https://meesong.github.io/2017/Windows-kernel-learning/Windows-kernel-learning-3-Memory-Management/valid-address2.jpg">
-<meta property="og:image" content="https://meesong.github.io/2017/Windows-kernel-learning/Windows-kernel-learning-3-Memory-Management/Virtual2Physical.jpg">
-<meta property="og:image" content="https://meesong.github.io/2017/Windows-kernel-learning/Windows-kernel-learning-3-Memory-Management/SupporPaging.jpg">
-<meta property="og:image" content="https://meesong.github.io/2017/Windows-kernel-learning/Windows-kernel-learning-3-Memory-Management/long-mode-cr3.jpg">
-<meta property="og:image" content="https://meesong.github.io/2017/Windows-kernel-learning/Windows-kernel-learning-3-Memory-Management/long-mode-4-v2p.jpg">
-<meta property="og:image" content="https://meesong.github.io/2017/Windows-kernel-learning/Windows-kernel-learning-3-Memory-Management/long-mode-4-table-format.jpg">
-<meta property="og:image" content="https://meesong.github.io/2017/Windows-kernel-learning/Windows-kernel-learning-3-Memory-Management/legacy-mode-cr3.jpg">
-<meta property="og:image" content="https://meesong.github.io/2017/Windows-kernel-learning/Windows-kernel-learning-3-Memory-Management/legacy-non-pae-4-v2p.jpg">
-<meta property="og:image" content="https://meesong.github.io/2017/Windows-kernel-learning/Windows-kernel-learning-3-Memory-Management/legacy-non-pae-4-table-format.jpg">
-<meta property="og:image" content="https://meesong.github.io/2017/Windows-kernel-learning/Windows-kernel-learning-3-Memory-Management/legacy-pae-4-v2p.jpg">
-<meta property="og:image" content="https://meesong.github.io/2017/Windows-kernel-learning/Windows-kernel-learning-3-Memory-Management/legacy-pae-4-table-format.jpg">
-<meta property="og:image" content="https://meesong.github.io/2017/Windows-kernel-learning/Windows-kernel-learning-3-Memory-Management/PxN.jpg">
-<meta property="og:image" content="https://meesong.github.io/2017/Windows-kernel-learning/Windows-kernel-learning-3-Memory-Management/win-main-system-regions.jpg">
+<meta property="og:image" content="https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/Windows-kernel-learning-3-Memory-Management/MMU.jpg">
+<meta property="og:image" content="https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/Windows-kernel-learning-3-Memory-Management/valid-address.jpg">
+<meta property="og:image" content="https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/Windows-kernel-learning-3-Memory-Management/valid-address2.jpg">
+<meta property="og:image" content="https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/Windows-kernel-learning-3-Memory-Management/Virtual2Physical.jpg">
+<meta property="og:image" content="https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/Windows-kernel-learning-3-Memory-Management/SupporPaging.jpg">
+<meta property="og:image" content="https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/Windows-kernel-learning-3-Memory-Management/long-mode-cr3.jpg">
+<meta property="og:image" content="https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/Windows-kernel-learning-3-Memory-Management/long-mode-4-v2p.jpg">
+<meta property="og:image" content="https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/Windows-kernel-learning-3-Memory-Management/long-mode-4-table-format.jpg">
+<meta property="og:image" content="https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/Windows-kernel-learning-3-Memory-Management/legacy-mode-cr3.jpg">
+<meta property="og:image" content="https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/Windows-kernel-learning-3-Memory-Management/legacy-non-pae-4-v2p.jpg">
+<meta property="og:image" content="https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/Windows-kernel-learning-3-Memory-Management/legacy-non-pae-4-table-format.jpg">
+<meta property="og:image" content="https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/Windows-kernel-learning-3-Memory-Management/legacy-pae-4-v2p.jpg">
+<meta property="og:image" content="https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/Windows-kernel-learning-3-Memory-Management/legacy-pae-4-table-format.jpg">
+<meta property="og:image" content="https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/Windows-kernel-learning-3-Memory-Management/PxN.jpg">
+<meta property="og:image" content="https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/Windows-kernel-learning-3-Memory-Management/win-main-system-regions.jpg">
 <meta property="og:updated_time" content="2017-05-19T17:11:36.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Windows kernel learning: 3. Memory Management">
 <meta name="twitter:description" content="一个操作系统要称为现代意义上的操作系统就必须提供对内核的保护, 对不同用户程序之间的隔离, 并允许软件的载入位置浮动.而满足这些基本要求的手段, 就是采用基于页面映射的 “虚拟内存” 机制, 或者说提供 “分页内存管理”. 在硬件上, 这是由 CPU 芯片的 “存储管理单元” MMU 支持的. 而在软件商, 则由操作系统内核中的内存管理模块实现.">
-<meta name="twitter:image" content="https://meesong.github.io/2017/Windows-kernel-learning/Windows-kernel-learning-3-Memory-Management/MMU.jpg">
+<meta name="twitter:image" content="https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/Windows-kernel-learning-3-Memory-Management/MMU.jpg">
 
 
 
@@ -148,7 +148,7 @@
 
 
 
-  <link rel="canonical" href="https://meesong.github.io/2017/Windows-kernel-learning/Windows-kernel-learning-3-Memory-Management/"/>
+  <link rel="canonical" href="https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/Windows-kernel-learning-3-Memory-Management/"/>
 
 
 
@@ -346,7 +346,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/Windows-kernel-learning-3-Memory-Management/">
+    <link itemprop="mainEntityOfPage" href="https://meesong.github.io/StaticBlog/StaticBlog/2017/Windows-kernel-learning/Windows-kernel-learning-3-Memory-Management/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="MeeSong">
@@ -741,7 +741,7 @@
     </li>
     <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://meesong.github.io/2017/Windows-kernel-learning/Windows-kernel-learning-3-Memory-Management/" title="Windows kernel learning: 3. Memory Management">https://meesong.github.io/2017/Windows-kernel-learning/Windows-kernel-learning-3-Memory-Management/</a>
+      <a href="https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/Windows-kernel-learning-3-Memory-Management/" title="Windows kernel learning: 3. Memory Management">https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/Windows-kernel-learning-3-Memory-Management/</a>
     </li>
     <li class="post-copyright-license">
       <strong>版权声明： </strong>
@@ -919,7 +919,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/StaticBlog/archives">
-                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-count">23</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
