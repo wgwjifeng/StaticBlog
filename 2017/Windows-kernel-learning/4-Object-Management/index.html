@@ -103,7 +103,7 @@
 <meta property="og:description" content="对象管理是 Windows Executive 的一个子系统实现, 用于管理 Windows 资源. 资源包括物理设备, 文件, 文件目录, 注册表条目, 正在运行的进程等等. 所有子系统访问资源都必须通过对象管理子系统.  对象实际上就是一组数据结构加操作(函数).  各种 Object 的共有的信息 (例如, 对象类型, 对象的引用计数, 句柄数等信息) 保存在 OBJECT_HEADER 与">
 <meta property="og:image" content="https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/4-Object-Management/Structure-object0.jpg">
 <meta property="og:image" content="https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/4-Object-Management/Structure-object.jpg">
-<meta property="og:updated_time" content="2017-05-21T04:24:18.000Z">
+<meta property="og:updated_time" content="2017-05-23T09:24:18.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Windows kernel learning: 4. Object Management">
 <meta name="twitter:description" content="对象管理是 Windows Executive 的一个子系统实现, 用于管理 Windows 资源. 资源包括物理设备, 文件, 文件目录, 注册表条目, 正在运行的进程等等. 所有子系统访问资源都必须通过对象管理子系统.  对象实际上就是一组数据结构加操作(函数).  各种 Object 的共有的信息 (例如, 对象类型, 对象的引用计数, 句柄数等信息) 保存在 OBJECT_HEADER 与">
@@ -561,7 +561,7 @@
 </tbody>
 </table>
 <blockquote>
-<p>其他对象参考 <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms724515(v=vs.85" target="_blank" rel="external">Windows Object Categories</a>.aspx)</p>
+<p>其他对象参考 <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms724515%28v=vs.85%29.aspx" target="_blank" rel="external">Windows Object Categories</a></p>
 </blockquote>
 <p>除了以上这些对象之外, 还有 Device, Driver, Adapter 等用于设备驱动的对象类型, 这些对象类型并由有专用的系统调用, 而是借用 <code>NtCreateFile()</code> 作为创建/打开的方法</p>
 <h2 id="对象结构"><a href="#对象结构" class="headerlink" title="对象结构"></a>对象结构</h2><p><img src="Structure-object0.jpg" alt="对象结构图0"><br><img src="Structure-object.jpg" alt="对象结构图"></p>
@@ -707,7 +707,7 @@
 <tr>
 <th style="text-align:left">名称</th>
 <th style="text-align:left">结构</th>
-<th style="text-align:left">掩位码</th>
+<th style="text-align:right">掩位码</th>
 <th style="text-align:left">偏移</th>
 <th style="text-align:left">用途</th>
 </tr>
@@ -716,49 +716,49 @@
 <tr>
 <td style="text-align:left">创建者信息</td>
 <td style="text-align:left">_OBJECT_HEADER_CREATOR_INFO</td>
-<td style="text-align:left">0 (0x01)</td>
+<td style="text-align:right">0 (0x01)</td>
 <td style="text-align:left">ObpInfoMaskToOffset[0x01]</td>
 <td style="text-align:left">对于所有同一类型的对象, 链接成一个列表, 并记录下创建该对象的进程, 以及一个后向跟踪项</td>
 </tr>
 <tr>
 <td style="text-align:left">名称信息</td>
 <td style="text-align:left">_OBJECT_HEADER_NAME_INFO</td>
-<td style="text-align:left">1 (0x02)</td>
+<td style="text-align:right">1 (0x02)</td>
 <td style="text-align:left">ObpInfoMaskToOffset[0x03]</td>
 <td style="text-align:left">包含对象名称和一个指向对象目录的指针. 对象名称使用该对象对于其他进程也可见, 从而可以共享; 对象目录提供了存储对象名称的层次结构.</td>
 </tr>
 <tr>
 <td style="text-align:left">句柄信息</td>
 <td style="text-align:left">_OBJECT_HEADER_HANDLE_INFO</td>
-<td style="text-align:left">2 (0X04)</td>
+<td style="text-align:right">2 (0X04)</td>
 <td style="text-align:left">ObpInfoMaskToOffset[0X07]</td>
 <td style="text-align:left">包含一个进程项数据库 (或只有一项), 这些进程都有一个已打开的句柄指向该对象 (以及一个针对每个进程的句柄计数)</td>
 </tr>
 <tr>
 <td style="text-align:left">配额信息</td>
 <td style="text-align:left">_OBJECT_HEADER_QUOTA_INFO</td>
-<td style="text-align:left">3 (0x08)</td>
+<td style="text-align:right">3 (0x08)</td>
 <td style="text-align:left">ObpInfoMaskToOffset[0x0F]</td>
 <td style="text-align:left">列出了当一个进程打开指向该对象的句柄时需要消耗的资源花费</td>
 </tr>
 <tr>
 <td style="text-align:left">进程信息</td>
 <td style="text-align:left">_OBJECT_HEADER_PROCESS_INFO</td>
-<td style="text-align:left">4 (0x10)</td>
+<td style="text-align:right">4 (0x10)</td>
 <td style="text-align:left">ObpInfoMaskToOffset[0x1F]</td>
 <td style="text-align:left">如果这是一个排它性对象, 则包含一个指向所有者进程的指针</td>
 </tr>
 <tr>
 <td style="text-align:left">审计信息</td>
 <td style="text-align:left">_OBJECT_HEADER_AUDIT_INFO</td>
-<td style="text-align:left">5 (0x20)</td>
+<td style="text-align:right">5 (0x20)</td>
 <td style="text-align:left">ObpInfoMaskToOffset[0x3F]</td>
 <td style="text-align:left">未知</td>
 </tr>
 <tr>
 <td style="text-align:left">填充信息?</td>
 <td style="text-align:left">_OBJECT_HEADER_PADDING_INFO</td>
-<td style="text-align:left">6 (0x40)</td>
+<td style="text-align:right">6 (0x40)</td>
 <td style="text-align:left">ObpInfoMaskToOffset[0x7F]</td>
 <td style="text-align:left">未知</td>
 </tr>
@@ -803,54 +803,119 @@
 </tr>
 </tbody>
 </table>
-<h3 id="通用对象服务"><a href="#通用对象服务" class="headerlink" title="通用对象服务"></a>通用对象服务</h3><p>Windows 子系统允许每个对象类型提供自己的对象服务供 Windows 应用程序使用.</p>
+<h2 id="“对象类型”-对象-OBJECT-TYPE"><a href="#“对象类型”-对象-OBJECT-TYPE" class="headerlink" title="“对象类型” 对象 (_OBJECT_TYPE)"></a>“对象类型” 对象 (_OBJECT_TYPE)</h2><p>对象类型对象包含一些对于某种特定类型的所有对象皆为常数的数据.</p>
+<p><code>_OBJECT_HEADER</code> 的 <code>TypeIndex</code> 成员是 <code>nt!ObTypeIndexTable</code> (一个类型对象 <code>_OBJECT_TYPE</code> 的数组) 的索引.</p>
+<p>我们来看一下结构定义:</p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div></pre></td><td class="code"><pre><div class="line"><span class="number">1</span>: kd&gt; dtx -r nt!_OBJECT_TYPE</div><div class="line">   +<span class="number">0x000</span> TypeList         : _LIST_ENTRY</div><div class="line">   +<span class="number">0x010</span> Name             : _UNICODE_STRING</div><div class="line">   +<span class="number">0x020</span> DefaultObject    : Ptr64 Void</div><div class="line">   +<span class="number">0x028</span> Index            : UChar</div><div class="line">   +<span class="number">0x02c</span> TotalNumberOfObjects : Uint4B</div><div class="line">   +<span class="number">0x030</span> TotalNumberOfHandles : Uint4B</div><div class="line">   +<span class="number">0x034</span> HighWaterNumberOfObjects : Uint4B</div><div class="line">   +<span class="number">0x038</span> HighWaterNumberOfHandles : Uint4B</div><div class="line">   +<span class="number">0x040</span> TypeInfo         : _OBJECT_TYPE_INITIALIZER</div><div class="line">      +<span class="number">0x000</span> Length           : Uint2B</div><div class="line">      +<span class="number">0x002</span> ObjectTypeFlags  : UChar</div><div class="line">      +<span class="number">0x002</span> CaseInsensitive  : Pos <span class="number">0</span>, <span class="number">1</span> Bit            <span class="comment">; 是否大小写敏感</span></div><div class="line">      +<span class="number">0x002</span> UnnamedObjectsOnly : Pos <span class="number">1</span>, <span class="number">1</span> Bit          <span class="comment">; 是否永远不会有名称</span></div><div class="line">      +<span class="number">0x002</span> UseDefaultObject : Pos <span class="number">2</span>, <span class="number">1</span> Bit            <span class="comment">; 是否使用默认对象</span></div><div class="line">      +<span class="number">0x002</span> SecurityRequired : Pos <span class="number">3</span>, <span class="number">1</span> Bit            <span class="comment">; 是否要求安全描述符</span></div><div class="line">      +<span class="number">0x002</span> MaintainHandleCount : Pos <span class="number">4</span>, <span class="number">1</span> Bit         <span class="comment">; 是否一共维护句柄数据库 (句柄信息可选头)</span></div><div class="line">      +<span class="number">0x002</span> MaintainTypeList : Pos <span class="number">5</span>, <span class="number">1</span> Bit            <span class="comment">; 是否应该维护类型列表链接关系 (创建者信息可选头)</span></div><div class="line">      +<span class="number">0x002</span> SupportsObjectCallbacks : Pos <span class="number">6</span>, <span class="number">1</span> Bit     <span class="comment">; 是否支持对象过滤回调</span></div><div class="line">      +<span class="number">0x002</span> CacheAligned     : Pos <span class="number">7</span>, <span class="number">1</span> Bit</div><div class="line">      +<span class="number">0x004</span> ObjectTypeCode   : Uint4B</div><div class="line">      +<span class="number">0x008</span> InvalidAttributes : Uint4B</div><div class="line">      +<span class="number">0x00c</span> GenericMapping   : _GENERIC_MAPPING</div><div class="line">         +<span class="number">0x000</span> GenericRead      : Uint4B</div><div class="line">         +<span class="number">0x004</span> GenericWrite     : Uint4B</div><div class="line">         +<span class="number">0x008</span> GenericExecute   : Uint4B</div><div class="line">         +<span class="number">0x00c</span> GenericAll       : Uint4B</div><div class="line">      +<span class="number">0x01c</span> ValidAccessMask  : Uint4B</div><div class="line">      +<span class="number">0x020</span> RetainAccess     : Uint4B</div><div class="line">      +<span class="number">0x024</span> PoolType         : </div><div class="line">         NonPagedPool = 0n0</div><div class="line">         NonPagedPoolExecute = 0n0</div><div class="line">         PagedPool = 0n1</div><div class="line">         NonPagedPoolMustSucceed = 0n2</div><div class="line">         DontUseThisType = 0n3</div><div class="line">         NonPagedPoolCacheAligned = 0n4</div><div class="line">         PagedPoolCacheAligned = 0n5</div><div class="line">         NonPagedPoolCacheAlignedMustS = 0n6</div><div class="line">         MaxPoolType = 0n7</div><div class="line">         NonPagedPoolBase = 0n0</div><div class="line">         NonPagedPoolBaseMustSucceed = 0n2</div><div class="line">         NonPagedPoolBaseCacheAligned = 0n4</div><div class="line">         NonPagedPoolBaseCacheAlignedMustS = 0n6</div><div class="line">         NonPagedPoolSession = 0n32</div><div class="line">         PagedPoolSession = 0n33</div><div class="line">         NonPagedPoolMustSucceedSession = 0n34</div><div class="line">         DontUseThisTypeSession = 0n35</div><div class="line">         NonPagedPoolCacheAlignedSession = 0n36</div><div class="line">         PagedPoolCacheAlignedSession = 0n37</div><div class="line">         NonPagedPoolCacheAlignedMustSSession = 0n38</div><div class="line">         NonPagedPoolNx = 0n512</div><div class="line">         NonPagedPoolNxCacheAligned = 0n516</div><div class="line">         NonPagedPoolSessionNx = 0n544</div><div class="line">      +<span class="number">0x028</span> DefaultPagedPoolCharge : Uint4B</div><div class="line">      +<span class="number">0x02c</span> DefaultNonPagedPoolCharge : Uint4B</div><div class="line">      +<span class="number">0x030</span> DumpProcedure    : Ptr64        void </div><div class="line">      +<span class="number">0x038</span> OpenProcedure    : Ptr64        long </div><div class="line">      +<span class="number">0x040</span> CloseProcedure   : Ptr64        void </div><div class="line">      +<span class="number">0x048</span> DeleteProcedure  : Ptr64        void </div><div class="line">      +<span class="number">0x050</span> ParseProcedure   : Ptr64        long </div><div class="line">      +<span class="number">0x058</span> SecurityProcedure : Ptr64        long </div><div class="line">      +<span class="number">0x060</span> QueryNameProcedure : Ptr64        long </div><div class="line">      +<span class="number">0x068</span> OkayToCloseProcedure : Ptr64        unsigned char </div><div class="line">      +<span class="number">0x070</span> WaitObjectFlagMask : Uint4B</div><div class="line">      +<span class="number">0x074</span> WaitObjectFlagOffset : Uint2B</div><div class="line">      +<span class="number">0x076</span> WaitObjectPointerOffset : Uint2B</div><div class="line">   +<span class="number">0x0b8</span> TypeLock         : _EX_PUSH_LOCK</div><div class="line">   +<span class="number">0x0c0</span> Key              : Uint4B                     <span class="comment">; 一个 4 字节的标签用于唯一标识分配包含特定类型对象的内存</span></div><div class="line">   +<span class="number">0x0c8</span> CallbackList     : _LIST_ENTRY</div></pre></td></tr></table></figure>
+<p><code>_OBJECT_TYPE</code> 结构和 <code>_OBJECT_TYPE_INITIALIZER</code> 结构中的域:</p>
 <table>
 <thead>
 <tr>
-<th style="text-align:left">服务</th>
+<th style="text-align:left">域</th>
 <th style="text-align:left">用途</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left">Close</td>
-<td style="text-align:left">关闭指向某个对象的句柄</td>
+<td style="text-align:left">Name</td>
+<td style="text-align:left">类型对象的名称 (Process, Event, Port 等等)</td>
 </tr>
 <tr>
-<td style="text-align:left">Duplicate</td>
-<td style="text-align:left">通过先复制句柄, 再将它交给另一进程的方法来共享对象</td>
+<td style="text-align:left">PoolType</td>
+<td style="text-align:left">指明了这种类型的对象应该从换页的还是非换页的内存分配</td>
 </tr>
 <tr>
-<td style="text-align:left">Make permanent/temporary</td>
-<td style="text-align:left">改变对象的保持力</td>
+<td style="text-align:left">DefaultPagedPoolCharge &amp; DefaultNonPagedPoolCharge</td>
+<td style="text-align:left">默认的配额花费, 默认从进程配额中扣除的换页内存值和非换页内存值</td>
 </tr>
 <tr>
-<td style="text-align:left">Query object</td>
-<td style="text-align:left">获得关于对象的标准属性的信息</td>
+<td style="text-align:left">ValidAccessMask</td>
+<td style="text-align:left">线程在打开某个指向该类型的对象时, 可以请求的访问类型</td>
 </tr>
 <tr>
-<td style="text-align:left">Query security</td>
-<td style="text-align:left">获取对象的安全描述符</td>
+<td style="text-align:left">GenericMapping</td>
+<td style="text-align:left">通用访问权限的映射关系, 在四种通用的访问权限和特属于该类型的访问权限之间的映射关系</td>
 </tr>
 <tr>
-<td style="text-align:left">Set security</td>
-<td style="text-align:left">改变对象上的保护设置</td>
+<td style="text-align:left">ObjectTypeFlags</td>
+<td style="text-align:left">对象标志, 具体标志在结构中已注解</td>
 </tr>
 <tr>
-<td style="text-align:left">Wait for a single object</td>
-<td style="text-align:left">用一个对象来同步线程的执行</td>
+<td style="text-align:left">ObjectTypeCode</td>
+<td style="text-align:left">用于描述这种对象的类型 (对应于另一种方法, 比较名称值). 文件对象设置该类型码为 1, 同步对象设置为 2, 线程对象设置为 4, ALPC 也利用该域来保存一条消息关联的句柄属性信息</td>
 </tr>
 <tr>
-<td style="text-align:left">Signal an object and wait for another</td>
-<td style="text-align:left">给一个对象 (比如一个事件) 发信号, 并通过另一个对象来同步线程的执行</td>
+<td style="text-align:left">InvalidAttributes</td>
+<td style="text-align:left">指明了对象属性标志对此对象类型无效</td>
 </tr>
 <tr>
-<td style="text-align:left">Wait for multiple objects</td>
-<td style="text-align:left">用多个对象来同步线程的执行</td>
+<td style="text-align:left">DefaultObject</td>
+<td style="text-align:left">指定了在等待此对象过程中应该使用的对象管理器内部事件(如果对象类型创建者请求一个默认对象的话). 注意: 特定的对象, 比如文件对象和 ALPC 端口对象, 已经包含了他们自己内嵌的分发器对象. 在这种情况下, 该域是对象体内部的偏移量. 例如, FILE_OBJECT 结构内部的事件位于内嵌的 Event 域中.</td>
+</tr>
+<tr>
+<td style="text-align:left">XXXXProcedure</td>
+<td style="text-align:left">在一个对象的生命期的特点上, 对象管理器自动调用一个或者多个例程来满足功能</td>
 </tr>
 </tbody>
 </table>
-<h2 id="“对象类型”-对象"><a href="#“对象类型”-对象" class="headerlink" title="“对象类型” 对象"></a>“对象类型” 对象</h2><h2 id="内核池"><a href="#内核池" class="headerlink" title="内核池"></a>内核池</h2>
+{% note success %}
+
+同步是一个对于 Windows 应用程序可见的属性, 它指的是, 一个线程通过等待某个对象从一种状态改成成另一种状态, 从而达到同步其执行过程的能力.
+一个线程可以通过执行体的作业, 进程, 线程, 文件, 事件, 信号量, 互斥体和定时器对象来进行同步.其他的执行体对象不支持同步.
+
+一个对象支持同步的能力基于以下三种可能性:
+
+* 该执行体对象是一个分发器对象的包装对象, 它包含一个分发器头; 分发器头是一个内核结构.
+* 对象类型的创建者请求一个默认对象, 而对象管理器提供默认对象.
+* 执行体对象有一个内嵌的分发器对象, 比如在对象体内部某处的一个事件; 该对象呢的所有者在注册此对象类型时向对象管理器提供了此内嵌对象的偏移量.
+
+{% endnote %}
+<h2 id="对象方法"><a href="#对象方法" class="headerlink" title="对象方法"></a>对象方法</h2><p><code>_OBJECT_TYPE_INITIALIZER</code> 结构中 XXXXProcedure 域, 即方法, 是一组内部例程构成的.<br>之所以设计这些对象方法, 是为了针对这样的事实: 某些特定的对象操作是通用的 (关闭, 复制, 安全等). 要将这些通用的操作完全一般化将要求对象管理器设计者必须预知所有的对象类型.</p>
+<p>对象方法:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">方法</th>
+<th style="text-align:left">何时调用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Open</td>
+<td style="text-align:left">当对象句柄被打开时</td>
+</tr>
+<tr>
+<td style="text-align:left">Close</td>
+<td style="text-align:left">当对象句柄被关闭时</td>
+</tr>
+<tr>
+<td style="text-align:left">Delete</td>
+<td style="text-align:left">在对象管理器删除对象之前</td>
+</tr>
+<tr>
+<td style="text-align:left">QueryName</td>
+<td style="text-align:left">当线程请求在一个从属命名空间中查询一个对象的名称时(比如文件对象)</td>
+</tr>
+<tr>
+<td style="text-align:left">Parse</td>
+<td style="text-align:left">当对象管理器在一个从属命名空间中搜索一个对象名称时</td>
+</tr>
+<tr>
+<td style="text-align:left">Dump</td>
+<td style="text-align:left">未使用</td>
+</tr>
+<tr>
+<td style="text-align:left">OkayToClose</td>
+<td style="text-align:left">当对象管理器接到指令要关闭句柄时, 针对恶意或者不正确关闭句柄的一个额外保护层</td>
+</tr>
+<tr>
+<td style="text-align:left">Security</td>
+<td style="text-align:left">当进程读取或改变一个对象在其从属命名空间中的保护属性时</td>
+</tr>
+</tbody>
+</table>
+<p>这一规则的一个例外是安全(Security)例程, 该例程除非另行指明, 否则默认指向 <code>SeDefaultObjectMethod</code>. 此默认例程不需要知道对象的内部结构, 因为它只处理对象的安全描述符.<br>而安全描述符的指针存储在所有对象都适用的对象头, 而不是对象体中.</p>
+<h2 id="对象句柄和进程句柄表"><a href="#对象句柄和进程句柄表" class="headerlink" title="对象句柄和进程句柄表"></a>对象句柄和进程句柄表</h2><h2 id="对象目录"><a href="#对象目录" class="headerlink" title="对象目录"></a>对象目录</h2><h2 id="内核池"><a href="#内核池" class="headerlink" title="内核池"></a>内核池</h2>
       
     </div>
 
@@ -1138,7 +1203,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Windows-NT-暴露的执行对象"><span class="nav-number">1.</span> <span class="nav-text">Windows NT 暴露的执行对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象结构"><span class="nav-number">2.</span> <span class="nav-text">对象结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象头"><span class="nav-number">3.</span> <span class="nav-text">对象头</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#对象头中的域"><span class="nav-number">3.1.</span> <span class="nav-text">对象头中的域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对象-Flags"><span class="nav-number">3.2.</span> <span class="nav-text">对象 Flags</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可选对象头"><span class="nav-number">4.</span> <span class="nav-text">可选对象头</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#通用对象服务"><span class="nav-number">4.1.</span> <span class="nav-text">通用对象服务</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#“对象类型”-对象"><span class="nav-number">5.</span> <span class="nav-text">“对象类型” 对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内核池"><span class="nav-number">6.</span> <span class="nav-text">内核池</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Windows-NT-暴露的执行对象"><span class="nav-number">1.</span> <span class="nav-text">Windows NT 暴露的执行对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象结构"><span class="nav-number">2.</span> <span class="nav-text">对象结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象头"><span class="nav-number">3.</span> <span class="nav-text">对象头</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#对象头中的域"><span class="nav-number">3.1.</span> <span class="nav-text">对象头中的域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对象-Flags"><span class="nav-number">3.2.</span> <span class="nav-text">对象 Flags</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可选对象头"><span class="nav-number">4.</span> <span class="nav-text">可选对象头</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#“对象类型”-对象-OBJECT-TYPE"><span class="nav-number">5.</span> <span class="nav-text">“对象类型” 对象 (_OBJECT_TYPE)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象方法"><span class="nav-number">6.</span> <span class="nav-text">对象方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象句柄和进程句柄表"><span class="nav-number">7.</span> <span class="nav-text">对象句柄和进程句柄表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象目录"><span class="nav-number">8.</span> <span class="nav-text">对象目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内核池"><span class="nav-number">9.</span> <span class="nav-text">内核池</span></a></li></ol></div>
             
 
           </div>
