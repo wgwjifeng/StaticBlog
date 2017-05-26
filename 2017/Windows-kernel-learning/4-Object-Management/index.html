@@ -106,7 +106,7 @@
 <meta property="og:image" content="https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/4-Object-Management/Structure-Handle.jpg">
 <meta property="og:image" content="https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/4-Object-Management/Structure-Handle-Entry.jpg">
 <meta property="og:image" content="https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/4-Object-Management/pool.jpg">
-<meta property="og:updated_time" content="2017-05-23T09:24:18.000Z">
+<meta property="og:updated_time" content="2017-05-26T09:24:18.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Windows kernel learning: 4. Object Management">
 <meta name="twitter:description" content="对象管理是 Windows Executive 的一个子系统实现, 用于管理 Windows 资源. 资源包括物理设备, 文件, 文件目录, 注册表条目, 正在运行的进程等等. 所有子系统访问资源都必须通过对象管理子系统.  对象实际上就是一组数据结构加操作(函数).  各种 Object 的共有的信息 (例如, 对象类型, 对象的引用计数, 句柄数等信息) 保存在 OBJECT_HEADER 与">
@@ -717,8 +717,7 @@ ObfReferenceObject(), ObReferenceObjectByHandle(), ObReferenceObjectByName() 和
 <h2 id="可选对象头"><a href="#可选对象头" class="headerlink" title="可选对象头"></a>可选对象头</h2><p>一个对象的可选头包含了用于描述该对象各种类型的元数据. 很明显, 因为它们是可选的, 所以并不是所有的类型的对象都拥有可选头;<br>甚至于相同类型对象的不同实例也可能包含可选头的不同组合. </p>
 <p>这些结构的位置是从对象头的开始减去一个并不固定的偏移量, 此偏移值取决于与对象头相关联的可选头的数量.</p>
 <p>对于所有可选头各种可能的情形, 都存在一个响应的偏移量, 但是因为可选头总是按照固定不变的顺序来分配,<br>所以对于一个给定的头, 它可能出现的位置的数量, 与优先于它而出现的最多可选头数量相同.</p>
-<p>偏移的计算公式为: <code>Offset = ObpInfoMaskToOffset[OBJECT_HEADER-&gt;InfoMask &amp; (DesiredHeaderBit | (DesiredHeaderBit-1))]</code></p>
-<p><code>(DesiredHeaderBit | (DesiredHeaderBit-1))</code> 表示包含在此可选头结构之前的可选头结构.</p>
+<p>偏移的计算公式为:<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Offset = ObpInfoMaskToOffset[OBJECT_HEADER-&gt;InfoMask &amp; (DesiredHeaderBit | (DesiredHeaderBit<span class="number">-1</span>))]</div><div class="line"></div><div class="line"><span class="comment">// (DesiredHeaderBit | (DesiredHeaderBit-1)) 表示包含在此可选头结构之前的可选头结构.</span></div></pre></td></tr></table></figure></p>
 <table>
 <thead>
 <tr>
