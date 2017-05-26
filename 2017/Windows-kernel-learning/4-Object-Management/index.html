@@ -625,14 +625,15 @@
 </tbody>
 </table>
 {% note warning %}
-ObfReferenceObject(), ObReferenceObjectByHandle(), ObReferenceObjectByName() 和 ObReferenceObjectByPointer() 增加的就是这个PointerCount. ObfDereferenceObject() 和 ObDereferenceObject() 用来减少这个值.
+ObfReferenceObject(), ObReferenceObjectByHandle(), ObReferenceObjectByName() 和 ObReferenceObjectByPointer() 增加的就是这个 PointerCount.
+ObfDereferenceObject() 和 ObDereferenceObject() 用来减少这个值.
 
 删除对象跟这个值有关, 如果一个对象是临时的, 那当它的引用记数为 0 的时候, 该对象会被系统删除, 一个驱动程序可以把一个临时对象的引用记数减少到0, 这样就可以达到删除该对象的目的.
 
-如果一个对象是在创建时标上了 OBJ_PERMANENT 标志, 那它是一个永久的对象, 如果要删除一个永久性的对象,需要经过下列步骤: 
+如果一个对象是在创建时标上了 OBJ_PERMANENT 标志, 那它是一个永久的对象, 如果要删除一个永久性的对象, 需要经过下列步骤: 
 
 1. 调用 ObDereferenceObject 把一个永久性的对象的引用记数减少到0 
-2. 调用 ZwOpenXxx orZwCreateXxx 来获得该永久性对象的一个句柄
+2. 调用 ZwOpenXxx or ZwCreateXxx 来获得该永久性对象的一个句柄
 3. 或者得句柄后调用 ZwMakeTemporaryObject 把一个永久性的对象转化成一个临时的对象
 4. 用得到的句柄调用 ZwClose 删除该对象
 
