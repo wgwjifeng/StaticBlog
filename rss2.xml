@@ -8,8 +8,37 @@
     <atom:link href="/StaticBlog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>生活就是不断地调试~</description>
-    <pubDate>Fri, 26 May 2017 09:24:18 GMT</pubDate>
+    <pubDate>Thu, 01 Jun 2017 02:08:23 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>Windows kernel learning: 6. APC, Asynchronous Procedure Calls</title>
+      <link>https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/6-APC-Asynchronous-Procedure-Calls/</link>
+      <guid>https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/6-APC-Asynchronous-Procedure-Calls/</guid>
+      <pubDate>Thu, 01 Jun 2017 02:08:23 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;ACP, hello world&lt;/p&gt;
+      
+      </description>
+      
+      <comments>https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/6-APC-Asynchronous-Procedure-Calls/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title>Windows kernel learning: 5. Process, Thread and Jobs</title>
+      <link>https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/5-Process-and-Thread/</link>
+      <guid>https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/5-Process-and-Thread/</guid>
+      <pubDate>Mon, 29 May 2017 02:47:32 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;从概念上来说, 进程是线程的容器, 进程提供了线程必要的地址空间, 上下文环境, 安全凭证等等..而线程是最基本的执行单位和调度单位. 作业呢? 作业可以看作是进程的容器, 使其可以对进程进行统一的管理.&lt;/p&gt;
+&lt;p&gt;从实际上来说, 内核就是各种各样的数据结构, 进程, 线程和作业也不例外.&lt;/p&gt;
+      
+      </description>
+      
+      <comments>https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/5-Process-and-Thread/#disqus_thread</comments>
+    </item>
     
     <item>
       <title>Windows kernel learning: 4. Object Management</title>
@@ -131,55 +160,6 @@
       </description>
       
       <comments>https://meesong.github.io/StaticBlog/2017/Debug/Windows-debug-env/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title>Windows kernel learning: 2. System Call</title>
-      <link>https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/Windows-kernel-learning-2-System-Call/</link>
-      <guid>https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/Windows-kernel-learning-2-System-Call/</guid>
-      <pubDate>Fri, 12 May 2017 05:41:43 GMT</pubDate>
-      <description>
-      
-        &lt;p&gt;CPU 既可以运行于非特权的”用户空间”, 也可以运行于特权的”系统空间”.&lt;/p&gt;
-&lt;p&gt;CPU 要从系统空间转入用户空间是容易的, 因为运行于系统空间的CPU可以通过一些特权指令改变其运行状态. 但是从用户空间转入系统空间就不容易了, 因为运行于用户空间的 CPU 是不能执行特权指令的.&lt;/p&gt;
-&lt;p&gt;一般而言,只有下面几种手段可以从用户空间转入系统空间:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;中断 (Interrupt): 在开启了中断的情况下,只要有中断请求到来, CPU 就会自动转入系统空间, 并指定对应的中断例程, 从而为中断请求提供服务. 中断发生在两条指令之间, 所以不会使正在执行的指令半途而废, 中断是无法预知且异步的.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;异常 (Exception): 异常和中断极其相似, 只是一行发生在执行一条指令的过程中, 而不是两条指令之间. 实践中, 可以通过故意引起异常而进入内核.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;自陷 (Trap): 为了让 CPU 能主动地进入系统空间, 绝大多数 CPU 都设有专门的 “自陷” 指令, 系统调用通常都是通过自陷指令实现的. 自陷指令在形式上也与中断相似,就像是 CPU 主动发出的中断请求.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;快速系统调用 (fast call): 可以说是对自陷机制的改进.&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;这篇笔记主要就是写自陷和快速系统调用机制.&lt;/p&gt;
-      
-      </description>
-      
-      <comments>https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/Windows-kernel-learning-2-System-Call/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title>Windows kernel learning: 1. Basis</title>
-      <link>https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/Windows-kernel-learning-1-Basis/</link>
-      <guid>https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/Windows-kernel-learning-1-Basis/</guid>
-      <pubDate>Fri, 12 May 2017 04:37:23 GMT</pubDate>
-      <description>
-      
-        &lt;h2 id=&quot;Windows-系统结构图&quot;&gt;&lt;a href=&quot;#Windows-系统结构图&quot; class=&quot;headerlink&quot; title=&quot;Windows 系统结构图&quot;&gt;&lt;/a&gt;Windows 系统结构图&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;Windows-system-structure.jpg&quot; alt=&quot;Windows 系统结构图&quot;&gt;&lt;/p&gt;
-&lt;p&gt;图中水平粗线表示用户空间和系统空间的分界.&lt;/p&gt;
-&lt;p&gt;在 32 位 Windows 系统中, 整个 4GB 的虚拟内存地址被对分成两块, 从地址 &lt;code&gt;0x80000000&lt;/code&gt; 开始向上是系统空间, 就是内核所在的地方, 下面则是用户空间, 是应用程序所在的地方. (64 位系统会在后面的内存管理说到, 这里只是简单了解下概念)&lt;/p&gt;
-&lt;p&gt;CPU 进入内核只有三种途径:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;系统调用&lt;/li&gt;
-&lt;li&gt;中断&lt;/li&gt;
-&lt;li&gt;异常&lt;/li&gt;
-&lt;/ol&gt;
-      
-      </description>
-      
-      <comments>https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/Windows-kernel-learning-1-Basis/#disqus_thread</comments>
     </item>
     
   </channel>

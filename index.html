@@ -330,6 +330,283 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://meesong.github.io/StaticBlog/StaticBlog/2017/Windows-kernel-learning/6-APC-Asynchronous-Procedure-Calls/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MeeSong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/StaticBlog/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MeeSong's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/StaticBlog/2017/Windows-kernel-learning/6-APC-Asynchronous-Procedure-Calls/" itemprop="url">Windows kernel learning: 6. APC, Asynchronous Procedure Calls</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-01T10:08:23+08:00">
+                2017-06-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/StaticBlog/categories/Windows-kernel-learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Windows kernel learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>ACP, hello world</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/StaticBlog/2017/Windows-kernel-learning/6-APC-Asynchronous-Procedure-Calls/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://meesong.github.io/StaticBlog/StaticBlog/2017/Windows-kernel-learning/5-Process-and-Thread/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MeeSong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/StaticBlog/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MeeSong's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/StaticBlog/2017/Windows-kernel-learning/5-Process-and-Thread/" itemprop="url">Windows kernel learning: 5. Process, Thread and Jobs</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-29T10:47:32+08:00">
+                2017-05-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/StaticBlog/categories/Windows-kernel-learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Windows kernel learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>从概念上来说, 进程是线程的容器, 进程提供了线程必要的地址空间, 上下文环境, 安全凭证等等..而线程是最基本的执行单位和调度单位. 作业呢? 作业可以看作是进程的容器, 使其可以对进程进行统一的管理.</p>
+<p>从实际上来说, 内核就是各种各样的数据结构, 进程, 线程和作业也不例外.</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/StaticBlog/2017/Windows-kernel-learning/5-Process-and-Thread/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://meesong.github.io/StaticBlog/StaticBlog/2017/Windows-kernel-learning/4-Object-Management/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1393,303 +1670,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://meesong.github.io/StaticBlog/StaticBlog/2017/Windows-kernel-learning/Windows-kernel-learning-2-System-Call/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MeeSong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/StaticBlog/uploads/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MeeSong's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/StaticBlog/2017/Windows-kernel-learning/Windows-kernel-learning-2-System-Call/" itemprop="url">Windows kernel learning: 2. System Call</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-12T13:41:43+08:00">
-                2017-05-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/StaticBlog/categories/Windows-kernel-learning/" itemprop="url" rel="index">
-                    <span itemprop="name">Windows kernel learning</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>CPU 既可以运行于非特权的”用户空间”, 也可以运行于特权的”系统空间”.</p>
-<p>CPU 要从系统空间转入用户空间是容易的, 因为运行于系统空间的CPU可以通过一些特权指令改变其运行状态. 但是从用户空间转入系统空间就不容易了, 因为运行于用户空间的 CPU 是不能执行特权指令的.</p>
-<p>一般而言,只有下面几种手段可以从用户空间转入系统空间:</p>
-<ul>
-<li><p>中断 (Interrupt): 在开启了中断的情况下,只要有中断请求到来, CPU 就会自动转入系统空间, 并指定对应的中断例程, 从而为中断请求提供服务. 中断发生在两条指令之间, 所以不会使正在执行的指令半途而废, 中断是无法预知且异步的.</p>
-</li>
-<li><p>异常 (Exception): 异常和中断极其相似, 只是一行发生在执行一条指令的过程中, 而不是两条指令之间. 实践中, 可以通过故意引起异常而进入内核.</p>
-</li>
-<li><p>自陷 (Trap): 为了让 CPU 能主动地进入系统空间, 绝大多数 CPU 都设有专门的 “自陷” 指令, 系统调用通常都是通过自陷指令实现的. 自陷指令在形式上也与中断相似,就像是 CPU 主动发出的中断请求.</p>
-</li>
-<li><p>快速系统调用 (fast call): 可以说是对自陷机制的改进.</p>
-</li>
-</ul>
-<p>这篇笔记主要就是写自陷和快速系统调用机制.</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/StaticBlog/2017/Windows-kernel-learning/Windows-kernel-learning-2-System-Call/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://meesong.github.io/StaticBlog/StaticBlog/2017/Windows-kernel-learning/Windows-kernel-learning-1-Basis/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MeeSong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/StaticBlog/uploads/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MeeSong's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/StaticBlog/2017/Windows-kernel-learning/Windows-kernel-learning-1-Basis/" itemprop="url">Windows kernel learning: 1. Basis</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-12T12:37:23+08:00">
-                2017-05-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/StaticBlog/categories/Windows-kernel-learning/" itemprop="url" rel="index">
-                    <span itemprop="name">Windows kernel learning</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="Windows-系统结构图"><a href="#Windows-系统结构图" class="headerlink" title="Windows 系统结构图"></a>Windows 系统结构图</h2><p><img src="Windows-system-structure.jpg" alt="Windows 系统结构图"></p>
-<p>图中水平粗线表示用户空间和系统空间的分界.</p>
-<p>在 32 位 Windows 系统中, 整个 4GB 的虚拟内存地址被对分成两块, 从地址 <code>0x80000000</code> 开始向上是系统空间, 就是内核所在的地方, 下面则是用户空间, 是应用程序所在的地方. (64 位系统会在后面的内存管理说到, 这里只是简单了解下概念)</p>
-<p>CPU 进入内核只有三种途径:</p>
-<ol>
-<li>系统调用</li>
-<li>中断</li>
-<li>异常</li>
-</ol>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/StaticBlog/2017/Windows-kernel-learning/Windows-kernel-learning-1-Basis/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1739,7 +1719,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/StaticBlog/archives">
-                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-count">25</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

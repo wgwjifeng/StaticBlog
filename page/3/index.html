@@ -330,6 +330,307 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://meesong.github.io/StaticBlog/StaticBlog/2016/ARK/2-ARK-Tool-develop-log-Enumerate-process-thread/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MeeSong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/StaticBlog/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MeeSong's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/StaticBlog/2016/ARK/2-ARK-Tool-develop-log-Enumerate-process-thread/" itemprop="url">[2] ARK-Tool develop log : Enumerate Process & Thread.</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-02-09T10:48:10+08:00">
+                2016-02-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/StaticBlog/categories/ARK/" itemprop="url" rel="index">
+                    <span itemprop="name">ARK</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="枚举-Process-amp-Thread"><a href="#枚举-Process-amp-Thread" class="headerlink" title="枚举 Process &amp; Thread"></a>枚举 Process &amp; Thread</h1><p>按照惯例，玩儿这些东西总是从进程开始哒，那么我们今儿就说一下枚举进程&amp;线程~</p>
+<p>在R3，我们阔以用以下方法来遍历进程&amp;线程：</p>
+<ol>
+<li>ToolHelp</li>
+<li>ZwQuerySystemInformation</li>
+</ol>
+<p>但是到了R0，就阔以用各种方法来实现：</p>
+<ol>
+<li>ZwQuerySystemInformation</li>
+<li>遍历 活动进程链（PEPROCESS-&gt;ActiveProcessLinks）</li>
+<li>通过 PsLookupProcessByProcessId 搜索</li>
+<li>遍历 PspCidTable 句柄表</li>
+</ol>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/StaticBlog/2016/ARK/2-ARK-Tool-develop-log-Enumerate-process-thread/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://meesong.github.io/StaticBlog/StaticBlog/2016/ARK/1-ARK-Tool-develop-log-Global-Overloaded-new-delete/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MeeSong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/StaticBlog/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MeeSong's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/StaticBlog/2016/ARK/1-ARK-Tool-develop-log-Global-Overloaded-new-delete/" itemprop="url">[1] ARK-Tool develop log : Global Overloaded new & delete.</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-02-08T20:02:03+08:00">
+                2016-02-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/StaticBlog/categories/ARK/" itemprop="url" rel="index">
+                    <span itemprop="name">ARK</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="全局重载-New-amp-Delete（DTL系列）"><a href="#全局重载-New-amp-Delete（DTL系列）" class="headerlink" title="全局重载 New &amp; Delete（DTL系列）"></a>全局重载 New &amp; Delete（DTL系列）</h1><p>由于在驱动层，WDK并没有提供 new 和 delete，所以我们要用内核的内存分配函数自己重载一套。</p>
+<p>new 和 delete 的重载有以下注意的地方：</p>
+<ol>
+<li>要符合 C++ 标准</li>
+<li>有 new 就要有对应的 delete</li>
+</ol>
+<p>以下 new &amp; delete <strong>必须重载</strong>，以供 C++ 基本使用：</p>
+<ol>
+<li>一般形式</li>
+<li>数组形式</li>
+<li>placement new</li>
+<li>用于类对象的 delete</li>
+</ol>
+<p>重载 operator new 的参数个数是可以任意的 , 只需要保证第一个参数为 size_t, 返回类型为 void * 即可 , 而且其重载的参数类型也不必包含自定义类型 . 更一般的说 , operator new 的重载更像是一个函数的重载 , 而不是一个操作符的重载。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/StaticBlog/2016/ARK/1-ARK-Tool-develop-log-Global-Overloaded-new-delete/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://meesong.github.io/StaticBlog/StaticBlog/2016/ARK/0-ARK-Tool-develop-log-Perface/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -781,7 +1082,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/StaticBlog/archives">
-                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-count">25</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
