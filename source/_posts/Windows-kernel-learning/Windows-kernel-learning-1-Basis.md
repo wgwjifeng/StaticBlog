@@ -9,7 +9,7 @@ categories: ['Windows kernel learning']
 
 ## Windows 系统结构图
 
-![Windows 系统结构图](Windows-system-structure.jpg)
+{% asset_img Windows-system-structure.jpg Windows 系统结构图 %}
 
 图中水平粗线表示用户空间和系统空间的分界.
 
