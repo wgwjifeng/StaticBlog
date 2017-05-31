@@ -720,4 +720,6 @@ Total shared commit:  0x12e9 pages (19364 KB)
 
 对于 `_MMVAD_SHORT.u.VadFlags.MemCommit = 0` 的范围, VMM可以设想将PTE设置为0: 范围不会在VAD中标记为已提交, 因此PTE设置为0表示未提交的页面. 然而, 实际发生的情况是, PTE设置为 `0x00000000'00000200`. 
 
-> 下面还未完成... (内容太多...)
+---
+
+## 未完待续...
