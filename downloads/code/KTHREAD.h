@@ -6,9 +6,9 @@
 /*0x020*/     UINT64       QuantumTarget;
                                                                              // 有四个域用于内核栈的维护, 它们分别是: InitialStack, StackLimit, KernelStack 和StackBase
                                                                              // 在线程初始化时, InitialStack 和 StackBase 是相等的, 都指向原始的内核栈高地址
-/*0x028*/     VOID*        InitialStack;                                     // 记录了原始的栈位置
-/*0x030*/     VOID*        StackLimit;                                       // 记录了栈的低地址
-/*0x038*/     VOID*        StackBase;                                        // 记录了当前栈的基位置
+/*0x028*/     VOID*        InitialStack;                                     // 记录了原始的内核栈位置
+/*0x030*/     VOID*        StackLimit;                                       // 记录了内核栈的低地址
+/*0x038*/     VOID*        StackBase;                                        // 记录了当前内核栈的基地址
 /*0x040*/     UINT64       ThreadLock;                                       // 一个自旋锁, 用于保护线程数据成员
 /*0x048*/     UINT64       CycleTime;                                        // 周期时间
 /*0x050*/     ULONG32      CurrentRunTime;                                   // 当前运行时间
