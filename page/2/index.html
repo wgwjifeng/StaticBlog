@@ -330,7 +330,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://meesong.github.io/StaticBlog/StaticBlog/2017/Windows-kernel-learning/Windows-kernel-learning-2-System-Call/">
+    <link itemprop="mainEntityOfPage" href="https://meesong.github.io/StaticBlog/StaticBlog/2017/Debug/Windows-debug-env/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="MeeSong">
@@ -349,7 +349,147 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/StaticBlog/2017/Windows-kernel-learning/Windows-kernel-learning-2-System-Call/" itemprop="url">Windows kernel learning: 2. System Call</a></h1>
+                <a class="post-title-link" href="/StaticBlog/2017/Debug/Windows-debug-env/" itemprop="url">Windows 调试环境搭建</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-12T14:02:55+08:00">
+                2017-05-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/StaticBlog/categories/Debug/" itemprop="url" rel="index">
+                    <span itemprop="name">Debug</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>在 Vista 之前, NTLDR 是 Windows 操作系统的加载程序, 它负责将 CPU 从实模式切换为保护模式, 加载内核文件和启动类型的驱动程序, 然后把执行权交给内核文件的入口函数, 即 KiSystemStartup.</p>
+<p>从要完成的任务角度来看, NTLDR 内部又分为两个部分, 一部分负责接受执行权, 做模式切换, 硬件检查, 即启动的准备工作, 这部分通常称为 boot; 另一部分负责加载内核文件, 并为内核的运行做必要的准备, 通常称为 OsLoader.</p>
+<p>Vista 将以上两个部分分成两个独立的程序文件, 即 BootMgr 和 WinLoad.exe</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/StaticBlog/2017/Debug/Windows-debug-env/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://meesong.github.io/StaticBlog/StaticBlog/2017/Windows-kernel-learning/2-System-Call/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MeeSong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/StaticBlog/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MeeSong's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/StaticBlog/2017/Windows-kernel-learning/2-System-Call/" itemprop="url">Windows kernel learning: 2. System Call</a></h1>
         
 
         <div class="post-meta">
@@ -435,7 +575,7 @@
 <p>这篇笔记主要就是写自陷和快速系统调用机制.</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/StaticBlog/2017/Windows-kernel-learning/Windows-kernel-learning-2-System-Call/#more" rel="contents">
+            <a class="btn" href="/StaticBlog/2017/Windows-kernel-learning/2-System-Call/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -481,7 +621,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://meesong.github.io/StaticBlog/StaticBlog/2017/Windows-kernel-learning/Windows-kernel-learning-1-Basis/">
+    <link itemprop="mainEntityOfPage" href="https://meesong.github.io/StaticBlog/StaticBlog/2017/Windows-kernel-learning/1-Basis/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="MeeSong">
@@ -500,7 +640,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/StaticBlog/2017/Windows-kernel-learning/Windows-kernel-learning-1-Basis/" itemprop="url">Windows kernel learning: 1. Basis</a></h1>
+                <a class="post-title-link" href="/StaticBlog/2017/Windows-kernel-learning/1-Basis/" itemprop="url">Windows kernel learning: 1. Basis</a></h1>
         
 
         <div class="post-meta">
@@ -570,7 +710,7 @@
 
       
         
-          <h2 id="Windows-系统结构图"><a href="#Windows-系统结构图" class="headerlink" title="Windows 系统结构图"></a>Windows 系统结构图</h2><img src="/StaticBlog/2017/Windows-kernel-learning/Windows-kernel-learning-1-Basis/Windows-system-structure.jpg" alt="Windows 系统结构图" title="Windows 系统结构图">
+          <h2 id="Windows-系统结构图"><a href="#Windows-系统结构图" class="headerlink" title="Windows 系统结构图"></a>Windows 系统结构图</h2><img src="/StaticBlog/2017/Windows-kernel-learning/1-Basis/Windows-system-structure.jpg" alt="Windows 系统结构图" title="Windows 系统结构图">
 <p>图中水平粗线表示用户空间和系统空间的分界.</p>
 <p>在 32 位 Windows 系统中, 整个 4GB 的虚拟内存地址被对分成两块, 从地址 <code>0x80000000</code> 开始向上是系统空间, 就是内核所在的地方, 下面则是用户空间, 是应用程序所在的地方. (64 位系统会在后面的内存管理说到, 这里只是简单了解下概念)</p>
 <p>CPU 进入内核只有三种途径:</p>
@@ -581,7 +721,7 @@
 </ol>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/StaticBlog/2017/Windows-kernel-learning/Windows-kernel-learning-1-Basis/#more" rel="contents">
+            <a class="btn" href="/StaticBlog/2017/Windows-kernel-learning/1-Basis/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -627,7 +767,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://meesong.github.io/StaticBlog/StaticBlog/2017/Windows-kernel-learning/Windows-kernel-learning-0-Preface/">
+    <link itemprop="mainEntityOfPage" href="https://meesong.github.io/StaticBlog/StaticBlog/2017/Windows-kernel-learning/0-Preface/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="MeeSong">
@@ -646,7 +786,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/StaticBlog/2017/Windows-kernel-learning/Windows-kernel-learning-0-Preface/" itemprop="url">Windows kernel learning: 0. Preface</a></h1>
+                <a class="post-title-link" href="/StaticBlog/2017/Windows-kernel-learning/0-Preface/" itemprop="url">Windows kernel learning: 0. Preface</a></h1>
         
 
         <div class="post-meta">
@@ -723,7 +863,7 @@
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/StaticBlog/2017/Windows-kernel-learning/Windows-kernel-learning-0-Preface/#more" rel="contents">
+            <a class="btn" href="/StaticBlog/2017/Windows-kernel-learning/0-Preface/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1598,148 +1738,6 @@ vim ~/.bashrc
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://meesong.github.io/StaticBlog/StaticBlog/2016/ArchLinux-install-notes/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MeeSong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/StaticBlog/uploads/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MeeSong's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/StaticBlog/2016/ArchLinux-install-notes/" itemprop="url">ArchLinux 安装笔记</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-07-17T16:01:18+08:00">
-                2016-07-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/StaticBlog/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="前提说明"><a href="#前提说明" class="headerlink" title="前提说明"></a>前提说明</h1><p>建议优先选择官方文档为参考，内容随时更新且非常详细。这里记录是包含一些自己遇到的坑。且只针对自己安装需求的情况。</p>
-<h1 id="引用参考"><a href="#引用参考" class="headerlink" title="引用参考"></a>引用参考</h1><blockquote>
-<p><a href="https://wiki.archlinux.org/index.php/Beginners%27_guide_%28%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87%29" target="_blank" rel="external">Beginners’guide (简体中文)</a><br><a href="https://wiki.archlinux.org/index.php/Installation_guide_%28%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87%29" target="_blank" rel="external">Installation guide (简体中文)</a><br><a href="https://bigeagle.me/2014/06/archlinux-install-for-beginners/" target="_blank" rel="external">给妹子看的 Arch Linux 桌面日常安装</a><br><a href="https://blog.ikke.moe/posts/archlinux-installation-notes/" target="_blank" rel="external">ArchLinux 安装笔记</a><br><a href="http://blog.csdn.net/u011152627/article/details/18925121" target="_blank" rel="external">寒假折腾Archlinux的一些经验（新手向）–桌面配置篇</a><br><a href="http://blog.csdn.net/u011152627/article/details/38145125" target="_blank" rel="external">ArchLinux使用中常见问题集锦</a></p>
-</blockquote>
-<h1 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h1><p>机器: DELL<br>BOOT: UEFI<br>SSD: 256G<br>内存: 8G<br>CPU: i7-6500U<br>安装需求：本机安装单系统<br>ArchLinux: Release 2016.06.01<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/StaticBlog/2016/ArchLinux-install-notes/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1789,7 +1787,7 @@ vim ~/.bashrc
           
             <div class="site-state-item site-state-posts">
               <a href="/StaticBlog/archives">
-                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-count">26</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

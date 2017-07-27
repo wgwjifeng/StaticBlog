@@ -8,8 +8,24 @@
     <atom:link href="/StaticBlog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>生活就是不断地调试~</description>
-    <pubDate>Thu, 01 Jun 2017 02:08:23 GMT</pubDate>
+    <pubDate>Mon, 17 Jul 2017 08:21:59 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>查看 VS 宏展开的代码</title>
+      <link>https://meesong.github.io/StaticBlog/2017/Debug/vs-macro-to-expand/</link>
+      <guid>https://meesong.github.io/StaticBlog/2017/Debug/vs-macro-to-expand/</guid>
+      <pubDate>Mon, 17 Jul 2017 08:16:58 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;打开到 &lt;code&gt;项目属性 -&amp;gt; 配置属性 -&amp;gt; C/C++ -&amp;gt; 命令行 -&amp;gt; 其他选项&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;在 &lt;code&gt;其他选项&lt;/code&gt; 中添加 &lt;code&gt;/EP /P&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;右键要查看宏展开的 CPP
+      
+      </description>
+      
+      <comments>https://meesong.github.io/StaticBlog/2017/Debug/vs-macro-to-expand/#disqus_thread</comments>
+    </item>
     
     <item>
       <title>Windows kernel learning: 6. APC, Asynchronous Procedure Calls</title>
@@ -88,8 +104,8 @@
     
     <item>
       <title>Windows kernel learning: 3. Memory Management</title>
-      <link>https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/Windows-kernel-learning-3-Memory-Management/</link>
-      <guid>https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/Windows-kernel-learning-3-Memory-Management/</guid>
+      <link>https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/3-Memory-Management/</link>
+      <guid>https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/3-Memory-Management/</guid>
       <pubDate>Mon, 15 May 2017 07:00:36 GMT</pubDate>
       <description>
       
@@ -98,7 +114,7 @@
       
       </description>
       
-      <comments>https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/Windows-kernel-learning-3-Memory-Management/#disqus_thread</comments>
+      <comments>https://meesong.github.io/StaticBlog/2017/Windows-kernel-learning/3-Memory-Management/#disqus_thread</comments>
     </item>
     
     <item>
@@ -144,22 +160,6 @@
       </description>
       
       <comments>https://meesong.github.io/StaticBlog/2017/Debug/IDA-VMWare-debug-Windows-kernel/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title>Windows 调试环境搭建</title>
-      <link>https://meesong.github.io/StaticBlog/2017/Debug/Windows-debug-env/</link>
-      <guid>https://meesong.github.io/StaticBlog/2017/Debug/Windows-debug-env/</guid>
-      <pubDate>Fri, 12 May 2017 06:02:55 GMT</pubDate>
-      <description>
-      
-        &lt;p&gt;在 Vista 之前, NTLDR 是 Windows 操作系统的加载程序, 它负责将 CPU 从实模式切换为保护模式, 加载内核文件和启动类型的驱动程序, 然后把执行权交给内核文件的入口函数, 即 KiSystemStartup.&lt;/p&gt;
-&lt;p&gt;从要完成的任务角度来看, NTLDR 内部又分为两个部分, 一部分负责接受执行权, 做模式切换, 硬件检查, 即启动的准备工作, 这部分通常称为 boot; 另一部分负责加载内核文件, 并为内核的运行做必要的准备, 通常称为 OsLoader.&lt;/p&gt;
-&lt;p&gt;Vista 将以上两个部分分成两个独立的程序文件, 即 BootMgr 和 WinLoad.exe&lt;/p&gt;
-      
-      </description>
-      
-      <comments>https://meesong.github.io/StaticBlog/2017/Debug/Windows-debug-env/#disqus_thread</comments>
     </item>
     
   </channel>
